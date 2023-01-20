@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>	      
+	<Company>UplayDB</Company>
+    <Authors>UplayDB,SlejmUr</Authors>
+    <Description>Dumping Manifests and useful things to track it.</Description>
+	<Copyright>Copyright © UplayDB Team 2022</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="UbiServices" Version="23.1.20" />
+	  <PackageReference Include="UplayKit" Version="0.0.0.1" />
+	  <PackageReference Include="Uplay-Protobufs" Version="137.0.10799" />
+  </ItemGroup>
+
+</Project>

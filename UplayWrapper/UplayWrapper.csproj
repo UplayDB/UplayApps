@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Company>UplayDB</Company>
+	<Authors>UplayDB,SlejmUr</Authors>
+	<Description>Wrapper for uplay/upc_loader file</Description>
+	<Copyright>Copyright © UplayDB Team 2022</Copyright>
+  </PropertyGroup>
+
+</Project>
