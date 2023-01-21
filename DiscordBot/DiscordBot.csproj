@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="3.8.1" />
-    <PackageReference Include="UbiServices" Version="23.1.20" />
+    <PackageReference Include="UbiServices" Version="23.1.21" />
   </ItemGroup>
 
 </Project>
