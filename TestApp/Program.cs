@@ -1,12 +1,6 @@
-﻿using Google.Protobuf;
-using Google.Protobuf.WellKnownTypes;
-using ICSharpCode.SharpZipLib.GZip;
-using Newtonsoft.Json;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using UbiServices.Public;
 using UbiServices.Records;
 using UplayKit;
 using UplayKit.Connection;

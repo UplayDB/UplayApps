@@ -9,6 +9,8 @@
     <Authors>UplayDB,SlejmUr</Authors>
     <Description>Dumping Manifests and useful things to track it.</Description>
 	<Copyright>Copyright © UplayDB Team 2022</Copyright>
+	<SignAssembly>True</SignAssembly>
+	<AssemblyOriginatorKeyFile>..\..\Sign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

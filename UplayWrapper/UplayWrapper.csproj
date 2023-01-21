@@ -8,6 +8,7 @@
 	<Authors>UplayDB,SlejmUr</Authors>
 	<Description>Wrapper for uplay/upc_loader file</Description>
 	<Copyright>Copyright © UplayDB Team 2022</Copyright>
+	<SignAssembly>True</SignAssembly>
   </PropertyGroup>
 
 </Project>

@@ -129,7 +129,7 @@ namespace DiscordBot
             .AddOption("betacode", ApplicationCommandOptionType.String, "Beta Code", true)
             .Build()
             );
-            
+
             vCmd.Add(new SlashCommandBuilder()
             .WithName("betaphasesb64")
             .WithDescription("Get the Betas.")
@@ -147,7 +147,7 @@ namespace DiscordBot
             .AddOption("phaseid", ApplicationCommandOptionType.String, "Beta Phase Code", true)
             .Build()
             );
-            
+
             vCmd.Add(new SlashCommandBuilder()
             .WithName("betaphaseb64")
             .WithDescription("Get the Betas.")
@@ -327,7 +327,7 @@ namespace DiscordBot
                 return JsonConvert.SerializeObject(callback, Formatting.Indented);
             }
         }
-        
+
         private string getbetasb64(SocketSlashCommand cmd)
         {
             var x = V3.LoginBase64((string)cmd.Data.Options.ToList()[0].Value);
@@ -355,7 +355,7 @@ namespace DiscordBot
                 return JsonConvert.SerializeObject(callback, Formatting.Indented);
             }
         }
-        
+
         private string getbetaphasesb64(SocketSlashCommand cmd)
         {
             var x = V3.LoginBase64((string)cmd.Data.Options.ToList()[0].Value);
@@ -383,7 +383,7 @@ namespace DiscordBot
                 return JsonConvert.SerializeObject(callback, Formatting.Indented);
             }
         }
-        
+
         private string getbetaphaseb64(SocketSlashCommand cmd)
         {
             var x = V3.LoginBase64((string)cmd.Data.Options.ToList()[0].Value);
