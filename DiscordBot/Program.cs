@@ -92,6 +92,7 @@ namespace DiscordBot
             .Build()
             );
 
+
             vCmd.Add(new SlashCommandBuilder()
             .WithName("spaceparam")
             .WithDescription("Get space parameters by SpaceId.")
@@ -161,6 +162,13 @@ namespace DiscordBot
             .WithName("store")
             .WithDescription("Get Store Info.")
             .AddOption("storeref", ApplicationCommandOptionType.String, "The store reference.", true)
+            .Build()
+            ); 
+            
+            vCmd.Add(new SlashCommandBuilder()
+            .WithName("app")
+            .WithDescription("Get app by AppId.")
+            .AddOption("appid", ApplicationCommandOptionType.String, "The AppId.", true)
             .Build()
             );
 
@@ -240,6 +248,10 @@ namespace DiscordBot
                     File.WriteAllText("tmp.json", store(cmd));
                     await cmd.RespondWithFileAsync("tmp.json", "store.json", "Your Store here:", ephemeral: true);
                     break;
+                case "app":
+                    File.WriteAllText("tmp.json", getapp(cmd));
+                    await cmd.RespondWithFileAsync("tmp.json", "app.json", "Your App here:", ephemeral: true);
+                    break;
                 case "pingpong":
                     embedBuiler = pong(embedBuiler, cmd);
                     await cmd.RespondAsync(embed: embedBuiler.Build(), ephemeral: true);
@@ -250,6 +262,21 @@ namespace DiscordBot
             File.WriteAllText("tmp.json", "");
         }
 
+        private string getapp(SocketSlashCommand cmd)
+        {
+            var desc = "";
+            //Todo check for pattern
+            var callback = V1.Applications.GetApplications((string)cmd.Data.Options.ToList()[0].Value);
+            if (callback == null)
+            {
+                desc = "Nothing was recieved :(";
+            }
+            else
+            {
+                desc = JsonConvert.SerializeObject(callback, Formatting.Indented);
+            }
+            return desc;
+        }
 
         private EmbedBuilder getspace(EmbedBuilder embed, SocketSlashCommand cmd)
         {

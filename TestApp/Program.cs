@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.IO.Compression;
 using System.Text;
+using UbiServices.Public;
 using UbiServices.Records;
 using UplayKit;
 using UplayKit.Connection;
@@ -57,7 +59,10 @@ namespace TestApp
             //var login = UbiServices.Public.V3.LoginBase64("");
             if (login != null)
             {
+                File.WriteAllText("login.json", JsonConvert.SerializeObject(login));
 
+
+                /*
                 Debug.isDebug = true;
                 DemuxSocket socket = new();
                 socket.StopTheCheck = true;
@@ -80,7 +85,7 @@ namespace TestApp
                 Console.ReadLine();
                 Console.WriteLine();
                 socket.Close();
-
+                */
 
 
 

@@ -58,13 +58,18 @@ namespace Downloader
             #endregion
             #region Starting Connections, Getting game
             Debug.isDebug = HasParameter(args, "-debug");
-            Console.WriteLine(login.Ticket);
             DemuxSocket socket = new(haslocal);
             socket.StopTheCheck = true;
-            Console.WriteLine("Yeet");
-            Console.WriteLine(socket.VersionCheck());
+            Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();
-            Console.WriteLine(socket.Authenticate(login.Ticket));
+            bool IsAuthSuccess = socket.Authenticate(login.Ticket);
+            Console.WriteLine("Is Auth Success? " + IsAuthSuccess);
+            if (!IsAuthSuccess)
+            {
+                Console.WriteLine("Oops something is wrong!");
+                Environment.Exit(1);
+            }
+
             OwnershipConnection ownershipConnection = new(socket);
             DownloadConnection downloadConnection = new(socket);
             var owned = ownershipConnection.GetOwnedGames(false);
@@ -113,6 +118,8 @@ namespace Downloader
                 {
                     manifest = owned[selection].LatestManifest;
                     productId = owned[selection].ProductId;
+
+                    product_manifest = $"{productId}_{manifest}";
                 }
 
 
