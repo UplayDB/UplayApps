@@ -33,6 +33,9 @@ namespace Downloader
 
             [JsonProperty("IsCompressed")]
             public bool IsCompressed;
+
+            [JsonProperty("HasSliceSHA")]
+            public bool HasSliceSHA;
         }
         public class Work
         {
@@ -119,7 +122,8 @@ namespace Downloader
                 Compression = new()
                 {
                     IsCompressed = parsedManifest.IsCompressed,
-                    Method = parsedManifest.CompressionMethod.ToString()
+                    Method = parsedManifest.CompressionMethod.ToString(),
+                    HasSliceSHA = parsedManifest.Chunks.First().Files.First().SliceList.First().HasDownloadSha1
                 },
                 Work = new()
                 {

@@ -14,6 +14,11 @@ namespace Downloader
             List<string> listOfSliceIds = new();
             foreach (var slice in slices)
             {
+                if (slice == null)
+                {
+                    Console.WriteLine("Your slice is Null?");
+                }
+
                 if (slice.HasFileOffset) { Console.WriteLine("[!!!] FILE OFFSET! " + slice.FileOffset); }
                 string sliceId = Convert.ToHexString(slice.DownloadSha1.ToArray());
                 if (Version == 3)
@@ -62,6 +67,7 @@ namespace Downloader
             }
             return GetUrlsForSlices(listOfSliceIds, downloadConnection, productId);
         }
+
         public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection, uint productId)
         {
             if (downloadConnection.isConnectionClosed)

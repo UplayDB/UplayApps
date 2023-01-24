@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Newtonsoft.Json;
+using System.Security.Cryptography;
 using UDFile = Uplay.Download.File;
 
 namespace Downloader
@@ -38,6 +39,7 @@ namespace Downloader
                         {
                             addinfo += " (SHA Missmatch)";
                         }
+                        File.AppendAllText("FailedFiles.txt", $"\n{file.Name} - {JsonConvert.SerializeObject(failes)}");
                     }
                     fileschecked.Add(file);
                     Console.WriteLine($"\t\tFile {file.Name} verified! {addinfo}");
@@ -80,13 +82,16 @@ namespace Downloader
                 var fibytes = filebytes.Skip(takenSize).Take((int)size).ToArray();
                 takenSize += (int)size;
                 var decsha = GetSHA1Hash(fibytes);
+                
                 if (sinfo.DecompressedSHA != decsha)
                 {
+                    Console.WriteLine($"{sinfo.DecompressedSHA} != {decsha}");
                     failinplace.Add(takenSize);
                 }
                 if (sinfo.DownloadedSize != fibytes.Length)
                 {
-                    failinplace.Add(-fibytes.Length);
+                    Console.WriteLine($"{sinfo.DownloadedSize} != {fibytes.Length}");
+                    failinplace.Add(fibytes.Length * (-1));
                 }
             }
 

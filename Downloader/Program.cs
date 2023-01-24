@@ -273,13 +273,16 @@ namespace Downloader
             if (HasParameter(args, "-filetosaved"))
             {
                 File.WriteAllText(savingpath + ".json", JsonConvert.SerializeObject(saving));
+                Console.ReadLine();
             }
+            Saving.Save(saving,savingpath);
             #endregion
             #region Verify + Downloading
             if (HasParameter(args, "-verify"))
             {
                 files = Verifier.Verify(files, saving, downloadPath);
             }
+            Console.ReadLine();
             Downloader.DownloadWorker(files, downloadPath, downloadConnection, productId, saving);
             #endregion
             #region Closing and GoodBye

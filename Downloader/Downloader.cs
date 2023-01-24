@@ -1,5 +1,7 @@
 ﻿using Google.Protobuf;
+using Newtonsoft.Json;
 using RestSharp;
+using UplayKit;
 using UplayKit.Connection;
 using static Downloader.Saving;
 using File = System.IO.File;
@@ -11,6 +13,7 @@ namespace Downloader
     {
         public static void DownloadWorker(List<UDFile> files, string downloadPath, DownloadConnection downloadConnection, uint productId, Saving.Root saving)
         {
+            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
             Console.WriteLine("\n\t\tDownloading Started!");
             int filecounter = 0;
             foreach (var file in files)
@@ -31,9 +34,12 @@ namespace Downloader
 
                 foreach (var sl in file.Slices)
                 {
-                    sliceListIds.Add(Convert.ToHexString(sl.ToArray()));
+                    sliceIds.Add(Convert.ToHexString(sl.ToArray()));
                 }
-                CheckCurrentFile(downloadPath, productId, file, downloadConnection, saving);
+                if (CheckCurrentFile(downloadPath, productId, file, downloadConnection, saving))
+                    continue;
+
+                saving = Read(savingpath);
                 saving.Work.FileInfo = new()
                 {
                     Name = file.Name,
@@ -42,41 +48,46 @@ namespace Downloader
                         SliceList = sliceListIds,
                         Slices = sliceIds
                     }
-                };
+                }; 
+                Save(saving, savingpath);
+                saving = Read(savingpath);
                 Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{files.Count})");
                 DownloadFile(downloadPath, productId, file, downloadConnection, saving);
             }
             Console.WriteLine($"\t\tDownload for app {productId} is done!");
         }
 
-        public static void CheckCurrentFile(string downloadPath, uint productId, UDFile file, DownloadConnection downloadConnection, Root saving)
+        public static bool CheckCurrentFile(string downloadPath, uint productId, UDFile file, DownloadConnection downloadConnection, Root saving)
         {
 
             if (saving.Work.FileInfo.Name != file.Name)
-                return;
+                return false;
 
             var curId = saving.Work.CurrentId;
+            var NextId = saving.Work.NextId;
             var verifile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (verifile == null)
-                return;
+                return false;
 
             List<string> slicesToDownload = new();
             int index = 0;
             uint Size = 0;
-            if (file.SliceList.Where(x => x.HasDownloadSha1).Count() > 0)
+            if (saving.Compression.HasSliceSHA)
             {
                 index = saving.Work.FileInfo.IDs.SliceList.FindIndex(0, x => x == curId);
+                index += 1;
                 slicesToDownload = saving.Work.FileInfo.IDs.SliceList.Skip(index).ToList();
 
             }
             else
             {
                 index = saving.Work.FileInfo.IDs.Slices.FindIndex(0, x => x == curId);
+                index += 1;
                 slicesToDownload = saving.Work.FileInfo.IDs.Slices.Skip(index).ToList();
             }
 
             if (slicesToDownload.Count == 0)
-                return;
+                return false;
 
             var sizelister = file.SliceList.Take(index).ToList();
             foreach (var sizer in sizelister)
@@ -84,27 +95,60 @@ namespace Downloader
                 Size += sizer.Size;
             }
 
+
             var fullPath = Path.Combine(downloadPath, file.Name);
             var fileInfo = new System.IO.FileInfo(fullPath);
             if (fileInfo.Length != Size)
             {
                 Console.WriteLine("Something isnt right, +/- chunk??");
-                return;
+                File.WriteAllText("x.txt",(uint)fileInfo.Length + " != " +  Size + " " + sizelister.Count+ " "  + index + "\n" + curId + " " + NextId);
+                // We try restore chunk after here
+                //
+                return false;
             }
             Console.WriteLine($"\t\tRedownloading File {file.Name}!");
             RedownloadSlices(downloadPath, productId, slicesToDownload, file, downloadConnection, saving);
+            return true;
         }
 
         public static void RedownloadSlices(string downloadPath, uint productId, List<string> slicesToDownload, UDFile file, DownloadConnection downloadConnection, Root saving)
         {
             var fullPath = Path.Combine(downloadPath, file.Name);
+            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
+
+            var prevBytes = File.ReadAllBytes(fullPath);
 
             var fs = File.OpenWrite(fullPath);
-            var dlbytes = DownloadBytes(downloadPath, productId, file.Name, slicesToDownload, downloadConnection, saving);
-            foreach (var barray in dlbytes)
+            fs.Position = prevBytes.LongLength;
+            if (slicesToDownload.Count > 30)
             {
-                fs.Write(barray);
-                fs.Flush();
+                Console.WriteLine("\tBig Slice! " + slicesToDownload.Count);
+                var splittedList = slicesToDownload.SplitList(10);
+                for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
+                {
+                    var spList = splittedList[listcounter];
+                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                    foreach (var barray in dlbytes)
+                    {
+                        fs.Write(barray);
+                        fs.Flush(true);
+                    }
+                    if (listcounter % 10 == 0)
+                    {
+                        Console.WriteLine("%");
+                        Thread.Sleep(1000);
+                    }
+                    Thread.Sleep(10);
+                }
+            }
+            else
+            {
+                var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, slicesToDownload, downloadConnection, saving);
+                foreach (var barray in dlbytes)
+                {
+                    fs.Write(barray);
+                    fs.Flush(true);
+                }
             }
             fs.Close();
         }
@@ -115,7 +159,7 @@ namespace Downloader
             var fullPath = Path.Combine(downloadPath, file.Name);
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             var fs = File.OpenWrite(fullPath);
-            if (file.SliceList.Where(x => x.HasDownloadSha1).Count() > 0)
+            if (saving.Compression.HasSliceSHA)
             {
                 if (file.SliceList.Count > 30)
                 {
@@ -124,22 +168,27 @@ namespace Downloader
                     for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                     {
                         var spList = splittedList[listcounter];
-                        var dlbytes = DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                        var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
                         foreach (var barray in dlbytes)
                         {
                             fs.Write(barray);
-                            fs.Flush();
+                            fs.Flush(true);
+                        }
+                        if (listcounter % 10 == 0)
+                        {
+                            Debug.PWDebug("%10 wait 1000ms");
+                            Thread.Sleep(1000);
                         }
                         Thread.Sleep(10);
                     }
                 }
                 else
                 {
-                    var dlbytes = DownloadBytes(savingpath, productId, file.Name, file.SliceList.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, file.SliceList.ToList(), downloadConnection, saving);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
-                        fs.Flush();
+                        fs.Flush(true);
                     }
                 }
             }
@@ -147,35 +196,34 @@ namespace Downloader
             {
                 if (file.Slices.Count > 30)
                 {
-                    Console.WriteLine("\tBig Slice! " + file.SliceList.Count);
+                    Console.WriteLine("\tBig Slice! " + file.Slices.Count);
                     var splittedList = file.Slices.ToList().SplitList<ByteString>(10);
                     for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                     {
                         var spList = splittedList[listcounter];
-                        var dlbytes = DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                        var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
                         foreach (var barray in dlbytes)
                         {
                             fs.Write(barray);
-                            fs.Flush();
+                            fs.Flush(true);
                         }
 
                         if (listcounter % 10 == 0)
                         {
-                            Console.WriteLine("%");
+                            Debug.PWDebug("%10 wait 1000ms");
                             Thread.Sleep(1000);
                         }
-                        Console.WriteLine("sleep");
                         Thread.Sleep(10);
                     }
 
                 }
                 else
                 {
-                    var dlbytes = DownloadBytes(savingpath, productId, file.Name, file.Slices.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, file.Slices.ToList(), downloadConnection, saving);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
-                        fs.Flush();
+                        fs.Flush(true);
                     }
                 }
 
@@ -184,163 +232,6 @@ namespace Downloader
             Console.WriteLine($"\t\tFile {file.Name} finished");
         }
 
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, string FileName, List<string> hashlist, DownloadConnection downloadConnection, Root saving)
-        {
-            List<byte[]> bytes = new();
-            var rc = new RestClient();
 
-            SliceInfo sliceInfo = new();
-
-            Saving.File savefile = new()
-            {
-                Name = FileName,
-                SliceInfo = new()
-            };
-
-            var urls = SliceManager.SliceWorker(hashlist, downloadConnection, productId, (uint)saving.Version);
-            for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
-            {
-                var url = urls[urlcounter];
-                var downloadedSlice = rc.DownloadData(new(url));
-                if (downloadedSlice == null)
-                {
-                    Console.WriteLine("This should never happen");
-                    Save(saving, savingpath);
-                    Environment.Exit(1);
-                }
-                else
-                {
-                    var sliceId = hashlist[urlcounter];
-                    saving.Work.CurrentId = sliceId;
-                    // this prevent for failing "out of array"
-                    if ((urlcounter + 1) < hashlist.Count)
-                    {
-                        saving.Work.NextId = hashlist[(urlcounter + 1)];
-                    }
-                    else
-                    {
-                        saving.Work.NextId = "";
-                    }
-                    //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice);
-                    sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
-                    sliceInfo.CompressedSHA = sliceId;
-                    sliceInfo.DownloadedSize = decompressedslice.Length;
-                    savefile.SliceInfo.Add(sliceInfo);
-                    sliceInfo = new();
-                    Save(saving, savingpath);
-                    bytes.Add(decompressedslice);
-                }
-            }
-            saving.Verify.Files.Add(savefile);
-            Save(saving, savingpath);
-            return bytes;
-        }
-
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, string FileName, List<ByteString> bytestring, DownloadConnection downloadConnection, Root saving)
-        {
-            List<byte[]> bytes = new();
-            var rc = new RestClient();
-
-            SliceInfo sliceInfo = new();
-
-            Saving.File savefile = new()
-            {
-                Name = FileName,
-                SliceInfo = new()
-            };
-
-            var urls = SliceManager.SliceWorker(bytestring, downloadConnection, productId, (uint)saving.Version);
-            for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
-            {
-                var url = urls[urlcounter];
-                var downloadedSlice = rc.DownloadData(new(url));
-                if (downloadedSlice == null)
-                {
-                    Console.WriteLine("This should never happen");
-                    Save(saving, savingpath);
-                    Environment.Exit(1);
-                }
-                else
-                {
-                    var sliceId = Convert.ToHexString(bytestring[urlcounter].ToArray());
-                    saving.Work.CurrentId = sliceId;
-                    // this prevent for failing "out of array"
-                    if ((urlcounter + 1) < bytestring.Count)
-                    {
-                        saving.Work.NextId = Convert.ToHexString(bytestring[(urlcounter + 1)].ToArray());
-                    }
-                    else
-                    {
-                        saving.Work.NextId = "";
-                    }
-                    //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice);
-                    sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
-                    sliceInfo.CompressedSHA = sliceId;
-                    sliceInfo.DownloadedSize = decompressedslice.Length;
-                    savefile.SliceInfo.Add(sliceInfo);
-                    sliceInfo = new();
-                    Save(saving, savingpath);
-                    bytes.Add(decompressedslice);
-                }
-            }
-            saving.Verify.Files.Add(savefile);
-            Save(saving, savingpath);
-            return bytes;
-        }
-
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, string FileName, List<Uplay.Download.Slice> slices, DownloadConnection downloadConnection, Root saving)
-        {
-            List<byte[]> bytes = new();
-            var rc = new RestClient();
-
-            SliceInfo sliceInfo = new();
-
-            Saving.File savefile = new()
-            {
-                Name = FileName,
-                SliceInfo = new()
-            };
-
-            var urls = SliceManager.SliceWorker(slices.ToList(), downloadConnection, productId, (uint)saving.Version);
-            for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
-            {
-                var url = urls[urlcounter];
-                var downloadedSlice = rc.DownloadData(new(url));
-                if (downloadedSlice == null)
-                {
-                    Console.WriteLine("This should never happen");
-                    Save(saving, savingpath);
-                    Environment.Exit(1);
-                }
-                else
-                {
-                    var sliceId = Convert.ToHexString(slices[urlcounter].DownloadSha1.ToArray());
-                    saving.Work.CurrentId = sliceId;
-                    // this prevent for failing "out of array"
-                    if ((urlcounter + 1) < slices.Count)
-                    {
-                        saving.Work.NextId = Convert.ToHexString(slices[(urlcounter + 1)].DownloadSha1.ToArray());
-                    }
-                    else
-                    {
-                        saving.Work.NextId = "";
-                    }
-                    //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice);
-                    sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
-                    sliceInfo.DownloadedSize = decompressedslice.Length;
-                    sliceInfo.CompressedSHA = sliceId;
-                    savefile.SliceInfo.Add(sliceInfo);
-                    sliceInfo = new();
-                    Save(saving, savingpath);
-                    bytes.Add(decompressedslice);
-                }
-            }
-            saving.Verify.Files.Add(savefile);
-            Save(saving, savingpath);
-            return bytes;
-        }
     }
 }
