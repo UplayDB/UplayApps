@@ -72,5 +72,25 @@ namespace Downloader
 
             return files;
         }
+
+        public static List<File> AddDLOnlyFiles(List<File> files, List<string> add_files)
+        {
+            List<File> output = new();
+            if (add_files.Count != 0)
+            {
+                foreach (var file in files)
+                {
+                    foreach (var add in add_files)
+                    {
+                        if (file.Name.Contains(add))
+                        {
+                            output.Add(file);
+                        }
+                    }
+                }
+            }
+
+            return output;
+        }
     }
 }

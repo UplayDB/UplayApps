@@ -237,9 +237,20 @@ namespace Downloader
                 {
                     var lines = File.ReadAllLines(skipping);
                     skip_files.AddRange(lines);
-                    Console.WriteLine("Skipping files added");
+                    Console.WriteLine("Skipping files Added");
                 }
                 files = ChunkManager.RemoveSkipFiles(files, skip_files);
+            }
+            if (HasParameter(args, "-only"))
+            {
+                var onlygetting = GetParameter(args, "-only", "only.txt");
+                if (File.Exists(onlygetting))
+                {
+                    var lines = File.ReadAllLines(onlygetting);
+                    skip_files.AddRange(lines);
+                    Console.WriteLine("Download only Added");
+                }
+                files = ChunkManager.AddDLOnlyFiles(files, skip_files);
             }
             #endregion
             #region Get Path and Create

@@ -61,8 +61,6 @@ namespace TestApp
             {
                 File.WriteAllText("login.json", JsonConvert.SerializeObject(login));
 
-
-                /*
                 Debug.isDebug = true;
                 DemuxSocket socket = new();
                 socket.StopTheCheck = true;
@@ -74,18 +72,11 @@ namespace TestApp
                 OwnershipConnection ownership = new(socket);
                 var games = ownership.GetOwnedGames(true);
                 ownership.PushEvent += Ownership_PushEvent;
-
-                var cdkey = Console.ReadLine();
-
-                Console.WriteLine(ownership.RegisterOwnershipByCdKey(cdkey));
-
-                Console.WriteLine(ownership.DeprecatedGetProductFromCdKey(cdkey));
-
                 Console.WriteLine("end?");
                 Console.ReadLine();
                 Console.WriteLine();
                 socket.Close();
-                */
+                
 
 
 
