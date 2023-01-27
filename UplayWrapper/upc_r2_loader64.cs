@@ -5,7 +5,6 @@ namespace UplayWrapper
 {
     public class upc_r2_loader64
     {
-        public static string version = "128.0.10632.0";
 
         [DllImport("upc_r2_loader64", EntryPoint = "UPC_AchievementImageFree")]
         public static extern int UPC_AchievementImageFreeImpl(IntPtr inContext, long inImageRGBA);
