@@ -88,11 +88,6 @@ namespace TestForm
             }
 
         }
-        public static async void ExecuteAsync(Func<Task> action)
-        {
-            await action();
-        }
-
         public void ShowOverlayForSection(UPC_OverlaySection section)
         {
             UPC_OverlayShow(this.Context, section, delegate (UPC_TaskResult result)
@@ -117,9 +112,23 @@ namespace TestForm
 
         public void showbrowser()
         {
-
+            var ID = UPC_IdGet(Context);
+            UPC_AchievementListGet(Context,ID, new GenericUpcDelegate<UPC_Achievement[]>(AchiList));
+            //UPC_AchievementImageGet(Context, 1, new GenericUpcDelegate<byte[]>(ImageGet));
         }
 
+        private void AchiList(UPC_TaskResult<UPC_Achievement[]> result)
+        {
+            var x = JsonConvert.SerializeObject(result);
+            File.WriteAllText("AchiList.json", x);
+        }
+
+        private void ImageGet(UPC_TaskResult<byte[]> result)
+        {
+            var x = JsonConvert.SerializeObject(result);
+            File.WriteAllText("ImageGet.json", x);
+            //File.WriteAllBytes("img",result.ResultData);
+        }
         private void GetStorageFile()
         {
             this.isFirstSave = false;

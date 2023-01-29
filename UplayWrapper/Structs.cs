@@ -123,7 +123,11 @@ namespace UplayWrapper
             public uint balance;
             public UPC_ProductActivation activation;
         }
-
+        public struct UPC_GenericArray
+        {
+            public uint count;
+            public IntPtr list;
+        }
         #region Class
         public class UPC_Presence
         {

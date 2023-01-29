@@ -14,17 +14,15 @@ namespace TestForm.Wrapper
         private static UPC_EventHandler s_eventHandler = null;
         private static long s_requestId = 0L;
         private static readonly Dictionary<long, UPC_Callback> s_waitingRequests = new Dictionary<long, UPC_Callback>();
-        private static UPC_CallbackImpl UPC_OverlayShow_Callback = null;
-        private static UPC_CallbackImpl UPC_AvatarGet_Callback = null;
-        private static UPC_CallbackImpl UPC_OverlayBrowserUrlShow_Callback = null;
         public delegate void UPC_EventHandler(UPC_Event inEvent);
         public delegate void UPC_EventHandlerImpl(IntPtr inevent, IntPtr inData);
         public delegate void UPC_CallbackImpl(int inResult, IntPtr inData);
         public delegate void UPC_Callback(int inResult);
         public static IntPtr HandleEventDelegater;
         public delegate void GenericUpcDelegate<T>(UPC_TaskResult<T> result);
-
         public delegate void ProductListDelegate(UPC_Product[] productList);
+        public delegate void ProductConsumeDelegate(string product);
+        public delegate void StoreProductListDelegate(UPC_StoreProduct[] storeProductList);
         #endregion
 
         #region Event/Reguest Handling
@@ -185,11 +183,40 @@ namespace TestForm.Wrapper
             return result;
         }
 
+        public static void UPC_AchievementListGet(IntPtr inContext, string inOptUserIdUtf8, GenericUpcDelegate<UPC_Achievement[]> callback, object inResultOptData = null)
+        {
+            long ptrData = 0L;
+            long num = PushRequest(delegate (int inResult)
+            {
+                UPC_Achievement[] resultData = null;
+                if (inResult == 0)
+                {
+                    resultData = Global.CreateStructureArray<UPC_Achievement>(inResult, ptrData);
+                    upc_r2_loader64.UPC_AchievementListFreeImpl(inContext, ptrData);
+                }
+                if (callback != null)
+                {
+                    callback(new UPC_TaskResult<UPC_Achievement[]>(inResult, resultData, inResultOptData));
+                }
+            });
+            var x = Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest));
+            int num2 = upc_r2_loader64.UPC_AchievementListGetImpl(inContext, inOptUserIdUtf8, 0U, ref ptrData, x, new IntPtr(num));
+            if (num2 <= 0)
+            {
+                CancelRequest(num);
+                if (callback != null)
+                {
+                    callback(new UPC_TaskResult<UPC_Achievement[]>(num2, null, inResultOptData));
+                }
+            }
+        }
+
         public static void UPC_AchievementImageGet(IntPtr inContext, uint inId, GenericUpcDelegate<byte[]> callback, object inResultOptData = null)
         {
             long ptrImage = 0L;
             long num = PushRequest(delegate (int inResult)
             {
+                Debug.PWDebug("UPC_AchievementImageGet PushRequest " + inResult);
                 byte[] array = null;
                 if (inResult == 0)
                 {
@@ -203,8 +230,11 @@ namespace TestForm.Wrapper
                 {
                     callback(new UPC_TaskResult<byte[]>(inResult, array, inResultOptData));
                 }
-            });
-            int num2 = upc_r2_loader64.UPC_AchievementImageGetImpl(inContext, inId, ref ptrImage, Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest)), new IntPtr(num));
+            }); 
+            var funcpointer = Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest));
+            Debug.PWDebug($"[UPC_AchievementImageGetImpl] Func: {funcpointer}");
+            int num2 = upc_r2_loader64.UPC_AchievementImageGetImpl(inContext, inId, ref ptrImage, funcpointer, new IntPtr(num));
+            Debug.PWDebug($"[UPC_AchievementImageGetImpl] Ret: {num2}");
             if (num2 <= 0)
             {
                 CancelRequest(num);
