@@ -59,7 +59,6 @@ namespace Downloader
             #region Starting Connections, Getting game
             Debug.isDebug = HasParameter(args, "-debug");
             DemuxSocket socket = new(haslocal);
-            socket.StopTheCheck = true;
             Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();
             bool IsAuthSuccess = socket.Authenticate(login.Ticket);
