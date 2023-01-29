@@ -15,7 +15,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="UbiServices" Version="23.1.21" />
-	  <PackageReference Include="UplayKit" Version="0.0.0.1" />
+	  <PackageReference Include="UplayKit" Version="0.0.0.4" />
 	  <PackageReference Include="Uplay-Protobufs" Version="137.0.10799" />
   </ItemGroup>
 

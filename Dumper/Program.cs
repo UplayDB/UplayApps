@@ -58,15 +58,21 @@ namespace Dumper
                 }
 
                 Debug.isDebug = false;
+                
                 DemuxSocket socket = new();
-                socket.VersionCheck();
+                Console.WriteLine("Is same Version? " + socket.VersionCheck());
                 socket.PushVersion();
-                socket.Authenticate(login.Ticket);
-
-
-
+                bool IsAuthSuccess = socket.Authenticate(login.Ticket);
+                Console.WriteLine("Is Auth Success? " + IsAuthSuccess);
+                if (!IsAuthSuccess)
+                {
+                    Console.WriteLine("Oops something is wrong!");
+                    Environment.Exit(1);
+                }
                 OwnershipConnection ownership = new(socket);
+                ownership.PushEvent += Ownership_PushEvent;
                 DownloadConnection downloadConnection = new(socket);
+                Console.ReadLine();
                 var games_ = ownership.GetOwnedGames(true);
                 var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
                 List<string> strlist = new();
@@ -93,8 +99,6 @@ namespace Dumper
                         Dumper.Dump(Parsers.ParseManifestFile(gm), gm.Replace(".manifest", ".txt"));
                         Dumper.DumpAsCSV(Parsers.ParseManifestFile(gm), null, gm.Replace(".manifest", ""), game.LatestManifest, game.ProductId);
                     }
-
-
                 }
                 if (File.Exists(currentDir + "\\latest_manifests.txt"))
                 {
@@ -367,6 +371,11 @@ namespace Dumper
             Console.WriteLine("end?");
             Console.ReadLine();
             Console.WriteLine();
+        }
+
+        private static void Ownership_PushEvent(object? sender, Uplay.Ownership.Push e)
+        {
+            File.WriteAllText("Ownership_PushEvent_DUMPER.txt", e.ToString());
         }
 
         public class prodconf

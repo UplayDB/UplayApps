@@ -10,7 +10,7 @@
         "dependencies": {
           "UbiServices": "23.1.21",
           "Uplay-Protobufs": "137.0.10799",
-          "UplayKit": "0.0.0.1"
+          "UplayKit": "0.0.0.4"
         },
         "runtime": {
           "Dumper.dll": {}
@@ -71,7 +71,7 @@
           }
         }
       },
-      "UplayKit/0.0.0.1": {
+      "UplayKit/0.0.0.4": {
         "dependencies": {
           "Google.Protobuf": "3.21.10",
           "Newtonsoft.Json": "13.0.2",
@@ -81,8 +81,8 @@
         },
         "runtime": {
           "lib/net6.0/UplayKit.dll": {
-            "assemblyVersion": "0.0.0.1",
-            "fileVersion": "0.0.0.1"
+            "assemblyVersion": "0.0.0.4",
+            "fileVersion": "0.0.0.4"
           }
         }
       }
@@ -136,12 +136,12 @@
       "path": "uplay-protobufs/137.0.10799",
       "hashPath": "uplay-protobufs.137.0.10799.nupkg.sha512"
     },
-    "UplayKit/0.0.0.1": {
+    "UplayKit/0.0.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-T/EEr+LiQHeI1tjI+W7PwIaGgc6hBCItmubTVQ4SR98hANQ57BzSLCJdkL7Nd4TZRb6bk3pSHcmhyCQm3D6umQ==",
-      "path": "uplaykit/0.0.0.1",
-      "hashPath": "uplaykit.0.0.0.1.nupkg.sha512"
+      "sha512": "sha512-cuQvvG/6qxZltIYiGTx2rDbEujQ80mVFmCSRZQ0nj0ABvvXlBB9EEWGqm+XuMgxoTySqasOvmOP87CnDc6X8OQ==",
+      "path": "uplaykit/0.0.0.4",
+      "hashPath": "uplaykit.0.0.0.4.nupkg.sha512"
     }
   }
 }

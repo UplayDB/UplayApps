@@ -33,6 +33,7 @@ namespace TestForm
                 MessageBox.Show("upc_r2.ini File not exist! (THIS IS NOT A CRACK! ITS A WRAPPER!)");
                 Environment.Exit(1);
             }
+            // basic Dll impl (CURRENTLY ONLY WORK WITH Hungry Shark World)
             var x = File.ReadAllLines("upc_r2.ini");
             var inVersion = uint.Parse(x[2]);
             var inProductId = uint.Parse(x[4]);

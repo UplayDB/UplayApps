@@ -195,6 +195,29 @@ namespace UplayWrapper
             public IntPtr multiplayerInternalData;
             public uint multiplayerInternalDataSize;
         }
+        public struct UPC_UserImpl
+        {
+            public UPC_User BuildMemoryCopy()
+            {
+                UPC_User upc_User = new UPC_User();
+                upc_User.idUtf8 = this.idUtf8;
+                upc_User.nameUtf8 = this.nameUtf8;
+                upc_User.relationship = this.relationship;
+                if (this.presence != IntPtr.Zero)
+                {
+                    upc_User.presence = Global.IntPtrToStruct<UPC_PresenceImpl>(this.presence).BuildMemoryCopy();
+                }
+                return upc_User;
+            }
+
+            public string idUtf8;
+
+            public string nameUtf8;
+
+            public UPC_Relationship relationship;
+
+            public IntPtr presence;
+        }
         public struct UPC_StoreProductImpl
         {
             public UPC_StoreProduct BuildMemoryCopy()
