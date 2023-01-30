@@ -13,6 +13,9 @@ namespace Downloader
     public class Program
     {
         public static string OWToken = "";
+        public static ulong Exp = 0;
+        public static string UbiTicket = "";
+        public static string Session = "";
         static void Main(string[] args)
         {
             bool haslocal = HasParameter(args, "-local");
@@ -314,6 +317,22 @@ namespace Downloader
 
             return -1;
         }
+
+        static void ReNewer(DemuxSocket socket)
+        {
+            var renewed = LoginRenew(UbiTicket, Session);
+            if (renewed.Ticket != null)
+            {
+                UbiTicket = renewed.Ticket;
+                Session = renewed.SessionId;
+                bool authed = socket.Authenticate(renewed.Ticket);
+                Console.WriteLine("Renewed and Authed? " + authed);
+
+            }
+            
+
+        }
+
 
         static bool HasParameter(string[] args, string param)
         {

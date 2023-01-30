@@ -73,7 +73,13 @@ namespace Downloader
             if (downloadConnection.isConnectionClosed)
             {
                 downloadConnection.Reconnect();
-                downloadConnection.InitDownloadToken(Program.OWToken);
+                bool InitTrue = downloadConnection.InitDownloadToken(Program.OWToken);
+
+                if (!InitTrue)
+                {
+                    Console.WriteLine("The ownership Token has been expired! Quiting and please try again!");
+                    Environment.Exit(1);
+                }
             }
             return downloadConnection.GetUrlList(productId, listOfSliceIds);
         }

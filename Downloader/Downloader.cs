@@ -51,7 +51,7 @@ namespace Downloader
                 }; 
                 Save(saving, savingpath);
                 saving = Read(savingpath);
-                Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{files.Count})");
+                Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{files.Count}) [{Formatters.FormatFileSize(file.Size)}]");
                 DownloadFile(downloadPath, productId, file, downloadConnection, saving);
             }
             Console.WriteLine($"\t\tDownload for app {productId} is done!");

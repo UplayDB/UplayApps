@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using UplayWrapper;
 using static TestForm.Wrapper.Structs;
 using static UplayWrapper.Enums;
@@ -72,6 +73,7 @@ namespace TestForm.Wrapper
             }
             if (upc_Callback != null)
             {
+                Debug.PWDebug($"HandleRequest | upc_Callback fired!");
                 upc_Callback(inResult);
             }
         }
@@ -126,8 +128,6 @@ namespace TestForm.Wrapper
             }
         }
 
-
-
         public static string UPC_IdGet(IntPtr inContext)
         {
 
@@ -147,7 +147,7 @@ namespace TestForm.Wrapper
             foreach (UPC_EventType item in inType)
             {
                 upc_Result |= upc_r2_loader64.UPC_EventRegisterHandlerImpl(inContext, item, HandleEventDelegater, IntPtr.Zero);
-                Debug.PWDebug($"[UPC_EventRegisterHandler] Reged: {upc_Result}");
+                Debug.PWDebug($"[UPC_EventRegisterHandler] Reged: {upc_Result} {HandleEventDelegater}");
             }
             if (upc_Result != UPC_Result.UPC_Result_Ok)
             {
@@ -188,7 +188,8 @@ namespace TestForm.Wrapper
             long ptrData = 0L;
             long num = PushRequest(delegate (int inResult)
             {
-                UPC_Achievement[] resultData = null;
+                List<UPC_Achievement> newlist = new();
+                UPC_Achievement[] resultData = newlist.ToArray();
                 if (inResult == 0)
                 {
                     resultData = Global.CreateStructureArray<UPC_Achievement>(inResult, ptrData);
@@ -199,8 +200,10 @@ namespace TestForm.Wrapper
                     callback(new UPC_TaskResult<UPC_Achievement[]>(inResult, resultData, inResultOptData));
                 }
             });
-            var x = Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest));
-            int num2 = upc_r2_loader64.UPC_AchievementListGetImpl(inContext, inOptUserIdUtf8, 0U, ref ptrData, x, new IntPtr(num));
+            var funcpointer = Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest)); 
+            Debug.PWDebug($"[UPC_AchievementListGet] Func: {funcpointer}");
+            int num2 = upc_r2_loader64.UPC_AchievementListGetImpl(inContext, inOptUserIdUtf8, 0U, ref ptrData, funcpointer, new IntPtr(num));
+            Debug.PWDebug($"[UPC_AchievementListGet] Ret: {num2}");
             if (num2 <= 0)
             {
                 CancelRequest(num);
@@ -216,14 +219,28 @@ namespace TestForm.Wrapper
             long ptrImage = 0L;
             long num = PushRequest(delegate (int inResult)
             {
-                Debug.PWDebug("UPC_AchievementImageGet PushRequest " + inResult);
-                byte[] array = null;
-                if (inResult == 0)
+            Debug.PWDebug("UPC_AchievementImageGet PushRequest " + inResult);
+            byte[] array = { 0x0 };
+            if (inResult == 0)
+            {
+                try
                 {
-                    IntPtr source = Global.IntPtrToStruct<IntPtr>(new IntPtr(ptrImage));
-                    int num3 = 16384;
-                    array = new byte[num3];
-                    Marshal.Copy(source, array, 0, num3);
+                        Debug.PWDebug($"UPC_AchievementImageGet ptrImage {ptrImage}");
+                        IntPtr source = Global.IntPtrToStruct<IntPtr>(new IntPtr(ptrImage));
+                        Debug.PWDebug($"UPC_AchievementImageGet source {source}");
+                        int num3 = 16384;
+                        array = new byte[num3];
+                        Debug.PWDebug($"UPC_AchievementImageGet Marshal.Copy next!");
+                        Debug.PWDebug(string.Format("{0:X8}", source.ToInt64()));
+                        MessageBox.Show("xx");
+                        Marshal.Copy(source, array, 0, num3);
+                        Debug.PWDebug($"UPC_AchievementImageGet {array.Length}/{num3} | {ptrImage}");
+                    }
+                    catch (Exception ex)
+                    {
+                        File.WriteAllText("UPC_AchievementImageGet_ex", ex.ToString());
+                    }
+
                     upc_r2_loader64.UPC_AchievementImageFreeImpl(inContext, ptrImage);
                 }
                 if (callback != null)
@@ -232,15 +249,15 @@ namespace TestForm.Wrapper
                 }
             }); 
             var funcpointer = Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest));
-            Debug.PWDebug($"[UPC_AchievementImageGetImpl] Func: {funcpointer}");
+            Debug.PWDebug($"[UPC_AchievementImageGet] Func: {funcpointer}");
             int num2 = upc_r2_loader64.UPC_AchievementImageGetImpl(inContext, inId, ref ptrImage, funcpointer, new IntPtr(num));
-            Debug.PWDebug($"[UPC_AchievementImageGetImpl] Ret: {num2}");
+            Debug.PWDebug($"[UPC_AchievementImageGet] Ret: {num2}");
             if (num2 <= 0)
             {
                 CancelRequest(num);
                 if (callback != null)
                 {
-                    callback(new UPC_TaskResult<byte[]>(num2, null, inResultOptData));
+                    callback(new UPC_TaskResult<byte[]>(num2, new byte[] { 0x0 }, inResultOptData));
                 }
             }
         }

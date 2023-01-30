@@ -25,6 +25,7 @@ namespace TestForm
         public bool IsProductListReady { get; private set; }
         public IntPtr Context { get; private set; }
         public string Ticket { get; private set; } = "";
+        public string UserId { get; private set; } = "";
         public void Init(Label label)
         {
             HandleEventDelegater = Marshal.GetFunctionPointerForDelegate<UPC_EventHandlerImpl>(HandleEvent);
@@ -62,6 +63,7 @@ namespace TestForm
                     UPC_EventType.UPC_Event_OverlayHidden
                 };
                 UPC_EventRegisterHandler(Context, list, new UplayImpl.UPC_EventHandler(EventHandler));
+                UserId = UPC_IdGet(Context);
             }
             else
             {
@@ -103,31 +105,38 @@ namespace TestForm
             OverlayShown?.Invoke();
         }
 
-        public void GetId()
+        public void GetAchList()
         {
-            var ID = UPC_IdGet(Context);
-            Debug.WriteDebug(ID);
-
+            UPC_AchievementListGet(Context, null, new GenericUpcDelegate<UPC_Achievement[]>(AchiList));
+            //UPC_AchievementImageGet(Context, 1, new GenericUpcDelegate<byte[]>(ImageGet));
         }
 
-        public void showbrowser()
+        public void GetAchImg()
         {
-            var ID = UPC_IdGet(Context);
-            UPC_AchievementListGet(Context,ID, new GenericUpcDelegate<UPC_Achievement[]>(AchiList));
-            //UPC_AchievementImageGet(Context, 1, new GenericUpcDelegate<byte[]>(ImageGet));
+            //UPC_AchievementListGet(Context, null, new GenericUpcDelegate<UPC_Achievement[]>(AchiList));
+            UPC_AchievementImageGet(Context, 3, new GenericUpcDelegate<byte[]>(ImageGet));
         }
 
         private void AchiList(UPC_TaskResult<UPC_Achievement[]> result)
         {
             var x = JsonConvert.SerializeObject(result);
             File.WriteAllText("AchiList.json", x);
+            
         }
 
         private void ImageGet(UPC_TaskResult<byte[]> result)
         {
-            var x = JsonConvert.SerializeObject(result);
-            File.WriteAllText("ImageGet.json", x);
-            //File.WriteAllBytes("img",result.ResultData);
+            try
+            {
+                var x = JsonConvert.SerializeObject(result);
+                File.WriteAllText("ImageGet.json", x);
+                File.WriteAllBytes("img", result.ResultData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         private void GetStorageFile()
         {
@@ -142,30 +151,32 @@ namespace TestForm
 
         public void Update()
         {
-            UpdateInternal();
-            UpdateEvents();
+            if (Context != IntPtr.Zero)
+            {
+                UpdateInternal();
+                UpdateEvents();
+            }
         }
 
         public void UpdateInternal()
         {
             var UpdateResult = upc_r2_loader64.UPC_UpdateImpl(Context);
-            Debug.PWDebug(UpdateResult);
         }
 
         private void UpdateEvents()
         {
-            for (; ; )
+            for (;;)
             {
                 Wrapper.Structs.UPC_EventNextPoll_Result upc_EventNextPoll_Result = eventEnumerator.UPC_EventNextPoll();
-                Debug.PWDebug("[UpdateEvents] Received Uplay Event Next Pool : " + JsonConvert.SerializeObject(upc_EventNextPoll_Result));
                 if (upc_EventNextPoll_Result.resultEvent == null || upc_EventNextPoll_Result.resultCode == UPC_Result.UPC_Result_NotFound)
                 {
                     break;
                 }
+                Debug.WriteDebug("[UpdateEvents] Received Uplay Event Next Pool : " + JsonConvert.SerializeObject(upc_EventNextPoll_Result), "update.txt");
                 var code = upc_EventNextPoll_Result.resultCode;
                 UPC_EventType type = upc_EventNextPoll_Result.resultEvent.Type;
                 var isValid = upc_EventNextPoll_Result.resultEvent.IsValid;
-                Debug.PWDebug($"[UpdateEvents] Received Uplay Event : {type} {isValid} with Code: {code}");
+                Debug.WriteDebug($"[UpdateEvents] Received Uplay Event : {type} {isValid} with Code: {code}", "update.txt");
 
                 switch (type)
                 {
@@ -194,7 +205,6 @@ namespace TestForm
                     case UPC_EventType.UPC_Event_OverlayHidden:
                         break;
                     case UPC_EventType.UPC_Event_ProductAdded:
-                        Debug.PWDebug("UPC_Event_ProductAdded");
                         Wrapper.Structs.UPC_EventData_ProductAdded EventData_ProductAdded = upc_EventNextPoll_Result.resultEvent.GetAs<Wrapper.Structs.UPC_EventData_ProductAdded>();
                         UPC_Product upc_Product2 = ProductsList.FirstOrDefault((UPC_Product x) => x.id == EventData_ProductAdded.product.id);
                         if (upc_Product2.id == EventData_ProductAdded.product.id)
@@ -211,7 +221,6 @@ namespace TestForm
                         }
                         break;
                     case UPC_EventType.UPC_Event_ProductOwnershipUpdated:
-                        Debug.PWDebug("UPC_Event_ProductOwnershipUpdated");
                         Wrapper.Structs.UPC_EventData_ProductOwnershipUpdated EventData_ProductOwnershipUpdated = upc_EventNextPoll_Result.resultEvent.GetAs<Wrapper.Structs.UPC_EventData_ProductOwnershipUpdated>();
                         UPC_Product upc_Product = ProductsList.FirstOrDefault((UPC_Product x) => x.id == EventData_ProductOwnershipUpdated.id);
                         if (upc_Product.id == EventData_ProductOwnershipUpdated.id)
@@ -267,16 +276,14 @@ namespace TestForm
         {
             upc_r2_loader64.UPC_ContextFreeImpl(Context);
             upc_r2_loader64.UPC_UninitImpl();
-
+            Context = IntPtr.Zero;
         }
 
         public void RefreshProductList()
         {
-            var ID = UPC_IdGet(Context);
-            Debug.WriteDebug(ID);
             uint maxValue = uint.MaxValue;
             this.IsProductListReady = false;
-            UPC_ProductListCallback(this.Context, ID, maxValue, new ProductListDelegate(OnProductListFetched), null);
+            UPC_ProductListCallback(this.Context, UserId, maxValue, new ProductListDelegate(OnProductListFetched), null);
         }
 
         private void OnProductListFetched(UPC_Product[] productList)

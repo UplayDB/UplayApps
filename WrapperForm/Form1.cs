@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace TestForm
 {
     public partial class Form1 : Form
@@ -7,6 +9,7 @@ namespace TestForm
         {
             dllTest = _dllTest;
             InitializeComponent();
+            backgroundWorker1.RunWorkerAsync();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -16,7 +19,7 @@ namespace TestForm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dllTest.Update();
+            dllTest.GetAchImg();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -31,12 +34,30 @@ namespace TestForm
 
         private void button5_Click(object sender, EventArgs e)
         {
-            dllTest.showbrowser();
+            dllTest.GetAchList();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             dllTest.RefreshProductList();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            dllTest.Update();
+            Thread.Sleep(10);
+            backgroundWorker1.ReportProgress(0);
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            backgroundWorker1.RunWorkerAsync(e);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            backgroundWorker1.RunWorkerAsync(e);
         }
     }
 }
