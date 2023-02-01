@@ -16,8 +16,16 @@ namespace Downloader
         public static ulong Exp = 0;
         public static string UbiTicket = "";
         public static string Session = "";
+        public static OwnershipConnection? ownershipConnection = null;
+        public static DemuxSocket? socket = null;
+        public static DateTime UbiTicketExp = DateTime.MinValue;
         static void Main(string[] args)
         {
+            if (HasParameter(args, "-help") || HasParameter(args, "-?") || HasParameter(args, "?"))
+            {
+                PrintHelp();
+            }
+            
             bool haslocal = HasParameter(args, "-local");
             UbiServices.Urls.IsLocalTest = haslocal;
             #region Login
@@ -60,8 +68,10 @@ namespace Downloader
             }
             #endregion
             #region Starting Connections, Getting game
+            UbiTicketExp = (DateTime)login.Expiration;
             Debug.isDebug = HasParameter(args, "-debug");
-            DemuxSocket socket = new(haslocal);
+            socket = new(haslocal);
+            socket.WaitInTimeMS = GetParameter<int>(args, "-time", 5);
             Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();
             bool IsAuthSuccess = socket.Authenticate(login.Ticket);
@@ -72,7 +82,7 @@ namespace Downloader
                 Environment.Exit(1);
             }
 
-            OwnershipConnection ownershipConnection = new(socket);
+            ownershipConnection = new(socket);
             DownloadConnection downloadConnection = new(socket);
             var owned = ownershipConnection.GetOwnedGames(false);
             if (owned == null)
@@ -129,17 +139,21 @@ namespace Downloader
                 if (manifestfile)
                 {
                     parsedManifest = Parsers.ParseManifestFile(manifest);
-                    string ownershipToken = ownershipConnection.GetOwnershipToken(productId);
+                    var ownershipToken = ownershipConnection.GetOwnershipToken(productId);
                     if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
-                    OWToken = ownershipToken;
-                    downloadConnection.InitDownloadToken(ownershipToken);
+                    OWToken = ownershipToken.Item1;
+                    Exp = ownershipToken.Item2;
+                    Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
+                    downloadConnection.InitDownloadToken(OWToken);
                 }
                 else
                 {
-                    string ownershipToken = ownershipConnection.GetOwnershipToken(productId);
+                    var ownershipToken = ownershipConnection.GetOwnershipToken(productId);
                     if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
-                    OWToken = ownershipToken;
-                    downloadConnection.InitDownloadToken(ownershipToken);
+                    OWToken = ownershipToken.Item1;
+                    Exp = ownershipToken.Item2;
+                    Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
+                    downloadConnection.InitDownloadToken(OWToken);
                     string manifestUrl = downloadConnection.GetUrl(manifest, productId);
 
                     var manifestBytes = rc.DownloadData(new(manifestUrl));
@@ -153,10 +167,12 @@ namespace Downloader
             }
             else
             {
-                string ownershipToken = ownershipConnection.GetOwnershipToken(productId);
+                var ownershipToken = ownershipConnection.GetOwnershipToken(productId);
                 if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
-                OWToken = ownershipToken;
-                downloadConnection.InitDownloadToken(ownershipToken);
+                OWToken = ownershipToken.Item1;
+                Exp = ownershipToken.Item2;
+                Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
+                downloadConnection.InitDownloadToken(OWToken);
 
                 if (manifest_path != "")
                 {
@@ -307,6 +323,31 @@ namespace Downloader
             #endregion
         }
         #region Other Functions
+
+        static void PrintHelp()
+        {
+            Console.WriteLine();
+            Console.WriteLine("\t\tWelcome to Uplay Downloader CLI!");
+            Console.WriteLine();
+            Console.WriteLine("\t Arguments\t\t What does it do");
+            Console.WriteLine("\t -b64\t\t\t Login with providen Base64 of email and password");
+            Console.WriteLine("\t -username\t\t Using that email to login");
+            Console.WriteLine("\t -password\t\t Using that password to login");
+            Console.WriteLine("\t -debug\t\t\t Debugging every request/response");
+            Console.WriteLine("\t -time\t\t\t Using that as a wait time (5 is default [Low is better])");
+            Console.WriteLine("\t -product\t\t -");
+            Console.WriteLine("\t -manifest\t\t -");
+            Console.WriteLine("\t -manifestpath\t\t -");
+            Console.WriteLine("\t -lang\t\t\t -");
+            Console.WriteLine("\t -skip\t\t\t -");
+            Console.WriteLine("\t -only\t\t\t -");
+            Console.WriteLine("\t -dir\t\t\t -");
+            Console.WriteLine("\t -filetosaved\t\t -");
+            Console.WriteLine("\t -verify\t\t -");
+            Console.WriteLine();
+            Environment.Exit(0);
+        }
+
         static int IndexOfParam(string[] args, string param)
         {
             for (var x = 0; x < args.Length; ++x)
@@ -318,19 +359,47 @@ namespace Downloader
             return -1;
         }
 
-        static void ReNewer(DemuxSocket socket)
+        public static void UbiTicketReNew()
         {
-            var renewed = LoginRenew(UbiTicket, Session);
-            if (renewed.Ticket != null)
+            if (UbiTicketExp <= DateTime.Now)
             {
-                UbiTicket = renewed.Ticket;
-                Session = renewed.SessionId;
-                bool authed = socket.Authenticate(renewed.Ticket);
-                Console.WriteLine("Renewed and Authed? " + authed);
+                Console.WriteLine(UbiTicketExp);
+                
+                var renewed = LoginRenew(UbiTicket, Session);
 
+                if (renewed.Ticket != null)
+                {
+                    UbiTicket = renewed.Ticket;
+                    Session = renewed.SessionId;
+                    UbiTicketExp = (DateTime)renewed.Expiration;
+                    bool authed = socket.Authenticate(renewed.Ticket);
+                    Console.WriteLine("Renewed and Authed? " + authed);
+                }
             }
-            
+        }
 
+        static DateTime GetTimeFromEpoc(ulong epoc)
+        {
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            return dateTime.AddSeconds(epoc).ToLocalTime();
+        }
+
+        public static void CheckOW(uint ProdId)
+        {
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dateTime = dateTime.AddSeconds(Exp).ToLocalTime();
+
+            if (dateTime <= DateTime.Now)
+            {
+                Console.WriteLine("Your token has no more valid, getting new!");
+                Console.WriteLine(dateTime + " " + DateTime.Now);
+                if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
+                {
+                    var token = ownershipConnection.GetOwnershipToken(ProdId);
+                    Exp = token.Item2;
+                    OWToken = token.Item1;
+                }
+            }
         }
 
 

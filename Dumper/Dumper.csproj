@@ -8,15 +8,15 @@
 	<Company>UplayDB</Company>
     <Authors>UplayDB,SlejmUr</Authors>
     <Description>Dumping Manifests and useful things to track it.</Description>
-	<Copyright>Copyright © UplayDB Team 2022</Copyright>
+	<Copyright>Copyright © UplayDB Team</Copyright>
 	<SignAssembly>True</SignAssembly>
 	<AssemblyOriginatorKeyFile>..\..\Sign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
 	  <PackageReference Include="UbiServices" Version="23.1.21" />
-	  <PackageReference Include="UplayKit" Version="0.0.0.5" />
-	  <PackageReference Include="Uplay-Protobufs" Version="137.0.10799" />
+	  <PackageReference Include="UplayKit" Version="0.0.0.6" />
+	  <PackageReference Include="Uplay-Protobufs" Version="138.0.10807" />
   </ItemGroup>
 
 </Project>

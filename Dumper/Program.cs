@@ -87,7 +87,7 @@ namespace Dumper
                     strlist.Add($"{game.ProductId}={game.LatestManifest}");
                     prodIdList.Add(game.ProductId);
 
-                    string ownershipToken_1 = ownership.GetOwnershipToken(game.ProductId);
+                    string ownershipToken_1 = ownership.GetOwnershipToken(game.ProductId).Item1;
                     downloadConnection.InitDownloadToken(ownershipToken_1);
                     if (downloadConnection.isServiceSuccess != false)
                     {

@@ -70,6 +70,8 @@ namespace Downloader
 
         public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection, uint productId)
         {
+            Program.CheckOW(productId);
+            Program.UbiTicketReNew();
             if (downloadConnection.isConnectionClosed)
             {
                 downloadConnection.Reconnect();
