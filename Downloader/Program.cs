@@ -210,7 +210,6 @@ namespace Downloader
             #region Compression Print
             Console.WriteLine($"\nDownloaded and parsed manifest successfully:");
             Console.WriteLine($"Compression Method: {parsedManifest.CompressionMethod} IsCompressed? {parsedManifest.IsCompressed} Version {parsedManifest.Version}");
-            if (parsedManifest.CompressionMethod == Uplay.Download.CompressionMethod.Lzham) { Console.WriteLine("LZHAM ISNT SUPPORTED!"); }
             #endregion
             #region Lang Chunks
             List<Uplay.Download.File> files = new();

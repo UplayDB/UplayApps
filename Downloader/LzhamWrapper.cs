@@ -4,10 +4,26 @@ namespace Downloader
 {
     internal class LzhamWrapper
     {
-        [DllImport("lzham_api", EntryPoint = "decompress")]
-        public static extern int Decompress([In] byte[] input, ulong inputsize, [Out] byte[] output, ulong outputsize);
+        [DllImport("x64/lzham_api", EntryPoint = "decompress")]
+        public static extern int Decompress_x64([In] byte[] input, ulong inputsize, [Out] byte[] output, ulong outputsize);
 
-        [DllImport("lzham_api", EntryPoint = "Test")]
-        public static extern int Test();
+        [DllImport("x86/lzham_api", EntryPoint = "decompress")]
+        public static extern int Decompress_x86([In] byte[] input, ulong inputsize, [Out] byte[] output, ulong outputsize);
+
+        public static byte[] Decompress(byte[] input, ulong outputsize)
+        {
+            if (IntPtr.Size == 4)
+            {
+                var lzh = new byte[((int)outputsize)];
+                Decompress_x86(input, (ulong)input.LongLength, lzh, outputsize);
+                return lzh;
+            }
+            else
+            {
+                var lzh = new byte[((int)outputsize)];
+                Decompress_x64(input, (ulong)input.LongLength, lzh, outputsize);
+                return lzh;
+            }
+        }
     }
 }

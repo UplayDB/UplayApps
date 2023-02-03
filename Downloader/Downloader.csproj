@@ -8,22 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Lzham\**" />
-    <EmbeddedResource Remove="Lzham\**" />
-    <None Remove="Lzham\**" />
+    <None Remove="x64\lzham_api.dll" />
+    <None Remove="x64\lzham_x64.dll" />
+    <None Remove="x86\lzham_api.dll" />
+    <None Remove="x86\lzham_x86.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="liblzham-decompress.dll" />
-    <None Remove="lzham_api.dll" />
-    <None Remove="lzham_x64.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="lzham_api.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="x64\lzham_api.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="lzham_x64.dll">
+    <Content Include="x64\lzham_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\lzham_api.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\lzham_x86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

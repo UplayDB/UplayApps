@@ -108,13 +108,7 @@ namespace Downloader
                     decompressor.Dispose();
                     return ms.ToArray();
                 case CompressionMethod.Lzham:
-                    MemoryStream mslzham = new((int)outputsize);
-                    var lzh = mslzham.ToArray();
-                    LzhamWrapper.Test();
-                    var ret = LzhamWrapper.Decompress(downloadedSlice, (ulong)downloadedSlice.LongLength,lzh, outputsize);
-                    Console.WriteLine("Returned : " +ret);
-                    System.IO.File.WriteAllBytes("idk_" + Verifier.GetSHA1Hash(downloadedSlice),downloadedSlice);
-                    return mslzham.ToArray();
+                    return LzhamWrapper.Decompress(downloadedSlice, outputsize);
             }
             return downloadedSlice;
         }
@@ -147,13 +141,7 @@ namespace Downloader
                     decompressor.Dispose();
                     return ms.ToArray();
                 case "Lzham":
-                    MemoryStream mslzham = new((int)outputsize); 
-                    var lzh = mslzham.ToArray();
-                    LzhamWrapper.Test();
-                    var ret = LzhamWrapper.Decompress(downloadedSlice, (ulong)downloadedSlice.LongLength,lzh, outputsize);
-                    Console.WriteLine("Returned : " + ret);
-                    System.IO.File.WriteAllBytes("idk_" + Verifier.GetSHA1Hash(downloadedSlice), downloadedSlice);
-                    return mslzham.ToArray();
+                    return LzhamWrapper.Decompress(downloadedSlice, outputsize);
             }
             return downloadedSlice;
         }
