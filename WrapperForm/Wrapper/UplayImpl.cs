@@ -192,6 +192,8 @@ namespace TestForm.Wrapper
                 UPC_Achievement[] resultData = newlist.ToArray();
                 if (inResult == 0)
                 {
+                    Debug.PWDebug($"UPC_AchievementListGet ptrData {ptrData}!");
+                    Debug.PWDebug(string.Format("{0:X8}", ptrData));
                     resultData = Global.CreateStructureArray<UPC_Achievement>(inResult, ptrData);
                     upc_r2_loader64.UPC_AchievementListFreeImpl(inContext, ptrData);
                 }
@@ -226,13 +228,17 @@ namespace TestForm.Wrapper
                 try
                 {
                         Debug.PWDebug($"UPC_AchievementImageGet ptrImage {ptrImage}");
-                        IntPtr source = Global.IntPtrToStruct<IntPtr>(new IntPtr(ptrImage));
+                        Debug.PWDebug(string.Format("{0:X8}", ptrImage));
+                        IntPtr ptr_img = new IntPtr(ptrImage);
+                        IntPtr source = Global.IntPtrToStruct<IntPtr>(ptr_img);
                         Debug.PWDebug($"UPC_AchievementImageGet source {source}");
                         int num3 = 16384;
                         array = new byte[num3];
                         Debug.PWDebug($"UPC_AchievementImageGet Marshal.Copy next!");
                         Debug.PWDebug(string.Format("{0:X8}", source.ToInt64()));
                         MessageBox.Show("xx");
+                        var y = Marshal.ReadByte(ptr_img);
+                        Debug.PWDebug(y);
                         Marshal.Copy(source, array, 0, num3);
                         Debug.PWDebug($"UPC_AchievementImageGet {array.Length}/{num3} | {ptrImage}");
                     }

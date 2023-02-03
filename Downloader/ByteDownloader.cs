@@ -1,13 +1,15 @@
 ﻿using Google.Protobuf;
 using RestSharp;
+using System.Drawing;
 using UplayKit.Connection;
 using static Downloader.Saving;
+using UDFile = Uplay.Download.File;
 
 namespace Downloader
 {
     internal class ByteDownloader
     {
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, string FileName, List<string> hashlist, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(string savingpath, uint productId, UDFile file, List<string> hashlist, DownloadConnection downloadConnection, Root saving)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
@@ -15,12 +17,12 @@ namespace Downloader
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
             saving = Read(savingpath);
-            var savefile = saving.Verify.Files.Where(x => x.Name == FileName).FirstOrDefault();
+            var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (savefile == null)
             {
                 saving.Verify.Files.Add(new()
                 {
-                    Name = FileName,
+                    Name = file.Name,
                     SliceInfo = new()
                 });
             }
@@ -49,8 +51,16 @@ namespace Downloader
                     {
                         saving.Work.NextId = "";
                     }
+                    ulong size = (ulong)downloadedSlice.LongLength;
+
+                    var slice = file.SliceList.Where(x => Convert.ToHexString(x.DownloadSha1.ToArray()) == sliceId).SingleOrDefault();
+                    if (slice != null)
+                    {
+                        size = slice.Size;
+                    }
+
                     //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice);
+                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, size);
                     sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
                     sliceInfo.CompressedSHA = sliceId;
                     sliceInfo.DownloadedSize = decompressedslice.Length;
@@ -59,12 +69,12 @@ namespace Downloader
                     bytes.Add(decompressedslice);
                 }
             }
-            saving.Verify.Files.SingleOrDefault(x => x.Name == FileName).SliceInfo.AddRange(sliceInfoList);
+            saving.Verify.Files.SingleOrDefault(x => x.Name == file.Name).SliceInfo.AddRange(sliceInfoList);
             Save(saving, savingpath);
             return bytes;
         }
 
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, string FileName, List<ByteString> bytestring, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(string savingpath, uint productId, UDFile file, List<ByteString> bytestring, DownloadConnection downloadConnection, Root saving)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
@@ -72,12 +82,12 @@ namespace Downloader
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
             saving = Read(savingpath);
-            var savefile = saving.Verify.Files.Where(x => x.Name == FileName).FirstOrDefault();
+            var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (savefile == null)
             {
                 saving.Verify.Files.Add(new()
                 {
-                    Name = FileName,
+                    Name = file.Name,
                     SliceInfo = new()
                 });
             }
@@ -106,8 +116,16 @@ namespace Downloader
                     {
                         saving.Work.NextId = "";
                     }
+                    ulong size = (ulong)downloadedSlice.LongLength;
+
+                    var slice = file.SliceList.Where(x => Convert.ToHexString(x.DownloadSha1.ToArray()) == sliceId).SingleOrDefault();
+                    if (slice != null)
+                    {
+                        size = slice.Size;
+                    }
+
                     //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice);
+                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, size);
                     sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
                     sliceInfo.CompressedSHA = sliceId;
                     sliceInfo.DownloadedSize = decompressedslice.Length;
@@ -116,7 +134,7 @@ namespace Downloader
                     bytes.Add(decompressedslice);
                 }
             }
-            saving.Verify.Files.SingleOrDefault(x => x.Name == FileName).SliceInfo.AddRange(sliceInfoList);
+            saving.Verify.Files.SingleOrDefault(x => x.Name == file.Name).SliceInfo.AddRange(sliceInfoList);
             Save(saving, savingpath);
             return bytes;
         }
@@ -163,8 +181,9 @@ namespace Downloader
                     {
                         saving.Work.NextId = "";
                     }
+                    
                     //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice);
+                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, slices[urlcounter].Size);
                     sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
                     sliceInfo.DownloadedSize = decompressedslice.Length;
                     sliceInfo.CompressedSHA = sliceId;

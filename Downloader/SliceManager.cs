@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using System.IO.Compression;
 using Uplay.Download;
 using UplayKit;
 using UplayKit.Connection;
@@ -86,7 +87,7 @@ namespace Downloader
             return downloadConnection.GetUrlList(productId, listOfSliceIds);
         }
 
-        public static byte[] Decompress(Manifest manifest, byte[] downloadedSlice)
+        public static byte[] Decompress(Manifest manifest, byte[] downloadedSlice, ulong outputsize)
         {
             if (!manifest.IsCompressed)
             {
@@ -102,17 +103,23 @@ namespace Downloader
                     return returner;
                 case CompressionMethod.Deflate:
                     var decompressor = new InflaterInputStream(new MemoryStream(downloadedSlice), new(false));
-                    MemoryStream ms = new(10 * 1000);
+                    MemoryStream ms = new((int)outputsize);
                     decompressor.CopyTo(ms);
                     decompressor.Dispose();
                     return ms.ToArray();
                 case CompressionMethod.Lzham:
-                    return downloadedSlice;
+                    MemoryStream mslzham = new((int)outputsize);
+                    var lzh = mslzham.ToArray();
+                    LzhamWrapper.Test();
+                    var ret = LzhamWrapper.Decompress(downloadedSlice, (ulong)downloadedSlice.LongLength,lzh, outputsize);
+                    Console.WriteLine("Returned : " +ret);
+                    System.IO.File.WriteAllBytes("idk_" + Verifier.GetSHA1Hash(downloadedSlice),downloadedSlice);
+                    return mslzham.ToArray();
             }
             return downloadedSlice;
         }
 
-        public static byte[] Decompress(Saving.Root saved, byte[] downloadedSlice)
+        public static byte[] Decompress(Saving.Root saved, byte[] downloadedSlice, ulong outputsize)
         {
             if (!saved.Compression.IsCompressed)
             {
@@ -127,13 +134,26 @@ namespace Downloader
                     decompressorZstd.Dispose();
                     return returner;
                 case "Deflate":
+                    /*
+                    MemoryStream ms = new();
+                    var compressor = new ZLibStream(new MemoryStream(downloadedSlice), CompressionLevel.SmallestSize);
+                    ms.CopyTo(compressor);
+                    compressor.Close();
+                    return ms.ToArray();
+                    */
                     var decompressor = new InflaterInputStream(new MemoryStream(downloadedSlice), new(false));
                     MemoryStream ms = new(10 * 1000);
                     decompressor.CopyTo(ms);
                     decompressor.Dispose();
                     return ms.ToArray();
                 case "Lzham":
-                    return downloadedSlice;
+                    MemoryStream mslzham = new((int)outputsize); 
+                    var lzh = mslzham.ToArray();
+                    LzhamWrapper.Test();
+                    var ret = LzhamWrapper.Decompress(downloadedSlice, (ulong)downloadedSlice.LongLength,lzh, outputsize);
+                    Console.WriteLine("Returned : " + ret);
+                    System.IO.File.WriteAllBytes("idk_" + Verifier.GetSHA1Hash(downloadedSlice), downloadedSlice);
+                    return mslzham.ToArray();
             }
             return downloadedSlice;
         }

@@ -8,6 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Lzham\**" />
+    <EmbeddedResource Remove="Lzham\**" />
+    <None Remove="Lzham\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="liblzham-decompress.dll" />
+    <None Remove="lzham_api.dll" />
+    <None Remove="lzham_x64.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="lzham_api.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lzham_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	  <PackageReference Include="SevenZip" Version="19.0.0" />
 	  <PackageReference Include="ZstdNet" Version="1.4.5" />

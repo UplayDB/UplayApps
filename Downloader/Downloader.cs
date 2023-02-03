@@ -127,7 +127,7 @@ namespace Downloader
                 for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                 {
                     var spList = splittedList[listcounter];
-                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file, spList.ToList(), downloadConnection, saving);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
@@ -143,7 +143,7 @@ namespace Downloader
             }
             else
             {
-                var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, slicesToDownload, downloadConnection, saving);
+                var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file, slicesToDownload, downloadConnection, saving);
                 foreach (var barray in dlbytes)
                 {
                     fs.Write(barray);
@@ -201,7 +201,7 @@ namespace Downloader
                     for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                     {
                         var spList = splittedList[listcounter];
-                        var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                        var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file, spList.ToList(), downloadConnection, saving);
                         foreach (var barray in dlbytes)
                         {
                             fs.Write(barray);
@@ -219,7 +219,7 @@ namespace Downloader
                 }
                 else
                 {
-                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, file.Slices.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file, file.Slices.ToList(), downloadConnection, saving);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
