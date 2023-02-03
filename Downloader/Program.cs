@@ -314,6 +314,7 @@ namespace Downloader
             Downloader.DownloadWorker(files, downloadPath, downloadConnection, productId, saving);
             #endregion
             #region Closing and GoodBye
+            File.Copy(product_manifest + ".manifest", downloadPath + "uplay_install.manifest");
             Console.WriteLine("Goodbye!");
             Console.ReadLine();
             downloadConnection.Close();
