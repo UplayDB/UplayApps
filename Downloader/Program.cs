@@ -361,7 +361,7 @@ namespace Downloader
 
         public static void UbiTicketReNew()
         {
-            if (UbiTicketExp <= DateTime.Now)
+            if (ToUnixTime(UbiTicketExp) <= GetEpocTime())
             {
                 Console.WriteLine(UbiTicketExp);
                 
@@ -384,15 +384,23 @@ namespace Downloader
             return dateTime.AddSeconds(epoc).ToLocalTime();
         }
 
+        static ulong GetEpocTime()
+        {
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            return (ulong)t.TotalSeconds;
+
+        }
+        public static ulong ToUnixTime(DateTime dateTime)
+        {
+            DateTimeOffset dto = new DateTimeOffset(dateTime);
+            return (ulong)dto.ToUnixTimeSeconds();
+        }
+
         public static void CheckOW(uint ProdId)
         {
-            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(Exp).ToLocalTime();
-
-            if (dateTime <= DateTime.Now)
+            if (Exp <= GetEpocTime())
             {
                 Console.WriteLine("Your token has no more valid, getting new!");
-                Console.WriteLine(dateTime + " " + DateTime.Now);
                 if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
                 {
                     var token = ownershipConnection.GetOwnershipToken(ProdId);
