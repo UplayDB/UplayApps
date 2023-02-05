@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System.Linq;
 using System.Security.Cryptography;
+using ZstdNet;
 using UDFile = Uplay.Download.File;
 
 namespace Downloader
@@ -78,9 +80,12 @@ namespace Downloader
             {
                 var sinfo = sfile.SliceInfo[sinfocount];
                 var fslist = file.SliceList[sinfocount];
-                var size = fslist.Size;
-                var fibytes = filebytes.Skip(takenSize).Take((int)size).ToArray();
-                takenSize += (int)size;
+                var fibytes = filebytes.Skip(takenSize).Take(sinfo.DecompressedSize).ToArray();
+                /*
+                var compBytes = LzhamWrapper.Compress(fibytes,(ulong)sinfo.DownloadedSize);
+                var compsha1 = GetSHA1Hash(compBytes);
+                */
+                takenSize += sinfo.DecompressedSize;
                 var decsha = GetSHA1Hash(fibytes);
                 
                 if (sinfo.DecompressedSHA != decsha)
@@ -88,9 +93,9 @@ namespace Downloader
                     Console.WriteLine($"{sinfo.DecompressedSHA} != {decsha}");
                     failinplace.Add(takenSize);
                 }
-                if (sinfo.DownloadedSize != fibytes.Length)
+                if (sinfo.DecompressedSize != fibytes.Length)
                 {
-                    Console.WriteLine($"{sinfo.DownloadedSize} != {fibytes.Length}");
+                    Console.WriteLine($"{sinfo.DecompressedSize} != {fibytes.Length}");
                     failinplace.Add(fibytes.Length * (-1));
                 }
             }

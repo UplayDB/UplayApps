@@ -363,7 +363,7 @@ namespace Downloader
         {
             if (ToUnixTime(UbiTicketExp) <= GetEpocTime())
             {
-                Console.WriteLine(UbiTicketExp);
+                Console.WriteLine(ToUnixTime(UbiTicketExp) + "<=" + GetEpocTime());
                 
                 var renewed = LoginRenew(UbiTicket, Session);
 
@@ -381,7 +381,7 @@ namespace Downloader
         static DateTime GetTimeFromEpoc(ulong epoc)
         {
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return dateTime.AddSeconds(epoc).ToLocalTime();
+            return dateTime.AddSeconds(epoc);
         }
 
         static ulong GetEpocTime()
@@ -400,11 +400,14 @@ namespace Downloader
         {
             if (Exp <= GetEpocTime())
             {
+                Console.WriteLine(Exp + "<=" + GetEpocTime());
                 Console.WriteLine("Your token has no more valid, getting new!");
                 if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
                 {
                     var token = ownershipConnection.GetOwnershipToken(ProdId);
+                    Console.WriteLine("Is Token get success? " + ownershipConnection.isServiceSuccess);
                     Exp = token.Item2;
+                    Console.WriteLine("New exp: " + Exp);
                     OWToken = token.Item1;
                 }
             }

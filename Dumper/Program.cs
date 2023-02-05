@@ -72,7 +72,6 @@ namespace Dumper
                 OwnershipConnection ownership = new(socket);
                 ownership.PushEvent += Ownership_PushEvent;
                 DownloadConnection downloadConnection = new(socket);
-                Console.ReadLine();
                 var games_ = ownership.GetOwnedGames(true);
                 var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
                 List<string> strlist = new();

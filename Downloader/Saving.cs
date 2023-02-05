@@ -71,6 +71,9 @@ namespace Downloader
 
             [JsonProperty("DownloadedSize")]
             public int DownloadedSize;
+
+            [JsonProperty("DecompressedSize")]
+            public int DecompressedSize;
         }
 
         public class FileInfo
