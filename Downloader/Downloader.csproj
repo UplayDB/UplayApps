@@ -45,4 +45,8 @@
 	  <PackageReference Include="UplayKit" Version="0.0.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLib\CoreLib.csproj" />
+  </ItemGroup>
+
 </Project>

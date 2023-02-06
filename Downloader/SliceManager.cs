@@ -1,6 +1,5 @@
 ﻿using Google.Protobuf;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-using System.IO.Compression;
 using Uplay.Download;
 using UplayKit;
 using UplayKit.Connection;
@@ -137,13 +136,6 @@ namespace Downloader
                     decompressorZstd.Dispose();
                     return returner;
                 case "Deflate":
-                    /*
-                    MemoryStream ms = new();
-                    var compressor = new ZLibStream(new MemoryStream(downloadedSlice), CompressionLevel.SmallestSize);
-                    ms.CopyTo(compressor);
-                    compressor.Close();
-                    return ms.ToArray();
-                    */
                     var decompressor = new InflaterInputStream(new MemoryStream(downloadedSlice), new(false));
                     MemoryStream ms = new(10 * 1000);
                     decompressor.CopyTo(ms);

@@ -1,6 +1,4 @@
 ﻿using Google.Protobuf;
-using Newtonsoft.Json;
-using RestSharp;
 using UplayKit;
 using UplayKit.Connection;
 using static Downloader.Saving;
@@ -11,6 +9,8 @@ namespace Downloader
 {
     internal class Downloader
     {
+        public static Config Config = new Config();
+
         public static void DownloadWorker(List<UDFile> files, string downloadPath, DownloadConnection downloadConnection, uint productId, Saving.Root saving)
         {
             var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
@@ -38,6 +38,10 @@ namespace Downloader
                 }
                 if (CheckCurrentFile(downloadPath, productId, file, downloadConnection, saving))
                     continue;
+
+
+
+
 
                 saving = Read(savingpath);
                 saving.Work.FileInfo = new()
