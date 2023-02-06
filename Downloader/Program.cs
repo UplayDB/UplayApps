@@ -363,7 +363,7 @@ namespace Downloader
         {
             if (ToUnixTime(UbiTicketExp) <= GetEpocTime())
             {
-                Console.WriteLine(ToUnixTime(UbiTicketExp) + "<=" + GetEpocTime());
+                Console.WriteLine("UbiTicketReNew " + ToUnixTime(UbiTicketExp) + "<=" + GetEpocTime());
                 
                 var renewed = LoginRenew(UbiTicket, Session);
 
@@ -400,7 +400,7 @@ namespace Downloader
         {
             if (Exp <= GetEpocTime())
             {
-                Console.WriteLine(Exp + "<=" + GetEpocTime());
+                Console.WriteLine("CheckOW " + Exp + "<=" + GetEpocTime());
                 Console.WriteLine("Your token has no more valid, getting new!");
                 if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
                 {

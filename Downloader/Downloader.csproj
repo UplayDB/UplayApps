@@ -9,8 +9,10 @@
 
   <ItemGroup>
     <None Remove="x64\lzham_api.dll" />
+    <None Remove="x64\lzham_api.so" />
     <None Remove="x64\lzham_x64.dll" />
     <None Remove="x86\lzham_api.dll" />
+    <None Remove="x86\lzham_api.so" />
     <None Remove="x86\lzham_x86.dll" />
   </ItemGroup>
 
@@ -18,10 +20,16 @@
     <Content Include="x64\lzham_api.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="x64\lzham_api.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="x64\lzham_x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="x86\lzham_api.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\lzham_api.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="x86\lzham_x86.dll">
