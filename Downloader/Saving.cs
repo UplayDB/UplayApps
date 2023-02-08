@@ -104,9 +104,30 @@ namespace Downloader
             System.IO.File.WriteAllBytes(FileName, returner);
         }
 
+        public static void Save(Root root)
+        {
+            var ser = JsonConvert.SerializeObject(root);
+            var bytes = Encoding.UTF8.GetBytes(ser);
+            Compressor compressor = new();
+            var returner = compressor.Wrap(bytes);
+            compressor.Dispose();
+            System.IO.File.WriteAllBytes(Downloader.Config.SavedDirectory, returner);
+        }
+
         public static Root? Read(string FileName)
         {
             var filebytes = System.IO.File.ReadAllBytes(FileName);
+            Decompressor decompressorZstd = new();
+            var decompressed = decompressorZstd.Unwrap(filebytes);
+            decompressorZstd.Dispose();
+            var ser = Encoding.UTF8.GetString(decompressed);
+            var root = JsonConvert.DeserializeObject<Root>(ser);
+            return root;
+        }
+
+        public static Root? Read()
+        {
+            var filebytes = System.IO.File.ReadAllBytes(Downloader.Config.SavedDirectory);
             Decompressor decompressorZstd = new();
             var decompressed = decompressorZstd.Unwrap(filebytes);
             decompressorZstd.Dispose();

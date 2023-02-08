@@ -8,7 +8,7 @@ namespace Downloader
 {
     internal class Verifier
     {
-        public static List<UDFile> Verify(List<UDFile> files, Saving.Root saving, string downloadPath)
+        public static List<UDFile> Verify(List<UDFile> files, Saving.Root saving)
         {
             List<UDFile> fileschecked = new();
             List<UDFile> remover = new();
@@ -20,7 +20,7 @@ namespace Downloader
                     continue;
                 }
 
-                var fullPath = Path.Combine(downloadPath, file.Name);
+                var fullPath = Path.Combine(Downloader.Config.DownloadDirectory, file.Name);
                 if (File.Exists(fullPath))
                 {
                     var Verified = VerifyFile(file, fullPath, saving, out var failes);

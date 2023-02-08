@@ -8,14 +8,14 @@ namespace Downloader
 {
     internal class ByteDownloader
     {
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, UDFile file, List<string> hashlist, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(UDFile file, List<string> hashlist, DownloadConnection downloadConnection, Root saving)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
 
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
-            saving = Read(savingpath);
+            saving = Read();
             var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (savefile == null)
             {
@@ -26,7 +26,7 @@ namespace Downloader
                 });
             }
 
-            var urls = SliceManager.SliceWorker(hashlist, downloadConnection, productId, (uint)saving.Version);
+            var urls = SliceManager.SliceWorker(hashlist, downloadConnection, (uint)saving.Version);
             for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
             {
                 var url = urls[urlcounter];
@@ -34,7 +34,7 @@ namespace Downloader
                 if (downloadedSlice == null)
                 {
                     Console.WriteLine("This should never happen");
-                    Save(saving, savingpath);
+                    Save(saving);
                     Environment.Exit(1);
                 }
                 else
@@ -73,18 +73,18 @@ namespace Downloader
                 }
             }
             saving.Verify.Files.SingleOrDefault(x => x.Name == file.Name).SliceInfo.AddRange(sliceInfoList);
-            Save(saving, savingpath);
+            Save(saving);
             return bytes;
         }
 
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, UDFile file, List<ByteString> bytestring, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(UDFile file, List<ByteString> bytestring, DownloadConnection downloadConnection, Root saving)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
 
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
-            saving = Read(savingpath);
+            saving = Read();
             var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (savefile == null)
             {
@@ -95,7 +95,7 @@ namespace Downloader
                 });
             }
 
-            var urls = SliceManager.SliceWorker(bytestring, downloadConnection, productId, (uint)saving.Version);
+            var urls = SliceManager.SliceWorker(bytestring, downloadConnection, (uint)saving.Version);
             for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
             {
                 var url = urls[urlcounter];
@@ -103,7 +103,7 @@ namespace Downloader
                 if (downloadedSlice == null)
                 {
                     Console.WriteLine("This should never happen");
-                    Save(saving, savingpath);
+                    Save(saving);
                     Environment.Exit(1);
                 }
                 else
@@ -142,18 +142,18 @@ namespace Downloader
                 }
             }
             saving.Verify.Files.SingleOrDefault(x => x.Name == file.Name).SliceInfo.AddRange(sliceInfoList);
-            Save(saving, savingpath);
+            Save(saving);
             return bytes;
         }
 
-        public static List<byte[]> DownloadBytes(string savingpath, uint productId, string FileName, List<Uplay.Download.Slice> slices, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(string FileName, List<Uplay.Download.Slice> slices, DownloadConnection downloadConnection, Root saving)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
 
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
-            saving = Read(savingpath);
+            saving = Read();
             var savefile = saving.Verify.Files.Where(x => x.Name == FileName).FirstOrDefault();
             if (savefile == null)
             {
@@ -164,7 +164,7 @@ namespace Downloader
                 });
             }
 
-            var urls = SliceManager.SliceWorker(slices.ToList(), downloadConnection, productId, (uint)saving.Version);
+            var urls = SliceManager.SliceWorker(slices.ToList(), downloadConnection, (uint)saving.Version);
             for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
             {
                 var url = urls[urlcounter];
@@ -172,7 +172,7 @@ namespace Downloader
                 if (downloadedSlice == null)
                 {
                     Console.WriteLine("This should never happen");
-                    Save(saving, savingpath);
+                    Save(saving);
                     Environment.Exit(1);
                 }
                 else
@@ -204,7 +204,7 @@ namespace Downloader
                 }
             }
             saving.Verify.Files.SingleOrDefault(x => x.Name == FileName).SliceInfo.AddRange(sliceInfoList);
-            Save(saving, savingpath);
+            Save(saving);
             return bytes;
         }
     }

@@ -35,7 +35,7 @@ namespace Downloader
             string manifest_path = ParameterLib.GetParameter(args, "-manifestpath", "");
             bool hasAddons = ParameterLib.HasParameter(args, "-addons");
             string lang = ParameterLib.GetParameter(args, "-lang", "default");
-            string downloadPath = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{Downloader.Config.ProductId}\\{Downloader.Config.ManifestId}\\");
+            Downloader.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{Downloader.Config.ProductId}\\{Downloader.Config.ManifestId}\\");
             bool hasSkip = ParameterLib.HasParameter(args, "-skip");
             bool hasOnly = ParameterLib.HasParameter(args, "-only");
             string skipping = ParameterLib.GetParameter(args, "-skip", "skip.txt");
@@ -263,18 +263,18 @@ namespace Downloader
             #endregion
             #region Get Path and Create
             Console.WriteLine("\tFiles Ready to work\n");     
-            if (!Directory.Exists(downloadPath))
+            if (!Directory.Exists(Downloader.Config.DownloadDirectory))
             {
-                Directory.CreateDirectory(downloadPath);
+                Directory.CreateDirectory(Downloader.Config.DownloadDirectory);
             }
             #endregion
             #region Saving
             Saving.Root saving = new();
-            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
-            Directory.CreateDirectory(Path.GetDirectoryName(savingpath));
-            if (File.Exists(savingpath))
+            Downloader.Config.SavedDirectory = Path.Combine(Downloader.Config.DownloadDirectory, ".UD\\saved.bin");
+            Directory.CreateDirectory(Path.GetDirectoryName(Downloader.Config.SavedDirectory));
+            if (File.Exists(Downloader.Config.SavedDirectory))
             {
-                var readedBin = Saving.Read(savingpath);
+                var readedBin = Saving.Read();
                 if (readedBin == null)
                 {
                     saving = Saving.MakeNew(Downloader.Config.ProductId, Downloader.Config.ManifestId, parsedManifest);
@@ -290,21 +290,21 @@ namespace Downloader
             }
             if (hasSaved)
             {
-                File.WriteAllText(savingpath + ".json", JsonConvert.SerializeObject(saving));
+                File.WriteAllText(Downloader.Config.SavedDirectory + ".json", JsonConvert.SerializeObject(saving));
                 Console.ReadLine();
             }
-            Saving.Save(saving,savingpath);
+            Saving.Save(saving);
             #endregion
             #region Verify + Downloading
             if (hasVerify)
             {
-                files = Verifier.Verify(files, saving, downloadPath);
+                files = Verifier.Verify(files, saving);
             }
             Console.ReadLine();
-            Downloader.DownloadWorker(files, downloadPath, downloadConnection, Downloader.Config.ProductId, saving);
+            Downloader.DownloadWorker(files, downloadConnection, saving);
             #endregion
             #region Closing and GoodBye
-            File.Copy(Downloader.Config.ProductManifest + ".manifest", downloadPath + "uplay_install.manifest");
+            File.Copy(Downloader.Config.ProductManifest + ".manifest", Downloader.Config.DownloadDirectory + "uplay_install.manifest");
             Console.WriteLine("Goodbye!");
             Console.ReadLine();
             downloadConnection.Close();

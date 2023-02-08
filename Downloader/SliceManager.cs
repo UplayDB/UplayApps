@@ -4,12 +4,13 @@ using Uplay.Download;
 using UplayKit;
 using UplayKit.Connection;
 using ZstdNet;
+using CoreLib;
 
 namespace Downloader
 {
     internal class SliceManager
     {
-        public static List<string> SliceWorker(List<Slice> slices, DownloadConnection downloadConnection, uint productId, uint Version)
+        public static List<string> SliceWorker(List<Slice> slices, DownloadConnection downloadConnection, uint Version)
         {
             List<string> listOfSliceIds = new();
             foreach (var slice in slices)
@@ -30,10 +31,10 @@ namespace Downloader
                     listOfSliceIds.Add($"slices/{sliceId}");
                 }
             }
-            return GetUrlsForSlices(listOfSliceIds, downloadConnection, productId);
+            return GetUrlsForSlices(listOfSliceIds, downloadConnection);
         }
 
-        public static List<string> SliceWorker(List<ByteString> slices, DownloadConnection downloadConnection, uint productId, uint Version)
+        public static List<string> SliceWorker(List<ByteString> slices, DownloadConnection downloadConnection, uint Version)
         {
             List<string> listOfSliceIds = new();
             foreach (var slice in slices)
@@ -48,10 +49,10 @@ namespace Downloader
                     listOfSliceIds.Add($"slices/{sliceId}");
                 }
             }
-            return GetUrlsForSlices(listOfSliceIds, downloadConnection, productId);
+            return GetUrlsForSlices(listOfSliceIds, downloadConnection);
         }
 
-        public static List<string> SliceWorker(List<string> slices, DownloadConnection downloadConnection, uint productId, uint Version)
+        public static List<string> SliceWorker(List<string> slices, DownloadConnection downloadConnection, uint Version)
         {
             List<string> listOfSliceIds = new();
             foreach (var slice in slices)
@@ -65,12 +66,12 @@ namespace Downloader
                     listOfSliceIds.Add($"slices/{slice}");
                 }
             }
-            return GetUrlsForSlices(listOfSliceIds, downloadConnection, productId);
+            return GetUrlsForSlices(listOfSliceIds, downloadConnection);
         }
 
-        public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection, uint productId)
+        public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection)
         {
-            Program.CheckOW(productId);
+            Program.CheckOW(Downloader.Config.ProductId);
             Program.UbiTicketReNew();
             if (downloadConnection.isConnectionClosed)
             {
@@ -92,59 +93,11 @@ namespace Downloader
                 }
 
             }
-            return downloadConnection.GetUrlList(productId, listOfSliceIds);
+            return downloadConnection.GetUrlList(Downloader.Config.ProductId, listOfSliceIds);
         }
-
-        public static byte[] Decompress(Manifest manifest, byte[] downloadedSlice, ulong outputsize)
-        {
-            if (!manifest.IsCompressed)
-            {
-                return downloadedSlice;
-            }
-
-            switch (manifest.CompressionMethod) // check compression method
-            {
-                case CompressionMethod.Zstd:
-                    Decompressor decompressorZstd = new();
-                    var returner = decompressorZstd.Unwrap(downloadedSlice);
-                    decompressorZstd.Dispose();
-                    return returner;
-                case CompressionMethod.Deflate:
-                    var decompressor = new InflaterInputStream(new MemoryStream(downloadedSlice), new(false));
-                    MemoryStream ms = new((int)outputsize);
-                    decompressor.CopyTo(ms);
-                    decompressor.Dispose();
-                    return ms.ToArray();
-                case CompressionMethod.Lzham:
-                    return LzhamWrapper.Decompress(downloadedSlice, outputsize);
-            }
-            return downloadedSlice;
-        }
-
         public static byte[] Decompress(Saving.Root saved, byte[] downloadedSlice, ulong outputsize)
         {
-            if (!saved.Compression.IsCompressed)
-            {
-                return downloadedSlice;
-            }
-
-            switch (saved.Compression.Method) // check compression method
-            {
-                case "Zstd":
-                    Decompressor decompressorZstd = new();
-                    var returner = decompressorZstd.Unwrap(downloadedSlice);
-                    decompressorZstd.Dispose();
-                    return returner;
-                case "Deflate":
-                    var decompressor = new InflaterInputStream(new MemoryStream(downloadedSlice), new(false));
-                    MemoryStream ms = new(10 * 1000);
-                    decompressor.CopyTo(ms);
-                    decompressor.Dispose();
-                    return ms.ToArray();
-                case "Lzham":
-                    return LzhamWrapper.Decompress(downloadedSlice, outputsize);
-            }
-            return downloadedSlice;
+            return DeComp.Decompress(saved.Compression.IsCompressed, saved.Compression.Method, downloadedSlice, outputsize);
         }
     }
 }

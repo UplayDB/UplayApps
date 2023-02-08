@@ -5,6 +5,8 @@ namespace Downloader
     class Config
     {
         public string DownloadDirectory { get; set; }
+
+        public string SavedDirectory { get; set; } = $"{Downloader.Config.DownloadDirectory}";
         // Made use of MManager, but warn(?) if not run as admin,
         // Default off!
         public bool InstallDependencies { get; set; } = false;

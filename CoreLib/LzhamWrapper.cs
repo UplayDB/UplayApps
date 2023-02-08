@@ -20,7 +20,7 @@ namespace CoreLib
 
         public static byte[] Decompress(byte[] input, ulong outputsize)
         {
-            if (IntPtr.Size == 4)
+            if (!Environment.Is64BitProcess)
             {
                 var lzh = new byte[((int)outputsize)];
                 Decompress_x86(input, (ulong)input.LongLength, lzh, outputsize);
@@ -36,7 +36,7 @@ namespace CoreLib
         /*
         public static byte[] Compress(byte[] input, ulong outputsize)
         {
-            if (IntPtr.Size == 4)
+            if  (!Environment.Is64BitProcess)
             {
                 var lzh = new byte[((int)outputsize)];
                 Compress_x86(input, (ulong)input.LongLength, lzh, outputsize);
