@@ -9,7 +9,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="UbiServices" Version="23.1.21" />
-	  <PackageReference Include="UplayKit" Version="0.0.0.3" />
+	  <PackageReference Include="UplayKit" Version="0.0.0.8-2" />
   </ItemGroup>
 
   <ItemGroup>

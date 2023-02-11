@@ -1,4 +1,7 @@
-﻿using System.IO.Pipes;
+﻿using Google.Protobuf;
+using PipeProxy;
+using System.IO.Pipes;
+using System.Reflection.Metadata;
 
 namespace PipeProxxy
 {
@@ -8,62 +11,123 @@ namespace PipeProxxy
         public static Dictionary<string, NamedPipeClientStream> NameClient = new();
         public static Dictionary<string, bool> NameServerBool = new();
         public static Dictionary<string, bool> NameClientBool = new();
-        static void Main(string[] args)
+
+        public static Dictionary<string, KillMe> NameKill = new();
+
+        public static List<string> PipeNames = new();
+        public static byte[] FormatUpstream(byte[] rawMessage)
         {
-            Console.WriteLine("Hello Reverser!");
-
-            string PipeName = "\\terminal_1_uplay_ipc_pipe_";
-            if (args.Length > 0)
-            {
-                // .exe \terminal_1_uplay_ipc_pipe_ =>
-                PipeName = args[0];
-            }
-
-
-            var serv = new Thread(NamedServerPipeStart);
-            serv.Start(PipeName);
-
-            Console.ReadLine();
-
-            NamedServerPipeStop(PipeName);
-            Console.ReadLine();
-
+            BlobWriter blobWriter = new(4);
+            blobWriter.WriteUInt32BE((uint)rawMessage.Length);
+            var returner = blobWriter.ToArray().Concat(rawMessage).ToArray();
+            blobWriter.Clear();
+            return returner;
         }
 
-        private static void NamedClientPipeStart(object? obj)
+        static void Main(string[] args)
         {
-            NamedClientPipeStart(obj.ToString());
+            PipeNames.Add("\\terminal_1_uplay_service_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_uplay_protocol_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_uplay_overlay_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_uplay_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_uplay_crash_reporter_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_uplay_aux_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_uplay_api_process_ipc_pipe_"); 
+            PipeNames.Add("\\terminal_1_orbit_ipc_pipe_");
+            PipeNames.Add("\\terminal_1_game_start_ipc_pipe_");
+            
+            Console.WriteLine("Hello Reverser!");
+
+            if (args.Contains("launch"))
+            {
+                var serv = new Thread(NamedClientPipeStart);
+                serv.Start("\\terminal_1_game_start_ipc_pipe_");
+
+                Console.ReadLine();
+
+                var post = new Uplay.GameStarter.Upstream()
+                {
+                    Req = new()
+                    {
+                        StartReq = new()
+                        {
+                            LauncherVersion = 10815,
+                            UplayId = 46,
+                            SteamGame = false,
+                            GameVersion = 6,
+                            ProductId = 46,
+                            ExecutablePath = "D:\\Games\\Far Cry 3\\bin\\farcry3_d3d11.exe",
+                            ExecutableArguments = "-language=English",
+                            Platform = Uplay.GameStarter.StartReq.Types.Platform.Uplay,
+                            TimeStart = (ulong)DateTime.Now.ToFileTime()
+                        }
+                    }
+                };
+
+                var up = FormatUpstream(post.ToByteArray());
+                Console.WriteLine(BitConverter.ToString(up));
+
+
+                NameClient["\\terminal_1_game_start_ipc_pipe_"].Write(up);
+
+                Console.ReadLine();
+
+                serv.Interrupt();
+                NamedClientPipeStop("\\terminal_1_game_start_ipc_pipe_");
+            }
+            else
+            {
+                
+                foreach (string name in PipeNames)
+                {
+                    var longRunning = new KillMe(name);
+                    NameKill.Add(name,longRunning);
+                    Thread myThread = new Thread(longRunning.ExecuteLongRunningTask);
+
+                    myThread.Start();
+                }
+
+                Console.ReadLine();
+                Console.WriteLine("After this we quit!");
+                Console.ReadLine();
+                PipeNames.ForEach(x => NamedServerPipeStop(x));
+            }          
         }
 
         private static void NamedServerPipeStart(object? obj)
         {
+            Console.WriteLine(obj.ToString());
             NamedServerPipeStart(obj.ToString());
         }
 
         static void NamedServerPipeStart(string pipename)
         {
-            Console.WriteLine("[Server] " + pipename);
-            NameServerBool.Add(pipename, true);
-            var pipeServer = new NamedPipeServerStream(pipename, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
-            NameServer.Add(pipename, pipeServer);
-            bool connectedOrWaiting = false;
-            
+            NameServerBool.TryAdd(pipename, true);
+            var pipeServer = new NamedPipeServerStream(pipename, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.None);
+
+            NameServer.TryAdd(pipename, pipeServer);
+            var connectedOrWaiting = false;
             Byte[] buffer = new Byte[65535];
-            Console.WriteLine("[Server] Starting..");
-            while (NameServerBool[pipename])
+            Console.WriteLine($"[Server | {pipename}] Starting..");
+
+            
+            while (NameServerBool.TryGetValue(pipename, out bool IsTrue) && IsTrue)
             {
                 if (!connectedOrWaiting)
                 {
-                    pipeServer.BeginWaitForConnection((a) => { pipeServer.EndWaitForConnection(a); }, null);
+                    pipeServer.WaitForConnection();
+
 
                     connectedOrWaiting = true;
                 }
 
                 if (pipeServer.IsConnected)
                 {
-                    Console.WriteLine("[Server] IsConnected!");
-                    Int32 count = pipeServer.Read(buffer, 0, 65535);
-                    //Console.WriteLine(pipeServer.GetImpersonationUserName());
+                    Console.WriteLine($"[Server | {pipename}] IsConnected!");
+                    int count = pipeServer.Read(buffer, 0, 65535);
+                    //Console.WriteLine($"User: {pipeServer.GetImpersonationUserName()}");
+                    //pipeServer.RunAsClient(new PipeStreamImpersonationWorker(x));
+
                     if (count > 0)
                     {
                         MemoryStream ms = new(count);
@@ -71,29 +135,39 @@ namespace PipeProxxy
                         var BufferDone = ms.ToArray();
                         ms.Dispose();
                         ms.Close();
-
-                        File.WriteAllBytes("x", BufferDone);
                         string ReadedAsCoolBytes = BitConverter.ToString(BufferDone);
-                        Console.WriteLine("[Server] Message got readed!\n" + ReadedAsCoolBytes);
+                        File.AppendAllText($"req_as_bytes_{pipename}.txt", ReadedAsCoolBytes + "\n");
+                        Console.WriteLine($"[Server | {pipename}] Message got readed!\n" + ReadedAsCoolBytes);
                     }
                 }
             }
-            Console.WriteLine("[Server] Stopping..");
+            var Getting = NameServerBool.TryGetValue(pipename, out var _IsTrue);
+            Console.WriteLine(Getting + " " + _IsTrue);
+            Console.WriteLine($"[Server | {pipename}] Stopping..");
+        }
+
+        static void x()
+        {
+            Console.WriteLine("I am a Client (Kinda)!");
         }
 
         static void NamedServerPipeStop(string pipename)
         {
-            NameServerBool[pipename] = false;
-            var server = NameServer[pipename];
-            Console.WriteLine("[Server] Disconnect!");
-            server.Disconnect();
+            if (NameKill.TryGetValue(pipename, out var pipeServer))
+            {
+                pipeServer.Cancel = true;
+            }
+            Console.WriteLine($"[Server | {pipename}] Disconnect!");
         }
-
+        private static void NamedClientPipeStart(object? obj)
+        {
+            NamedClientPipeStart(obj.ToString());
+        }
         static void NamedClientPipeStart(string pipename)
         {
             Console.WriteLine("[Client] " + pipename);
             NameClientBool.Add(pipename, true);
-            var pipeClient = new NamedPipeClientStream(".",pipename,PipeDirection.InOut,PipeOptions.CurrentUserOnly,System.Security.Principal.TokenImpersonationLevel.Impersonation);
+            var pipeClient = new NamedPipeClientStream(".",pipename,PipeDirection.InOut, PipeOptions.Asynchronous);
             NameClient.Add(pipename, pipeClient);
             bool connectedOrWaiting = false;
             Byte[] buffer = new Byte[65535];
