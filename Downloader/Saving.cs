@@ -111,7 +111,7 @@ namespace Downloader
             Compressor compressor = new();
             var returner = compressor.Wrap(bytes);
             compressor.Dispose();
-            System.IO.File.WriteAllBytes(Downloader.Config.SavedDirectory, returner);
+            System.IO.File.WriteAllBytes(DLWorker.Config.SavedDirectory, returner);
         }
 
         public static Root? Read(string FileName)
@@ -127,7 +127,7 @@ namespace Downloader
 
         public static Root? Read()
         {
-            var filebytes = System.IO.File.ReadAllBytes(Downloader.Config.SavedDirectory);
+            var filebytes = System.IO.File.ReadAllBytes(DLWorker.Config.SavedDirectory);
             Decompressor decompressorZstd = new();
             var decompressed = decompressorZstd.Unwrap(filebytes);
             decompressorZstd.Dispose();

@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "Downloader/1.0.0": {
         "dependencies": {
+          "CoreLib": "1.0.0",
           "Newtonsoft.Json": "13.0.2",
-          "SevenZip": "19.0.0",
           "UbiServices": "23.1.21",
           "UplayKit": "0.0.0.6",
           "ZstdNet": "1.4.5"
@@ -39,14 +39,6 @@
           "lib/net6.0/RestSharp.dll": {
             "assemblyVersion": "108.0.3.0",
             "fileVersion": "108.0.3.0"
-          }
-        }
-      },
-      "SevenZip/19.0.0": {
-        "runtime": {
-          "lib/netstandard2.0/SevenZip.dll": {
-            "assemblyVersion": "19.0.0.0",
-            "fileVersion": "19.0.0.0"
           }
         }
       },
@@ -103,6 +95,16 @@
             "fileVersion": "1.4.5.0"
           }
         }
+      },
+      "CoreLib/1.0.0": {
+        "dependencies": {
+          "UbiServices": "23.1.21",
+          "UplayKit": "0.0.0.6",
+          "ZstdNet": "1.4.5"
+        },
+        "runtime": {
+          "CoreLib.dll": {}
+        }
       }
     }
   },
@@ -132,13 +134,6 @@
       "sha512": "sha512-phq1AkVhqVXHZxvWDV4fJEJKCR5OHNFUGx2Ix8o5EFShS6654oZhth4X2RWvaU/W7UexIswW0T+lTirxfLU2Ow==",
       "path": "restsharp/108.0.3",
       "hashPath": "restsharp.108.0.3.nupkg.sha512"
-    },
-    "SevenZip/19.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-+Eeb/uvC0REvMlG1auBqlBMiFiPZs+WizlLroHPSKtBh/V7NR/qOocgk+/7S0lNzciYsurMCeJzUL7LYIqVnWw==",
-      "path": "sevenzip/19.0.0",
-      "hashPath": "sevenzip.19.0.0.nupkg.sha512"
     },
     "SharpZipLib/1.4.2": {
       "type": "package",
@@ -174,6 +169,11 @@
       "sha512": "sha512-fi9aP1QY3ZenIMUW1pxdSjku6lYAUjScrwfXSXT1qyKtTdLxOIzeBMe+w/hQm0vMsvQnjcFInByMrIT7AlXUHA==",
       "path": "zstdnet/1.4.5",
       "hashPath": "zstdnet.1.4.5.nupkg.sha512"
+    },
+    "CoreLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

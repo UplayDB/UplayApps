@@ -74,6 +74,16 @@ namespace TestApp
                 OwnershipConnection ownership = new(socket);
                 var games = ownership.GetOwnedGames(true);
                 ownership.PushEvent += Ownership_PushEvent;
+                var y = games.ToList().Where(x => x.LatestManifest.Trim().Length > 0).ToList();
+                var zero = y[0];
+                var one = y[1];
+                var zeroToken = ownership.GetOwnershipToken(zero.ProductId);
+                var oneToken = ownership.GetOwnershipToken(one.ProductId);
+                DownloadConnection dl1 = new(socket);
+                dl1.InitDownloadToken(zeroToken.Item1);
+
+                DownloadConnection dl2 = new(socket);
+                dl2.InitDownloadToken(oneToken.Item1);
                 /*
                 socket.StopCheck();
                 Console.ReadLine();

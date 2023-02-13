@@ -71,13 +71,14 @@ namespace Downloader
 
         public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection)
         {
-            Program.CheckOW(Downloader.Config.ProductId);
+            Program.CheckOW(DLWorker.Config.ProductId);
             Program.UbiTicketReNew();
             if (downloadConnection.isConnectionClosed)
             {
                 downloadConnection.Reconnect();
                 if (downloadConnection.isServiceSuccess)
                 {
+                    Console.WriteLine("auth token (must be same b4) " + Program.OWToken);
                     bool InitTrue = downloadConnection.InitDownloadToken(Program.OWToken);
 
                     if (!InitTrue)
@@ -93,7 +94,7 @@ namespace Downloader
                 }
 
             }
-            return downloadConnection.GetUrlList(Downloader.Config.ProductId, listOfSliceIds);
+            return downloadConnection.GetUrlList(DLWorker.Config.ProductId, listOfSliceIds);
         }
         public static byte[] Decompress(Saving.Root saved, byte[] downloadedSlice, ulong outputsize)
         {

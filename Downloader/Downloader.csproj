@@ -8,33 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="x64\lzham_api.dll" />
-    <None Remove="x64\lzham_api.so" />
-    <None Remove="x64\lzham_x64.dll" />
-    <None Remove="x86\lzham_api.dll" />
-    <None Remove="x86\lzham_api.so" />
-    <None Remove="x86\lzham_x86.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="x64\lzham_api.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\lzham_api.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\lzham_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lzham_api.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lzham_api.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lzham_x86.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Compile Remove="x64\**" />
+    <Compile Remove="x86\**" />
+    <EmbeddedResource Remove="x64\**" />
+    <EmbeddedResource Remove="x86\**" />
+    <None Remove="x64\**" />
+    <None Remove="x86\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +25,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreLib\CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="G:\VisualStudio\NUGET\zstdnet\1.4.5\build\x64\libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="G:\VisualStudio\NUGET\zstdnet\1.4.5\build\x86\libzstd.dll" />
   </ItemGroup>
 
 </Project>

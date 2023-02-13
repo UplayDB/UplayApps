@@ -26,18 +26,18 @@ namespace Downloader
                 PrintHelp();
             }
             #region Argument thingy
-            
+            DLWorker.CreateNew();
             bool haslocal = ParameterLib.HasParameter(args, "-local");
             Debug.isDebug = ParameterLib.HasParameter(args, "-debug");
             int waittime = ParameterLib.GetParameter(args, "-time", 5);
-            Downloader.Config.ProductId = ParameterLib.GetParameter<uint>(args, "-product", 0);
-            Downloader.Config.ManifestId = ParameterLib.GetParameter(args, "-manifest", "");
+            DLWorker.Config.ProductId = ParameterLib.GetParameter<uint>(args, "-product", 0);
+            DLWorker.Config.ManifestId = ParameterLib.GetParameter(args, "-manifest", "");
             string manifest_path = ParameterLib.GetParameter(args, "-manifestpath", "");
             bool hasAddons = ParameterLib.HasParameter(args, "-addons");
             string lang = ParameterLib.GetParameter(args, "-lang", "default");
-            Downloader.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{Downloader.Config.ProductId}\\{Downloader.Config.ManifestId}\\");
-            bool hasSkip = ParameterLib.HasParameter(args, "-skip");
-            bool hasOnly = ParameterLib.HasParameter(args, "-only");
+            DLWorker.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{DLWorker.Config.ProductId}\\{DLWorker.Config.ManifestId}\\");
+            DLWorker.Config.UsingFileList = ParameterLib.HasParameter(args, "-skip");
+            DLWorker.Config.UsingOnlyFileList = ParameterLib.HasParameter(args, "-only");
             string skipping = ParameterLib.GetParameter(args, "-skip", "skip.txt");
             string onlygetting = ParameterLib.GetParameter(args, "-only", "only.txt");
             bool hasVerify = ParameterLib.HasParameter(args, "-verify");
@@ -86,7 +86,7 @@ namespace Downloader
             Uplay.Download.Manifest parsedManifest = new();
             RestClient rc = new();
 
-            if (Downloader.Config.ProductId == 0 && Downloader.Config.ManifestId == "")
+            if (DLWorker.Config.ProductId == 0 && DLWorker.Config.ManifestId == "")
             {
                 owned = owned.Where(game => game.LatestManifest.Trim().Length > 0).ToList();
                 owned = owned.Where(game => game.ProductType == (uint)Uplay.Ownership.OwnedGame.Types.ProductType.Game).ToList();
@@ -108,25 +108,31 @@ namespace Downloader
                 if (selection == -1)
                 {
                     Console.WriteLine("> Input the 20-byte long manifest identifier:");
-                    Downloader.Config.ManifestId = Console.ReadLine()!.Trim();
+                    DLWorker.Config.ManifestId = Console.ReadLine()!.Trim();
 
-                    if (Downloader.Config.ManifestId.Contains(".manifest")) { manifestfile = true; }
+                    if (DLWorker.Config.ManifestId.Contains(".manifest")) { manifestfile = true; }
 
                     Console.WriteLine("> Input the productId:");
-                    Downloader.Config.ProductId = uint.Parse(Console.ReadLine()!.Trim());
+                    DLWorker.Config.ProductId = uint.Parse(Console.ReadLine()!.Trim());
                 }
                 else if (selection <= gameIds)
                 {
-                    Downloader.Config.ManifestId = owned[selection].LatestManifest;
-                    Downloader.Config.ProductId = owned[selection].ProductId;
+                    DLWorker.Config.ManifestId = owned[selection].LatestManifest;
+                    DLWorker.Config.ProductId = owned[selection].ProductId;
                 }
 
+                DLWorker.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{DLWorker.Config.ProductId}\\{DLWorker.Config.ManifestId}\\");
+                DLWorker.Config.ProductManifest = $"{DLWorker.Config.ProductId}_{DLWorker.Config.ManifestId}";
 
+                if (!Directory.Exists(DLWorker.Config.DownloadDirectory))
+                {
+                    Directory.CreateDirectory(DLWorker.Config.DownloadDirectory);
+                }
 
                 if (manifestfile)
                 {
-                    parsedManifest = Parsers.ParseManifestFile(Downloader.Config.ManifestId);
-                    var ownershipToken = ownershipConnection.GetOwnershipToken(Downloader.Config.ProductId);
+                    parsedManifest = Parsers.ParseManifestFile(DLWorker.Config.ManifestId);
+                    var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
                     if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
                     OWToken = ownershipToken.Item1;
                     Exp = ownershipToken.Item2;
@@ -135,26 +141,26 @@ namespace Downloader
                 }
                 else
                 {
-                    var ownershipToken = ownershipConnection.GetOwnershipToken(Downloader.Config.ProductId);
+                    var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
                     if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
                     OWToken = ownershipToken.Item1;
                     Exp = ownershipToken.Item2;
                     Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
                     downloadConnection.InitDownloadToken(OWToken);
-                    string manifestUrl = downloadConnection.GetUrl(Downloader.Config.ManifestId, Downloader.Config.ProductId);
+                    string manifestUrl = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId);
 
                     var manifestBytes = rc.DownloadData(new(manifestUrl));
                     if (manifestBytes == null)
                         throw new("Manifest not found?");
 
-                    File.WriteAllBytes(Downloader.Config.ProductManifest + ".manifest", manifestBytes);
-                    parsedManifest = Parsers.ParseManifestFile(Downloader.Config.ProductManifest + ".manifest");
+                    File.WriteAllBytes(DLWorker.Config.ProductManifest + ".manifest", manifestBytes);
+                    parsedManifest = Parsers.ParseManifestFile(DLWorker.Config.ProductManifest + ".manifest");
                 }
 
             }
             else
             {
-                var ownershipToken = ownershipConnection.GetOwnershipToken(Downloader.Config.ProductId);
+                var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
                 if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
                 OWToken = ownershipToken.Item1;
                 Exp = ownershipToken.Item2;
@@ -167,30 +173,30 @@ namespace Downloader
                 }
                 else
                 {
-                    string manifestUrl = downloadConnection.GetUrl(Downloader.Config.ManifestId, Downloader.Config.ProductId);
+                    string manifestUrl = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId);
 
                     var manifestBytes = rc.DownloadData(new(manifestUrl));
                     if (manifestBytes == null)
                         throw new("Manifest not found?");
 
-                    File.WriteAllBytes(Downloader.Config.ProductManifest + ".manifest", manifestBytes);
-                    parsedManifest = Parsers.ParseManifestFile(Downloader.Config.ProductManifest + ".manifest");
+                    File.WriteAllBytes(DLWorker.Config.ProductManifest + ".manifest", manifestBytes);
+                    parsedManifest = Parsers.ParseManifestFile(DLWorker.Config.ProductManifest + ".manifest");
                 }
             }
 
             if (hasAddons)
             {
-                string LicenseURL = downloadConnection.GetUrl(Downloader.Config.ManifestId, Downloader.Config.ProductId, "license");
+                string LicenseURL = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId, "license");
                 var License = rc.DownloadData(new(LicenseURL));
                 if (License == null)
                     throw new("License not found?");
-                File.WriteAllBytes(Downloader.Config.ProductManifest + ".license", License);
+                File.WriteAllBytes(DLWorker.Config.ProductManifest + ".license", License);
 
-                string MetadataURL = downloadConnection.GetUrl(Downloader.Config.ManifestId, Downloader.Config.ProductId, "metadata");
+                string MetadataURL = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId, "metadata");
                 var Metadata = rc.DownloadData(new(MetadataURL));
                 if (Metadata == null)
                     throw new("Metadata not found?");
-                File.WriteAllBytes(Downloader.Config.ProductManifest + ".metadata", Metadata);
+                File.WriteAllBytes(DLWorker.Config.ProductManifest + ".metadata", Metadata);
             }
             rc.Dispose();
             #endregion
@@ -201,36 +207,44 @@ namespace Downloader
             #region Lang Chunks
             List<Uplay.Download.File> files = new();
 
-            if (lang == "default")
+            if (parsedManifest.Languages.ToList().Count > 0)
             {
-                Console.WriteLine("Languages to use (just press enter to choose nothing, and all for all chunks)");
-                parsedManifest.Languages.ToList().ForEach(x => Console.WriteLine(x.Code));
-
-                var langchoosed = Console.ReadLine();
-
-                if (!string.IsNullOrEmpty(langchoosed))
+                if (lang == "default")
                 {
-                    if (langchoosed == "all")
+                    Console.WriteLine("Languages to use (just press enter to choose nothing, and all for all chunks)");
+                    parsedManifest.Languages.ToList().ForEach(x => Console.WriteLine(x.Code));
+
+                    var langchoosed = Console.ReadLine();
+
+                    if (!string.IsNullOrEmpty(langchoosed))
                     {
-                        files = ChunkManager.AllFiles(parsedManifest);
+                        if (langchoosed == "all")
+                        {
+                            files = ChunkManager.AllFiles(parsedManifest);
+                        }
+                        else
+                        {
+                            files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
+                            lang = langchoosed;
+                            files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
+                        }
                     }
                     else
                     {
                         files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
-                        lang = langchoosed;
-                        files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
+
                     }
+                }
+                else if (lang == "all")
+                {
+                    files = ChunkManager.AllFiles(parsedManifest);
                 }
                 else
                 {
                     files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
-
+                    files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
                 }
-            }
-            else if (lang == "all")
-            {
-                files = ChunkManager.AllFiles(parsedManifest);
-            }
+            }    
             else
             {
                 files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
@@ -239,8 +253,16 @@ namespace Downloader
             #endregion
             #region Skipping files from chunk
             List<string> skip_files = new();
+            DLWorker.Config.FilesToDownload = files;
+            DLWorker.Config.FilesToDownloadRegex = new();
+            files = DLFile.FileNormalizer();
+            if (DLWorker.Config.UsingFileList && DLWorker.Config.UsingOnlyFileList)
+            {
+                Console.WriteLine("-skip and -only cannot be used in same time!");
+                goto BYE;
+            }
 
-            if (hasSkip)
+            if (DLWorker.Config.UsingFileList)
             {
                 if (File.Exists(skipping))
                 {
@@ -250,7 +272,7 @@ namespace Downloader
                 }
                 files = ChunkManager.RemoveSkipFiles(files, skip_files);
             }
-            if (hasOnly)
+            if (DLWorker.Config.UsingOnlyFileList)
             {
                 if (File.Exists(onlygetting))
                 {
@@ -263,21 +285,18 @@ namespace Downloader
             #endregion
             #region Get Path and Create
             Console.WriteLine("\tFiles Ready to work\n");     
-            if (!Directory.Exists(Downloader.Config.DownloadDirectory))
-            {
-                Directory.CreateDirectory(Downloader.Config.DownloadDirectory);
-            }
+
             #endregion
             #region Saving
             Saving.Root saving = new();
-            Downloader.Config.SavedDirectory = Path.Combine(Downloader.Config.DownloadDirectory, ".UD\\saved.bin");
-            Directory.CreateDirectory(Path.GetDirectoryName(Downloader.Config.SavedDirectory));
-            if (File.Exists(Downloader.Config.SavedDirectory))
+            DLWorker.Config.SavedDirectory = Path.Combine(DLWorker.Config.DownloadDirectory, ".UD\\saved.bin");
+            Directory.CreateDirectory(Path.GetDirectoryName(DLWorker.Config.SavedDirectory));
+            if (File.Exists(DLWorker.Config.SavedDirectory))
             {
                 var readedBin = Saving.Read();
                 if (readedBin == null)
                 {
-                    saving = Saving.MakeNew(Downloader.Config.ProductId, Downloader.Config.ManifestId, parsedManifest);
+                    saving = Saving.MakeNew(DLWorker.Config.ProductId, DLWorker.Config.ManifestId, parsedManifest);
                 }
                 else
                 {
@@ -286,11 +305,11 @@ namespace Downloader
             }
             else
             {
-                saving = Saving.MakeNew(Downloader.Config.ProductId, Downloader.Config.ManifestId, parsedManifest);
+                saving = Saving.MakeNew(DLWorker.Config.ProductId, DLWorker.Config.ManifestId, parsedManifest);
             }
             if (hasSaved)
             {
-                File.WriteAllText(Downloader.Config.SavedDirectory + ".json", JsonConvert.SerializeObject(saving));
+                File.WriteAllText(DLWorker.Config.SavedDirectory + ".json", JsonConvert.SerializeObject(saving));
                 Console.ReadLine();
             }
             Saving.Save(saving);
@@ -298,13 +317,14 @@ namespace Downloader
             #region Verify + Downloading
             if (hasVerify)
             {
-                files = Verifier.Verify(files, saving);
+                files = Verifier.Verify(files);
             }
             Console.ReadLine();
-            Downloader.DownloadWorker(files, downloadConnection, saving);
+            DLWorker.DownloadWorker(files, downloadConnection);
             #endregion
             #region Closing and GoodBye
-            File.Copy(Downloader.Config.ProductManifest + ".manifest", Downloader.Config.DownloadDirectory + "uplay_install.manifest");
+            File.Copy(DLWorker.Config.ProductManifest + ".manifest", DLWorker.Config.DownloadDirectory + "uplay_install.manifest");
+        BYE:
             Console.WriteLine("Goodbye!");
             Console.ReadLine();
             downloadConnection.Close();
@@ -387,6 +407,7 @@ namespace Downloader
                     Exp = token.Item2;
                     Console.WriteLine("New exp: " + Exp);
                     OWToken = token.Item1;
+                    Console.WriteLine("New token : " + OWToken);
                 }
             }
         }

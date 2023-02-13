@@ -8,14 +8,14 @@ namespace Downloader
 {
     internal class ByteDownloader
     {
-        public static List<byte[]> DownloadBytes(UDFile file, List<string> hashlist, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(UDFile file, List<string> hashlist, DownloadConnection downloadConnection)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
 
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
-            saving = Read();
+            var saving = Read();
             var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (savefile == null)
             {
@@ -77,14 +77,14 @@ namespace Downloader
             return bytes;
         }
 
-        public static List<byte[]> DownloadBytes(UDFile file, List<ByteString> bytestring, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(UDFile file, List<ByteString> bytestring, DownloadConnection downloadConnection)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
 
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
-            saving = Read();
+            var saving = Read();
             var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
             if (savefile == null)
             {
@@ -146,14 +146,14 @@ namespace Downloader
             return bytes;
         }
 
-        public static List<byte[]> DownloadBytes(string FileName, List<Uplay.Download.Slice> slices, DownloadConnection downloadConnection, Root saving)
+        public static List<byte[]> DownloadBytes(string FileName, List<Uplay.Download.Slice> slices, DownloadConnection downloadConnection)
         {
             List<byte[]> bytes = new();
             var rc = new RestClient();
 
             SliceInfo sliceInfo = new();
             List<SliceInfo> sliceInfoList = new();
-            saving = Read();
+            var saving = Read();
             var savefile = saving.Verify.Files.Where(x => x.Name == FileName).FirstOrDefault();
             if (savefile == null)
             {
