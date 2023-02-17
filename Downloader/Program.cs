@@ -398,16 +398,13 @@ namespace Downloader
         {
             if (Exp <= GetEpocTime())
             {
-                Console.WriteLine("CheckOW " + Exp + "<=" + GetEpocTime());
                 Console.WriteLine("Your token has no more valid, getting new!");
                 if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
                 {
                     var token = ownershipConnection.GetOwnershipToken(ProdId);
                     Console.WriteLine("Is Token get success? " + ownershipConnection.isServiceSuccess);
                     Exp = token.Item2;
-                    Console.WriteLine("New exp: " + Exp);
                     OWToken = token.Item1;
-                    Console.WriteLine("New token : " + OWToken);
                 }
             }
         }

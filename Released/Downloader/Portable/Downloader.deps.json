@@ -11,7 +11,7 @@
           "CoreLib": "1.0.0",
           "Newtonsoft.Json": "13.0.2",
           "UbiServices": "23.1.21",
-          "UplayKit": "0.0.0.6",
+          "UplayKit": "0.0.0.9",
           "ZstdNet": "1.4.5"
         },
         "runtime": {
@@ -73,7 +73,7 @@
           }
         }
       },
-      "UplayKit/0.0.0.6": {
+      "UplayKit/0.0.0.9": {
         "dependencies": {
           "Google.Protobuf": "3.21.12",
           "Newtonsoft.Json": "13.0.2",
@@ -83,8 +83,8 @@
         },
         "runtime": {
           "lib/net6.0/UplayKit.dll": {
-            "assemblyVersion": "0.0.0.6",
-            "fileVersion": "0.0.0.6"
+            "assemblyVersion": "0.0.0.9",
+            "fileVersion": "0.0.0.9"
           }
         }
       },
@@ -99,7 +99,7 @@
       "CoreLib/1.0.0": {
         "dependencies": {
           "UbiServices": "23.1.21",
-          "UplayKit": "0.0.0.6",
+          "UplayKit": "0.0.0.9",
           "ZstdNet": "1.4.5"
         },
         "runtime": {
@@ -156,12 +156,12 @@
       "path": "uplay-protobufs/138.0.10807",
       "hashPath": "uplay-protobufs.138.0.10807.nupkg.sha512"
     },
-    "UplayKit/0.0.0.6": {
+    "UplayKit/0.0.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-u4Mta/Avzz/jfjqsuZU4RCQekDm5E52uBz6+B+w95vq0vQ6iwDIDkUWwAeJ/vBOR7UcnAzv/4DCjsD/Jtd/Tgg==",
-      "path": "uplaykit/0.0.0.6",
-      "hashPath": "uplaykit.0.0.0.6.nupkg.sha512"
+      "sha512": "sha512-rOg/sIArpVU5vlFrfXAAGEvQLV/llDj6RAfaFKnogCYaLTHrrZt5RXMmZzLaqS76Hv8GIWbJ8LnRkcZJCYgpPg==",
+      "path": "uplaykit/0.0.0.9",
+      "hashPath": "uplaykit.0.0.0.9.nupkg.sha512"
     },
     "ZstdNet/1.4.5": {
       "type": "package",

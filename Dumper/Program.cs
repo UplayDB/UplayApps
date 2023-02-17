@@ -86,9 +86,9 @@ namespace Dumper
                 var games_ = ownership.GetOwnedGames(true); 
                 
                 List<OW> owList = new();
-                if (File.Exists(currentDir + "\\gamelist.json"))
+                if (File.Exists("gamelist.json"))
                 {
-                    owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText(currentDir + "\\gamelist.json"));
+                    owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText("gamelist.json"));
                     Console.WriteLine(owList.Count);
                 }
 
@@ -128,7 +128,7 @@ namespace Dumper
                         ows.ActivationIds = game.ActivationIds.ToList();
                     }
                 }
-                File.WriteAllText(currentDir + "\\gamelist.json", JsonConvert.SerializeObject(owList, Formatting.Indented));
+                File.WriteAllText("gamelist.json", JsonConvert.SerializeObject(owList, Formatting.Indented));
 
 
 

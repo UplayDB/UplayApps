@@ -1,4 +1,5 @@
-﻿using Uplay.Download;
+﻿using System.Text.RegularExpressions;
+using Uplay.Download;
 using File = Uplay.Download.File;
 
 namespace Downloader
@@ -61,6 +62,12 @@ namespace Downloader
                         {
                             to_remove.Add(file);
                         }
+                        /*
+                        if (skip.StartsWith("regex:"))
+                        {
+                            var rgx = new Regex(skip.Substring(6), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        }
+                        */
                     }
                 }
                 foreach (var remove in to_remove)

@@ -31,7 +31,7 @@ namespace Downloader
             {
                 return true;
             }
-
+            /*
             foreach (var rgx in DLWorker.Config.FilesToDownloadRegex)
             {
                 var m = rgx.Match(filename);
@@ -39,7 +39,7 @@ namespace Downloader
                 if (m.Success)
                     return true;
             }
-
+            */
             return false;
         }
     }

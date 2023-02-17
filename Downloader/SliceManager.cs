@@ -78,7 +78,6 @@ namespace Downloader
                 downloadConnection.Reconnect();
                 if (downloadConnection.isServiceSuccess)
                 {
-                    Console.WriteLine("auth token (must be same b4) " + Program.OWToken);
                     bool InitTrue = downloadConnection.InitDownloadToken(Program.OWToken);
 
                     if (!InitTrue)
@@ -89,7 +88,7 @@ namespace Downloader
                 }
                 else
                 {
-                    Console.WriteLine("Cannot made to reconnect!");
+                    Console.WriteLine("Cannot reconnect!");
                     Environment.Exit(1);
                 }
 
