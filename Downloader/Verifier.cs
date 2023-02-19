@@ -1,19 +1,17 @@
 ﻿using Newtonsoft.Json;
-using System.Linq;
 using System.Security.Cryptography;
-using ZstdNet;
 using UDFile = Uplay.Download.File;
 
 namespace Downloader
 {
     internal class Verifier
     {
-        public static List<UDFile> Verify(List<UDFile> files)
+        public static List<UDFile> Verify()
         {
             List<UDFile> fileschecked = new();
             List<UDFile> remover = new();
             Console.WriteLine("\t\tVerification Started!");
-            foreach (var file in files)
+            foreach (var file in DLWorker.Config.FilesToDownload)
             {
                 if (fileschecked.Contains(file))
                 {
@@ -49,7 +47,7 @@ namespace Downloader
 
             }
             List<UDFile> returner = new();
-            returner.AddRange(files);
+            returner.AddRange(DLWorker.Config.FilesToDownload);
             foreach (var rf in remover)
             {
                 returner.Remove(rf);
@@ -90,7 +88,7 @@ namespace Downloader
                 */
                 takenSize += sinfo.DecompressedSize;
                 var decsha = GetSHA1Hash(fibytes);
-                
+
                 if (sinfo.DecompressedSHA != decsha)
                 {
                     Console.WriteLine($"{sinfo.DecompressedSHA} != {decsha}");

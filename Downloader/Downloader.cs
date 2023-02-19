@@ -17,11 +17,11 @@ namespace Downloader
 
         public static Config Config;
 
-        public static void DownloadWorker(List<UDFile> files, DownloadConnection downloadConnection)
+        public static void DownloadWorker(DownloadConnection downloadConnection)
         {
             Console.WriteLine("\n\t\tDownloading Started!");
             int filecounter = 0;
-            foreach (var file in files)
+            foreach (var file in Config.FilesToDownload)
             {
                 if (file.Size == 0)
                     continue;
@@ -54,10 +54,9 @@ namespace Downloader
                         SliceList = sliceListIds,
                         Slices = sliceIds
                     }
-                }; 
+                };
                 Save(saving);
-                saving = Read();
-                Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{files.Count}) [{Formatters.FormatFileSize(file.Size)}]");
+                Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{Config.FilesToDownload.Count}) [{Formatters.FormatFileSize(file.Size)}]");
                 DownloadFile(file, downloadConnection);
             }
             Console.WriteLine($"\t\tDownload for app {Config.ProductId} is done!");
@@ -102,12 +101,12 @@ namespace Downloader
             }
 
 
-            var fullPath = Path.Combine(Config.SavedDirectory, file.Name);
+            var fullPath = Path.Combine(Config.VerifyBinPath, file.Name);
             var fileInfo = new System.IO.FileInfo(fullPath);
             if (fileInfo.Length != Size)
             {
                 Console.WriteLine("Something isnt right, +/- chunk??");
-                File.WriteAllText("x.txt",(uint)fileInfo.Length + " != " +  Size + " " + sizelister.Count+ " "  + index + "\n" + curId + " " + NextId);
+                File.WriteAllText("x.txt", (uint)fileInfo.Length + " != " + Size + " " + sizelister.Count + " " + index + "\n" + curId + " " + NextId);
                 // We try restore chunk after here
                 //
                 return false;
@@ -119,7 +118,7 @@ namespace Downloader
 
         public static void RedownloadSlices(List<string> slicesToDownload, UDFile file, DownloadConnection downloadConnection)
         {
-            var fullPath = Path.Combine(Config.SavedDirectory, file.Name);
+            var fullPath = Path.Combine(Config.VerifyBinPath, file.Name);
 
             var prevBytes = File.ReadAllBytes(fullPath);
 
@@ -236,7 +235,5 @@ namespace Downloader
             fs.Close();
             Console.WriteLine($"\t\tFile {file.Name} finished");
         }
-
-
     }
 }

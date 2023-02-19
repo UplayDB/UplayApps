@@ -1,10 +1,7 @@
-﻿using Google.Protobuf;
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+﻿using CoreLib;
 using Uplay.Download;
 using UplayKit;
 using UplayKit.Connection;
-using ZstdNet;
-using CoreLib;
 
 namespace Downloader
 {
@@ -22,24 +19,6 @@ namespace Downloader
 
                 if (slice.HasFileOffset) { Console.WriteLine("[!!!] FILE OFFSET! " + slice.FileOffset); }
                 string sliceId = Convert.ToHexString(slice.DownloadSha1.ToArray());
-                if (Version == 3)
-                {
-                    listOfSliceIds.Add($"slices_v3/{Formatters.FormatSliceHashChar(sliceId)}/{sliceId}");
-                }
-                else
-                {
-                    listOfSliceIds.Add($"slices/{sliceId}");
-                }
-            }
-            return GetUrlsForSlices(listOfSliceIds, downloadConnection);
-        }
-
-        public static List<string> SliceWorker(List<ByteString> slices, DownloadConnection downloadConnection, uint Version)
-        {
-            List<string> listOfSliceIds = new();
-            foreach (var slice in slices)
-            {
-                string sliceId = Convert.ToHexString(slice.ToArray());
                 if (Version == 3)
                 {
                     listOfSliceIds.Add($"slices_v3/{Formatters.FormatSliceHashChar(sliceId)}/{sliceId}");
@@ -72,7 +51,6 @@ namespace Downloader
         public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection)
         {
             Program.CheckOW(DLWorker.Config.ProductId);
-            Program.UbiTicketReNew();
             if (downloadConnection.isConnectionClosed)
             {
                 downloadConnection.Reconnect();
@@ -95,6 +73,7 @@ namespace Downloader
             }
             return downloadConnection.GetUrlList(DLWorker.Config.ProductId, listOfSliceIds);
         }
+
         public static byte[] Decompress(Saving.Root saved, byte[] downloadedSlice, ulong outputsize)
         {
             return DeComp.Decompress(saved.Compression.IsCompressed, saved.Compression.Method, downloadedSlice, outputsize);
