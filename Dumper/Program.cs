@@ -22,6 +22,8 @@ namespace Dumper
 
         static void Main(string[] args)
         {
+            Console.WriteLine("New version of the Dumper has been released, use that!");
+
             LoginJson? login;
             var currentDir = GetParameter(args, "-dir", Environment.CurrentDirectory);
             if (!HasParameter(args, "-skip"))
