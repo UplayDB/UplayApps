@@ -7,7 +7,7 @@ namespace Dumperv2
 {
     internal class GenerateStore
     {
-        public static void Work()
+        public static void Work(bool onlyEng = false)
         {
             List<storeconf> storeconf2 = new();
 
@@ -41,16 +41,15 @@ namespace Dumperv2
             List<string> allId = new();
             foreach (var conf in storeconf2)
             {
-                for (int i = 0; i <= 18; i++)
+                if (onlyEng)
                 {
-                    var country = (Enums.CountryCode)i;
+                    var country = Enums.CountryCode.eu;
                     Thread.Sleep(10);
 
                     if (conf.StoreRef.Contains("/") || conf.StoreRef.Contains("\\"))
                     {
                         continue;
                     }
-
 
                     var callback = UbiServices.Store.Products.GetStoreFrontByProducts(country, new() { conf.StoreRef }, new() { "images", "variations", "prices", "promotions", "availability" }, false);
 
@@ -138,6 +137,106 @@ namespace Dumperv2
                         File.Delete($"Store\\{conf.ProductId}_{country.ToString()}.json");
                     }
                 }
+                else
+                {
+                    for (int i = 0; i <= 18; i++)
+                    {
+                        var country = (Enums.CountryCode)i;
+                        Thread.Sleep(10);
+
+                        if (conf.StoreRef.Contains("/") || conf.StoreRef.Contains("\\"))
+                        {
+                            continue;
+                        }
+
+
+                        var callback = UbiServices.Store.Products.GetStoreFrontByProducts(country, new() { conf.StoreRef }, new() { "images", "variations", "prices", "promotions", "availability" }, false);
+
+                        File.WriteAllText($"Store\\{conf.ProductId}_{country.ToString()}.json", JsonConvert.SerializeObject(callback, Formatting.Indented));
+
+                        if (File.Exists($"Store\\{conf.ProductId}_{country.ToString()}.json"))
+                        {
+                            var file = File.ReadAllText($"Store\\{conf.ProductId}_{country.ToString()}.json", encoding: System.Text.Encoding.UTF8);
+
+                            if (file == "null")
+                            {
+                                goto MOVE;
+                            }
+
+                            var thing = JObject.Parse(file);
+                            var c = (int)thing["count"];
+
+                            if (c == 0)
+                            {
+                                goto MOVE;
+                            }
+
+                            JArray resultArray = (JArray)thing["data"];
+                            var bidata = JObject.FromObject(resultArray[0]);
+                            var brand = bidata["c_productBrandDisplayString"];
+                            var subbrand = bidata["c_productSubBrandString"];
+                            var id = bidata["id"];
+                            var EditionsListString = (JArray)bidata["c_productOtherEditionsListString"];
+
+                            if (!allId.Contains((string)id))
+                            {
+                                allId.Add((string)id);
+                            }
+
+                            if (EditionsListString != null)
+                            {
+                                foreach (var edition in EditionsListString)
+                                {
+                                    if (!allId.Contains((string)edition))
+                                    {
+                                        allId.Add((string)edition);
+                                    }
+
+                                }
+                            }
+
+
+                            if (!string.IsNullOrEmpty((string)brand) && !string.IsNullOrEmpty((string)subbrand))
+                            {
+                                var sid = (string)subbrand;
+                                idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
+                            }
+                            else if (!string.IsNullOrEmpty((string)brand))
+                            {
+                                var sid = (string)brand;
+                                idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
+                            }
+                            else if (!string.IsNullOrEmpty((string)subbrand))
+                            {
+                                var sid = (string)subbrand;
+                                idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
+                            }
+
+                        MOVE:
+                            var idmap_2 = idmaps.FirstOrDefault(x => x.ProductId == conf.ProductId);
+                            var sermap = JsonConvert.SerializeObject(idmap_2);
+                            Console.WriteLine($"{conf.ProductId} ({country.ToString()}) - ({conf.StoreRef})");
+                            if (sermap == "null")
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine($"FOR OTHERS: {conf.ProductId} ({country.ToString()})");
+                                idmap _ = new()
+                                {
+                                    ProductId = conf.ProductId,
+                                    Brand = "Others"
+                                };
+                                idmaps.Add(_);
+                                File.Copy($"Store\\{conf.ProductId}_{country.ToString()}.json", $"Store\\Others\\{conf.ProductId}_{country.ToString()}.json", true);
+
+                            }
+                            else
+                            {
+                                File.Copy($"Store\\{conf.ProductId}_{country.ToString()}.json", $"Store\\{idmap_2.Brand}\\{conf.ProductId}_{country.ToString()}.json", true);
+                            }
+                            File.Delete($"Store\\{conf.ProductId}_{country.ToString()}.json");
+                        }
+                    }
+                }               
             }
             allId.Sort();
             File.WriteAllText("idmap.json", JsonConvert.SerializeObject(idmaps, Formatting.Indented));

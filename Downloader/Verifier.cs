@@ -64,8 +64,9 @@ namespace Downloader
             {
                 failinplace.Add(-1);
             }
+            byte[] filebytes = new byte[fileInfo.Length];
 
-            var filebytes = File.ReadAllBytes(PathToFile);
+            filebytes = File.ReadAllBytes(PathToFile);
 
             var saving = Saving.Read();
             if (saving == null)

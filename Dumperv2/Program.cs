@@ -11,7 +11,7 @@ namespace Dumperv2
         {
             if (!VersionCheck.Check())
             {
-                Console.WriteLine("");
+                Console.WriteLine("yrrz");
             }
             if (ParameterLib.HasParameter(args, "-help") || ParameterLib.HasParameter(args, "-?") || ParameterLib.HasParameter(args, "?"))
             {
@@ -20,7 +20,7 @@ namespace Dumperv2
             var currentDir = ParameterLib.GetParameter(args, "-dir", Environment.CurrentDirectory);
             if (ParameterLib.HasParameter(args, "-gen"))
             {
-                GenerateStore.Work();
+                GenerateStore.Work(ParameterLib.HasParameter(args, "-eng"));
                 Environment.Exit(0);
             }
             if (ParameterLib.HasParameter(args, "-csv"))

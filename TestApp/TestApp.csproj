@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ChannelKit\ChannelKit.csproj" />
     <ProjectReference Include="..\UplayWrapper\UplayWrapper.csproj" />
   </ItemGroup>
 
