@@ -73,10 +73,13 @@ namespace TestApp
 
                 socket.Authenticate(login.Ticket);
 
-                Class1.Test(login.Ticket,login.SessionId);
+                ChannelProfile.GetPendingChannels(login.Ticket,login.SessionId);
+                ChannelProfile.GetActiveChannels(login.Ticket, login.SessionId);
 
                 WebSocket webSocket = new(login.SessionId, login.Ticket);
                 webSocket.Start();
+                Console.ReadLine();
+                webSocket.Stop();
                 /*
                 socket.StopCheck();
                 Console.ReadLine();
