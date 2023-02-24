@@ -22,8 +22,9 @@ namespace CoreLib
                 try
                 {
                     RestResponse response = client.Get(request);
-                    if (response.Content != null)
+                    if (response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
+                        Console.WriteLine(response.Content);
                         return (response.Content == version);
                     }
                 }

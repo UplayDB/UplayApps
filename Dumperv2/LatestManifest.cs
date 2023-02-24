@@ -12,13 +12,13 @@ namespace Dumperv2
             List<uint> prodIdList = new();
             foreach (var game in games)
             {
-                Console.WriteLine($"{game.ProductId}={game.LatestManifest}");
+                //Console.WriteLine($"{game.ProductId}={game.LatestManifest}");
                 strlist.Add($"{game.ProductId}={game.LatestManifest}");
                 prodIdList.Add(game.ProductId);
 
                 string ownershipToken_1 = ownership.GetOwnershipToken(game.ProductId).Item1;
-                downloadConnection.InitDownloadToken(ownershipToken_1);
-                if (downloadConnection.isServiceSuccess != false)
+                bool initDone = downloadConnection.InitDownloadToken(ownershipToken_1);
+                if (initDone != false)
                 {
                     string manifestUrl_1 = downloadConnection.GetUrl(game.LatestManifest, game.ProductId);
                     var rc1 = new RestClient();
@@ -31,7 +31,6 @@ namespace Dumperv2
             }
             if (File.Exists(currentDir + "\\latest_manifests.txt"))
             {
-                Console.WriteLine("file are here");
                 var latest_manifests = File.ReadAllLines(currentDir + "\\latest_manifests.txt");
                 foreach (var latest_manifest in latest_manifests)
                 {

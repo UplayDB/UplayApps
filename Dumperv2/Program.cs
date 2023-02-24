@@ -62,6 +62,7 @@ namespace Dumperv2
             DownloadConnection downloadConnection = new(socket);
             var games_ = ownership.GetOwnedGames(true);
             GameLister.Work(games_);
+            ProductUbiService.Work(games_.ToArray());
             if (ParameterLib.HasParameter(args, "-todl"))
             {
                 ReDL.Work(currentDir, downloadConnection, ownership);

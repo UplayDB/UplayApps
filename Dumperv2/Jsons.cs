@@ -8,6 +8,13 @@
             public string Configuration { get; set; }
         }
 
+        public class prodserv
+        {
+            public uint ProductId { get; set; }
+            public string SpaceId { get; set; }
+            public string AppId { get; set; }
+        }
+
         public class storeconf
         {
             public uint ProductId { get; set; }

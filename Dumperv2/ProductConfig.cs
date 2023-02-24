@@ -12,7 +12,6 @@ namespace Dumperv2
             if (File.Exists(currentDir + "\\productconfig.json"))
             {
                 listconf = JsonConvert.DeserializeObject<List<prodconf>>(File.ReadAllText(currentDir + "\\productconfig.json"));
-                Console.WriteLine(listconf.Count);
             }
 
             foreach (var g in games)
@@ -35,10 +34,7 @@ namespace Dumperv2
                     Console.WriteLine(listdiffconf.Count);
                     listconf.Where(x => x.ProductId == g.ProductId).First().Configuration = g.Configuration;
                 }
-
-
             }
-            Console.WriteLine(listconf.Count);
             File.WriteAllText(currentDir + "\\productconfig.json", JsonConvert.SerializeObject(listconf, Formatting.Indented));
         }
     }

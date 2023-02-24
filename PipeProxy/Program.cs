@@ -94,63 +94,6 @@ namespace PipeProxxy
             }          
         }
 
-        private static void NamedServerPipeStart(object? obj)
-        {
-            Console.WriteLine(obj.ToString());
-            NamedServerPipeStart(obj.ToString());
-        }
-
-        static void NamedServerPipeStart(string pipename)
-        {
-            NameServerBool.TryAdd(pipename, true);
-            var pipeServer = new NamedPipeServerStream(pipename, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.None);
-
-            NameServer.TryAdd(pipename, pipeServer);
-            var connectedOrWaiting = false;
-            Byte[] buffer = new Byte[65535];
-            Console.WriteLine($"[Server | {pipename}] Starting..");
-
-            
-            while (NameServerBool.TryGetValue(pipename, out bool IsTrue) && IsTrue)
-            {
-                if (!connectedOrWaiting)
-                {
-                    pipeServer.WaitForConnection();
-
-
-                    connectedOrWaiting = true;
-                }
-
-                if (pipeServer.IsConnected)
-                {
-                    Console.WriteLine($"[Server | {pipename}] IsConnected!");
-                    int count = pipeServer.Read(buffer, 0, 65535);
-                    //Console.WriteLine($"User: {pipeServer.GetImpersonationUserName()}");
-                    //pipeServer.RunAsClient(new PipeStreamImpersonationWorker(x));
-
-                    if (count > 0)
-                    {
-                        MemoryStream ms = new(count);
-                        ms.Write(buffer, 0, count);
-                        var BufferDone = ms.ToArray();
-                        ms.Dispose();
-                        ms.Close();
-                        string ReadedAsCoolBytes = BitConverter.ToString(BufferDone);
-                        File.AppendAllText($"req_as_bytes_{pipename}.txt", ReadedAsCoolBytes + "\n");
-                        Console.WriteLine($"[Server | {pipename}] Message got readed!\n" + ReadedAsCoolBytes);
-                    }
-                }
-            }
-            var Getting = NameServerBool.TryGetValue(pipename, out var _IsTrue);
-            Console.WriteLine(Getting + " " + _IsTrue);
-            Console.WriteLine($"[Server | {pipename}] Stopping..");
-        }
-
-        static void x()
-        {
-            Console.WriteLine("I am a Client (Kinda)!");
-        }
-
         static void NamedServerPipeStop(string pipename)
         {
             if (NameKill.TryGetValue(pipename, out var pipeServer))

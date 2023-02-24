@@ -13,7 +13,6 @@ namespace Dumperv2
             if (File.Exists("storeref.json"))
             {
                 storelist = JsonConvert.DeserializeObject<List<storeconf>>(File.ReadAllText("storeref.json"));
-                Console.WriteLine(storelist.Count);
             }
             var storersp = store.StoreProducts.OrderBy(x => x.ProductId).ToList();
             foreach (var storeprod in storersp)
@@ -40,13 +39,11 @@ namespace Dumperv2
 
                 if (listdiffconf.Count > 0)
                 {
-                    Console.WriteLine(listdiffconf.Count);
                     storelist.Where(x => x.ProductId == storeprod.ProductId).First().StoreRef = storeprod.StoreReference;
                 }
 
             }
             storelist = storelist.OrderBy(x => x.ProductId).ToList();
-            Console.WriteLine(storelist.Count);
             File.WriteAllText("storeref.json", JsonConvert.SerializeObject(storelist, Formatting.Indented));
         }
     }

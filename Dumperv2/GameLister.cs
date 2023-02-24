@@ -14,7 +14,6 @@ namespace Dumperv2
             if (File.Exists("gamelist.json"))
             {
                 owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText("gamelist.json"));
-                Console.WriteLine(owList.Count);
             }
             foreach (var game in games)
             {
@@ -33,12 +32,12 @@ namespace Dumperv2
                 }
 
                 var listdiffconf = owList.Where(x => x.ProductId == game.ProductId
-                && x.ProductType != ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString()
-                && x.State != ((Uplay.Ownership.OwnedGame.Types.State)game.State).ToString()
-                && x.TargetPartner != game.TargetPartner.ToString()
-                && x.ProductAssociations != game.ProductAssociations.ToList()
-                && x.ActivationIds != game.ActivationIds.ToList()
-                ).ToList();
+                && (x.ProductType != ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString()
+                || x.State != ((Uplay.Ownership.OwnedGame.Types.State)game.State).ToString()
+                || x.TargetPartner != game.TargetPartner.ToString()
+                || x.ProductAssociations != game.ProductAssociations.ToList()
+                || x.ActivationIds != game.ActivationIds.ToList()
+                )).ToList();
 
                 if (listdiffconf.Count > 0)
                 {
