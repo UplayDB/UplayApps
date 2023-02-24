@@ -6,22 +6,22 @@ namespace Downloader
 {
     internal class Verifier
     {
-        public static List<UDFile> Verify(List<UDFile> files, Saving.Root saving, string downloadPath)
+        public static List<UDFile> Verify()
         {
             List<UDFile> fileschecked = new();
             List<UDFile> remover = new();
             Console.WriteLine("\t\tVerification Started!");
-            foreach (var file in files)
+            foreach (var file in DLWorker.Config.FilesToDownload)
             {
                 if (fileschecked.Contains(file))
                 {
                     continue;
                 }
 
-                var fullPath = Path.Combine(downloadPath, file.Name);
+                var fullPath = Path.Combine(DLWorker.Config.DownloadDirectory, file.Name);
                 if (File.Exists(fullPath))
                 {
-                    var Verified = VerifyFile(file, fullPath, saving, out var failes);
+                    var Verified = VerifyFile(file, fullPath, out var failes);
                     string addinfo = "";
                     if (Verified)
                     {
@@ -47,7 +47,7 @@ namespace Downloader
 
             }
             List<UDFile> returner = new();
-            returner.AddRange(files);
+            returner.AddRange(DLWorker.Config.FilesToDownload);
             foreach (var rf in remover)
             {
                 returner.Remove(rf);
@@ -56,7 +56,7 @@ namespace Downloader
             return returner;
         }
 
-        public static bool VerifyFile(UDFile file, string PathToFile, Saving.Root saving, out List<int> failinplace)
+        public static bool VerifyFile(UDFile file, string PathToFile, out List<int> failinplace)
         {
             failinplace = new();
             var fileInfo = new FileInfo(PathToFile);
@@ -64,9 +64,13 @@ namespace Downloader
             {
                 failinplace.Add(-1);
             }
+            byte[] filebytes = new byte[fileInfo.Length];
 
-            var filebytes = File.ReadAllBytes(PathToFile);
+            filebytes = File.ReadAllBytes(PathToFile);
 
+            var saving = Saving.Read();
+            if (saving == null)
+                goto END;
             if (saving.Verify.Files.Count == 0)
                 goto END;
 
@@ -78,19 +82,22 @@ namespace Downloader
             {
                 var sinfo = sfile.SliceInfo[sinfocount];
                 var fslist = file.SliceList[sinfocount];
-                var size = fslist.Size;
-                var fibytes = filebytes.Skip(takenSize).Take((int)size).ToArray();
-                takenSize += (int)size;
+                var fibytes = filebytes.Skip(takenSize).Take(sinfo.DecompressedSize).ToArray();
+                /*
+                var compBytes = LzhamWrapper.Compress(fibytes,(ulong)sinfo.DownloadedSize);
+                var compsha1 = GetSHA1Hash(compBytes);
+                */
+                takenSize += sinfo.DecompressedSize;
                 var decsha = GetSHA1Hash(fibytes);
-                
+
                 if (sinfo.DecompressedSHA != decsha)
                 {
                     Console.WriteLine($"{sinfo.DecompressedSHA} != {decsha}");
                     failinplace.Add(takenSize);
                 }
-                if (sinfo.DownloadedSize != fibytes.Length)
+                if (sinfo.DecompressedSize != fibytes.Length)
                 {
-                    Console.WriteLine($"{sinfo.DownloadedSize} != {fibytes.Length}");
+                    Console.WriteLine($"{sinfo.DecompressedSize} != {fibytes.Length}");
                     failinplace.Add(fibytes.Length * (-1));
                 }
             }

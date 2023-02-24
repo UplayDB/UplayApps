@@ -8,11 +8,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="x64\**" />
+    <Compile Remove="x86\**" />
+    <EmbeddedResource Remove="x64\**" />
+    <EmbeddedResource Remove="x86\**" />
+    <None Remove="x64\**" />
+    <None Remove="x86\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-	  <PackageReference Include="SevenZip" Version="19.0.0" />
 	  <PackageReference Include="ZstdNet" Version="1.4.5" />
 	  <PackageReference Include="UbiServices" Version="23.1.21" />
-	  <PackageReference Include="UplayKit" Version="0.0.0.6" />
+	  <PackageReference Include="UplayKit" Version="0.0.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLib\CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="G:\VisualStudio\NUGET\zstdnet\1.4.5\build\x64\libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="G:\VisualStudio\NUGET\zstdnet\1.4.5\build\x86\libzstd.dll" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System;
 using System.ComponentModel;
 using UbiServices;
 using UbiServices.Records;
@@ -13,8 +14,16 @@ namespace Dumper
 {
     internal class Program
     {
+        static void OWPrint(object strlog, string logname = "OwnedPrint.txt")
+        {
+            Console.WriteLine(strlog);
+            File.AppendAllText(logname, strlog + "\n");
+        }
+
         static void Main(string[] args)
         {
+            Console.WriteLine("New version of the Dumper has been released, use that!");
+
             LoginJson? login;
             var currentDir = GetParameter(args, "-dir", Environment.CurrentDirectory);
             if (!HasParameter(args, "-skip"))
@@ -69,18 +78,66 @@ namespace Dumper
                     Console.WriteLine("Oops something is wrong!");
                     Environment.Exit(1);
                 }
-                OwnershipConnection ownership = new(socket);
-                ownership.PushEvent += Ownership_PushEvent;
-                DownloadConnection downloadConnection = new(socket);
-                Console.ReadLine();
-                var games_ = ownership.GetOwnedGames(true);
-                var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
-                List<string> strlist = new();
-                List<uint> prodIdList = new();
                 if (!Directory.Exists(currentDir + "\\files"))
                 {
                     Directory.CreateDirectory(currentDir + "\\files");
                 }
+                OwnershipConnection ownership = new(socket);
+                ownership.PushEvent += Ownership_PushEvent;
+                DownloadConnection downloadConnection = new(socket);
+                var games_ = ownership.GetOwnedGames(true); 
+                
+                List<OW> owList = new();
+                if (File.Exists("gamelist.json"))
+                {
+                    owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText("gamelist.json"));
+                    Console.WriteLine(owList.Count);
+                }
+
+                foreach (var game in games_)
+                {
+                    OW ow = new();
+                    ow.ProductId = game.ProductId;
+                    ow.ProductType = ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString();
+                    ow.State = ((Uplay.Ownership.OwnedGame.Types.State)game.State).ToString();
+                    ow.TargetPartner = game.TargetPartner.ToString();
+                    ow.ProductAssociations = game.ProductAssociations.ToList();
+                    ow.ActivationIds = game.ActivationIds.ToList();
+
+                    if (owList.FindAll(x => x.ProductId == game.ProductId).Count <= 0)
+                    {
+                        Console.WriteLine(JsonConvert.SerializeObject(ow));
+                        owList.Add(ow);
+                    }
+                    var listdiffconf = owList.Where(x => x.ProductId == game.ProductId 
+                    && x.ProductType != ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString()
+                    && x.State != ((Uplay.Ownership.OwnedGame.Types.State)game.State).ToString()
+                    && x.TargetPartner != game.TargetPartner.ToString()
+                    && x.ProductAssociations != game.ProductAssociations.ToList()
+                    && x.ActivationIds != game.ActivationIds.ToList()
+
+
+                    ).ToList();
+
+                    if (listdiffconf.Count > 0)
+                    {
+                        Console.WriteLine(listdiffconf.Count);
+                        var ows = owList.Where(x => x.ProductId == game.ProductId).First();
+                        ows.ProductType = ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString();
+                        ows.State = ((Uplay.Ownership.OwnedGame.Types.State)game.State).ToString();
+                        ows.TargetPartner = game.TargetPartner.ToString();
+                        ows.ProductAssociations = game.ProductAssociations.ToList();
+                        ows.ActivationIds = game.ActivationIds.ToList();
+                    }
+                }
+                File.WriteAllText("gamelist.json", JsonConvert.SerializeObject(owList, Formatting.Indented));
+
+
+
+
+                var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
+                List<string> strlist = new();
+                List<uint> prodIdList = new();
                 foreach (var game in games)
                 {
                     Console.WriteLine($"{game.ProductId}={game.LatestManifest}");
@@ -396,6 +453,15 @@ namespace Dumper
             public string Brand { get; set; }
         }
 
+        public class OW
+        { 
+            public uint ProductId { get; set; }
+            public string ProductType { get; set; }
+            public string State { get; set; }
+            public string TargetPartner { get; set; }
+            public List<uint> ProductAssociations { get; set; }
+            public List<uint> ActivationIds { get; set; }
+        }
 
         static List<idmap> containsBrand(uint prod, string brand, List<idmap> idmaps, List<string> brands)
         {

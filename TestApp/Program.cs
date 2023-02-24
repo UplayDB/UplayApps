@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using ChannelKit;
+using Google.Protobuf;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.IO.Compression;
 using System.Text;
@@ -6,6 +8,7 @@ using UbiServices.Public;
 using UbiServices.Records;
 using UplayKit;
 using UplayKit.Connection;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 using static UbiServices.Public.V3;
 
 namespace TestApp
@@ -63,33 +66,58 @@ namespace TestApp
 
                 Debug.isDebug = true;
                 DemuxSocket socket = new();
-                socket.StopTheCheck = true;
+                socket.WaitInTimeMS = 2;
                 socket.VersionCheck();
 
                 socket.PushVersion();
 
                 socket.Authenticate(login.Ticket);
-                OwnershipConnection ownership = new(socket);
-                var games = ownership.GetOwnedGames(true);
-                ownership.PushEvent += Ownership_PushEvent;
+
+                ChannelProfile.GetPendingChannels(login.Ticket,login.SessionId);
+                ChannelProfile.GetActiveChannels(login.Ticket, login.SessionId);
+
+                WebSocket webSocket = new(login.SessionId, login.Ticket);
+                webSocket.Start();
+                Console.ReadLine();
+                webSocket.Stop();
+                /*
+                socket.StopCheck();
+                Console.ReadLine();
+                
+                var post = new Uplay.GameStarter.Upstream()
+                {
+                    Req = new()
+                    {
+                        StartReq = new()
+                        {
+                            LauncherVersion = 10815,
+                            UplayId = 46,
+                            SteamGame = false,
+                            GameVersion = 6,
+                            ProductId = 46,
+                            ExecutablePath = "D:\\Games\\Far Cry 3\\bin\\farcry3_d3d11.exe",
+                            ExecutableArguments = "-language=English",
+                            Platform = Uplay.GameStarter.StartReq.Types.Platform.Uplay,
+                            TimeStart = (ulong)DateTime.Now.ToFileTime()
+                        }
+                    }
+                };
+
+                var up = Formatters.FormatUpstream(post.ToByteArray());
+                Console.WriteLine(BitConverter.ToString(up));
+                var down = socket.SendBytes(up);
+
+                Console.WriteLine(BitConverter.ToString(down));
+
+                Console.ReadLine();
+                socket.StartCheck();
+                */
+
                 Console.WriteLine("end?");
                 Console.ReadLine();
                 Console.WriteLine();
                 socket.Close();
                 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 /*

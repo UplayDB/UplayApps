@@ -1,6 +1,4 @@
 ﻿using Google.Protobuf;
-using Newtonsoft.Json;
-using RestSharp;
 using UplayKit;
 using UplayKit.Connection;
 using static Downloader.Saving;
@@ -9,14 +7,21 @@ using UDFile = Uplay.Download.File;
 
 namespace Downloader
 {
-    internal class Downloader
+    internal class DLWorker
     {
-        public static void DownloadWorker(List<UDFile> files, string downloadPath, DownloadConnection downloadConnection, uint productId, Saving.Root saving)
+        public static void CreateNew()
         {
-            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
+            Config = new Config();
+
+        }
+
+        public static Config Config;
+
+        public static void DownloadWorker(DownloadConnection downloadConnection)
+        {
             Console.WriteLine("\n\t\tDownloading Started!");
             int filecounter = 0;
-            foreach (var file in files)
+            foreach (var file in Config.FilesToDownload)
             {
                 if (file.Size == 0)
                     continue;
@@ -36,10 +41,11 @@ namespace Downloader
                 {
                     sliceIds.Add(Convert.ToHexString(sl.ToArray()));
                 }
-                if (CheckCurrentFile(downloadPath, productId, file, downloadConnection, saving))
+
+                if (CheckCurrentFile(file, downloadConnection))
                     continue;
 
-                saving = Read(savingpath);
+                var saving = Read();
                 saving.Work.FileInfo = new()
                 {
                     Name = file.Name,
@@ -48,18 +54,17 @@ namespace Downloader
                         SliceList = sliceListIds,
                         Slices = sliceIds
                     }
-                }; 
-                Save(saving, savingpath);
-                saving = Read(savingpath);
-                Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{files.Count}) [{Formatters.FormatFileSize(file.Size)}]");
-                DownloadFile(downloadPath, productId, file, downloadConnection, saving);
+                };
+                Save(saving);
+                Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{Config.FilesToDownload.Count}) [{Formatters.FormatFileSize(file.Size)}]");
+                DownloadFile(file, downloadConnection);
             }
-            Console.WriteLine($"\t\tDownload for app {productId} is done!");
+            Console.WriteLine($"\t\tDownload for app {Config.ProductId} is done!");
         }
 
-        public static bool CheckCurrentFile(string downloadPath, uint productId, UDFile file, DownloadConnection downloadConnection, Root saving)
+        public static bool CheckCurrentFile(UDFile file, DownloadConnection downloadConnection)
         {
-
+            var saving = Read();
             if (saving.Work.FileInfo.Name != file.Name)
                 return false;
 
@@ -96,25 +101,24 @@ namespace Downloader
             }
 
 
-            var fullPath = Path.Combine(downloadPath, file.Name);
+            var fullPath = Path.Combine(Config.VerifyBinPath, file.Name);
             var fileInfo = new System.IO.FileInfo(fullPath);
             if (fileInfo.Length != Size)
             {
                 Console.WriteLine("Something isnt right, +/- chunk??");
-                File.WriteAllText("x.txt",(uint)fileInfo.Length + " != " +  Size + " " + sizelister.Count+ " "  + index + "\n" + curId + " " + NextId);
+                File.WriteAllText("x.txt", (uint)fileInfo.Length + " != " + Size + " " + sizelister.Count + " " + index + "\n" + curId + " " + NextId);
                 // We try restore chunk after here
                 //
                 return false;
             }
             Console.WriteLine($"\t\tRedownloading File {file.Name}!");
-            RedownloadSlices(downloadPath, productId, slicesToDownload, file, downloadConnection, saving);
+            RedownloadSlices(slicesToDownload, file, downloadConnection);
             return true;
         }
 
-        public static void RedownloadSlices(string downloadPath, uint productId, List<string> slicesToDownload, UDFile file, DownloadConnection downloadConnection, Root saving)
+        public static void RedownloadSlices(List<string> slicesToDownload, UDFile file, DownloadConnection downloadConnection)
         {
-            var fullPath = Path.Combine(downloadPath, file.Name);
-            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
+            var fullPath = Path.Combine(Config.VerifyBinPath, file.Name);
 
             var prevBytes = File.ReadAllBytes(fullPath);
 
@@ -127,7 +131,7 @@ namespace Downloader
                 for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                 {
                     var spList = splittedList[listcounter];
-                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(file, spList.ToList(), downloadConnection);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
@@ -143,7 +147,7 @@ namespace Downloader
             }
             else
             {
-                var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, slicesToDownload, downloadConnection, saving);
+                var dlbytes = ByteDownloader.DownloadBytes(file, slicesToDownload, downloadConnection);
                 foreach (var barray in dlbytes)
                 {
                     fs.Write(barray);
@@ -153,10 +157,10 @@ namespace Downloader
             fs.Close();
         }
 
-        public static void DownloadFile(string downloadPath, uint productId, UDFile file, DownloadConnection downloadConnection, Root saving)
+        public static void DownloadFile(UDFile file, DownloadConnection downloadConnection)
         {
-            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
-            var fullPath = Path.Combine(downloadPath, file.Name);
+            var saving = Read();
+            var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             var fs = File.OpenWrite(fullPath);
             if (saving.Compression.HasSliceSHA)
@@ -168,7 +172,7 @@ namespace Downloader
                     for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                     {
                         var spList = splittedList[listcounter];
-                        var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                        var dlbytes = ByteDownloader.DownloadBytes(file.Name, spList.ToList(), downloadConnection);
                         foreach (var barray in dlbytes)
                         {
                             fs.Write(barray);
@@ -184,7 +188,7 @@ namespace Downloader
                 }
                 else
                 {
-                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, file.SliceList.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(file.Name, file.SliceList.ToList(), downloadConnection);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
@@ -201,7 +205,7 @@ namespace Downloader
                     for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
                     {
                         var spList = splittedList[listcounter];
-                        var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, spList.ToList(), downloadConnection, saving);
+                        var dlbytes = ByteDownloader.DownloadBytes(file, spList.ToList(), downloadConnection);
                         foreach (var barray in dlbytes)
                         {
                             fs.Write(barray);
@@ -219,7 +223,7 @@ namespace Downloader
                 }
                 else
                 {
-                    var dlbytes = ByteDownloader.DownloadBytes(savingpath, productId, file.Name, file.Slices.ToList(), downloadConnection, saving);
+                    var dlbytes = ByteDownloader.DownloadBytes(file, file.Slices.ToList(), downloadConnection);
                     foreach (var barray in dlbytes)
                     {
                         fs.Write(barray);
@@ -231,7 +235,5 @@ namespace Downloader
             fs.Close();
             Console.WriteLine($"\t\tFile {file.Name} finished");
         }
-
-
     }
 }

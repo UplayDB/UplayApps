@@ -107,7 +107,7 @@ namespace TestForm
 
         public void GetAchList()
         {
-            UPC_AchievementListGet(Context, null, new GenericUpcDelegate<UPC_Achievement[]>(AchiList));
+            UPC_AchievementListGet(Context, UserId, new GenericUpcDelegate<UPC_Achievement[]>(AchiList));
             //UPC_AchievementImageGet(Context, 1, new GenericUpcDelegate<byte[]>(ImageGet));
         }
 

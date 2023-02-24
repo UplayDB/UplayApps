@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using CoreLib;
+using Newtonsoft.Json;
 using RestSharp;
-using System.ComponentModel;
-using System.Text;
-using System.Text.RegularExpressions;
 using UbiServices.Records;
 using UplayKit;
 using UplayKit.Connection;
-using static UbiServices.Public.V3;
 
 namespace Downloader
 {
@@ -14,52 +11,42 @@ namespace Downloader
     {
         public static string OWToken = "";
         public static ulong Exp = 0;
-        public static string UbiTicket = "";
-        public static string Session = "";
         public static OwnershipConnection? ownershipConnection = null;
         public static DemuxSocket? socket = null;
-        public static DateTime UbiTicketExp = DateTime.MinValue;
         static void Main(string[] args)
         {
-            if (HasParameter(args, "-help") || HasParameter(args, "-?") || HasParameter(args, "?"))
+            if (ParameterLib.HasParameter(args, "-help") || ParameterLib.HasParameter(args, "-?") || ParameterLib.HasParameter(args, "?"))
             {
                 PrintHelp();
             }
-            
-            bool haslocal = HasParameter(args, "-local");
+            #region Argument thingy
+            DLWorker.CreateNew();
+            bool haslocal = ParameterLib.HasParameter(args, "-local");
+            Debug.isDebug = ParameterLib.HasParameter(args, "-debug");
+            int WaitTime = ParameterLib.GetParameter(args, "-time", 5);
+            DLWorker.Config.ProductId = ParameterLib.GetParameter<uint>(args, "-product", 0);
+            DLWorker.Config.ManifestId = ParameterLib.GetParameter(args, "-manifest", "");
+            string manifest_path = ParameterLib.GetParameter(args, "-manifestpath", "");
+            bool hasAddons = ParameterLib.HasParameter(args, "-addons");
+            string lang = ParameterLib.GetParameter(args, "-lang", "default");
+            DLWorker.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{DLWorker.Config.ProductId}\\{DLWorker.Config.ManifestId}\\");
+            DLWorker.Config.UsingFileList = ParameterLib.HasParameter(args, "-skip");
+            DLWorker.Config.UsingOnlyFileList = ParameterLib.HasParameter(args, "-only");
+            string skipping = ParameterLib.GetParameter(args, "-skip", "skip.txt");
+            string onlygetting = ParameterLib.GetParameter(args, "-only", "only.txt");
+            DLWorker.Config.Verify = ParameterLib.GetParameter(args, "-verify", true);
+            bool hasVerifyPrint = ParameterLib.HasParameter(args, "-vp");
+
+            if (DLWorker.Config.UsingFileList && DLWorker.Config.UsingOnlyFileList)
+            {
+                Console.WriteLine("-skip and -only cannot be used in same time!");
+                Environment.Exit(1);
+            }
+            #endregion
+
             UbiServices.Urls.IsLocalTest = haslocal;
             #region Login
-            LoginJson? login;
-            if (HasParameter(args, "-b64"))
-            {
-                var b64 = GetParameter(args, "-b64", "");
-                login = LoginBase64(b64);
-            }
-            else if ((HasParameter(args, "-username") || HasParameter(args, "-user")) && (HasParameter(args, "-password") || HasParameter(args, "-pass")))
-            {
-                var username = GetParameter<string>(args, "-username") ?? GetParameter<string>(args, "-user");
-                var password = GetParameter<string>(args, "-password") ?? GetParameter<string>(args, "-pass");
-                login = Login(username, password);
-            }
-            else
-            {
-                Console.WriteLine("Please enter your Email:");
-                string username = Console.ReadLine()!;
-                Console.WriteLine("Please enter your Password:");
-                string password = ReadPassword();
-                login = Login(username, password);
-            }
-            if (login.Ticket == null)
-            {
-                Console.WriteLine("Your account has 2FA, please enter your code:");
-                var code2fa = Console.ReadLine();
-                if (code2fa == null)
-                {
-                    Console.WriteLine("Code cannot be empty!");
-                    Environment.Exit(1);
-                }
-                login = Login2FA(login.TwoFactorAuthenticationTicket, code2fa);
-            }
+            LoginJson? login = LoginLib.TryLoginWithArgsCLI(args);
             // Last login check
             if (login == null)
             {
@@ -68,10 +55,8 @@ namespace Downloader
             }
             #endregion
             #region Starting Connections, Getting game
-            UbiTicketExp = (DateTime)login.Expiration;
-            Debug.isDebug = HasParameter(args, "-debug");
             socket = new(haslocal);
-            socket.WaitInTimeMS = GetParameter<int>(args, "-time", 5);
+            socket.WaitInTimeMS = WaitTime;
             Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();
             bool IsAuthSuccess = socket.Authenticate(login.Ticket);
@@ -81,27 +66,22 @@ namespace Downloader
                 Console.WriteLine("Oops something is wrong!");
                 Environment.Exit(1);
             }
-
             ownershipConnection = new(socket);
             DownloadConnection downloadConnection = new(socket);
             var owned = ownershipConnection.GetOwnedGames(false);
-            if (owned == null)
+            if (owned == null || owned.Count == 0)
+            {
+                Console.WriteLine("No games owned?!");
                 Environment.Exit(1);
+            }
             #endregion
-            #region Printing games
-
-            var productId = GetParameter<uint>(args, "-product", 0);
-            var manifest = GetParameter(args, "-manifest", "");
-            var manifest_path = GetParameter(args, "-manifestpath", "");
-            var product_manifest = productId + "_" + manifest;
+            #region Game printing & Argument Check
             Uplay.Download.Manifest parsedManifest = new();
             RestClient rc = new();
 
-            if (productId == 0 && manifest == "")
+            if (DLWorker.Config.ProductId == 0 && DLWorker.Config.ManifestId == "")
             {
-                owned = owned.Where(game => game.LatestManifest.Trim().Length > 0).ToList();
-                owned = owned.Where(game => game.ProductType == (uint)Uplay.Ownership.OwnedGame.Types.ProductType.Game).ToList();
-
+                owned = owned.Where(game => game.LatestManifest.Trim().Length > 0 && game.ProductType == (uint)Uplay.Ownership.OwnedGame.Types.ProductType.Game).ToList();
 
                 Console.WriteLine("-1) Your games:.");
                 Console.WriteLine("----------------------");
@@ -115,59 +95,30 @@ namespace Downloader
                 Console.ReadLine();
 
                 int selection = int.Parse(Console.ReadLine()!);
-                bool manifestfile = false;
                 if (selection == -1)
                 {
                     Console.WriteLine("> Input the 20-byte long manifest identifier:");
-                    manifest = Console.ReadLine()!.Trim();
-
-                    if (manifest.Contains(".manifest")) { manifestfile = true; }
+                    DLWorker.Config.ManifestId = Console.ReadLine()!.Trim();
 
                     Console.WriteLine("> Input the productId:");
-                    productId = uint.Parse(Console.ReadLine()!.Trim());
+                    DLWorker.Config.ProductId = uint.Parse(Console.ReadLine()!.Trim());
                 }
                 else if (selection <= gameIds)
                 {
-                    manifest = owned[selection].LatestManifest;
-                    productId = owned[selection].ProductId;
-
-                    product_manifest = $"{productId}_{manifest}";
+                    DLWorker.Config.ManifestId = owned[selection].LatestManifest;
+                    DLWorker.Config.ProductId = owned[selection].ProductId;
                 }
 
+                DLWorker.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{DLWorker.Config.ProductId}\\{DLWorker.Config.ManifestId}\\");
+                DLWorker.Config.ProductManifest = $"{DLWorker.Config.ProductId}_{DLWorker.Config.ManifestId}";
 
-
-                if (manifestfile)
+                if (!Directory.Exists(DLWorker.Config.DownloadDirectory))
                 {
-                    parsedManifest = Parsers.ParseManifestFile(manifest);
-                    var ownershipToken = ownershipConnection.GetOwnershipToken(productId);
-                    if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
-                    OWToken = ownershipToken.Item1;
-                    Exp = ownershipToken.Item2;
-                    Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
-                    downloadConnection.InitDownloadToken(OWToken);
-                }
-                else
-                {
-                    var ownershipToken = ownershipConnection.GetOwnershipToken(productId);
-                    if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
-                    OWToken = ownershipToken.Item1;
-                    Exp = ownershipToken.Item2;
-                    Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
-                    downloadConnection.InitDownloadToken(OWToken);
-                    string manifestUrl = downloadConnection.GetUrl(manifest, productId);
-
-                    var manifestBytes = rc.DownloadData(new(manifestUrl));
-                    if (manifestBytes == null)
-                        throw new("Manifest not found?");
-
-                    File.WriteAllBytes(product_manifest + ".manifest", manifestBytes);
-                    parsedManifest = Parsers.ParseManifestFile(product_manifest + ".manifest");
+                    Directory.CreateDirectory(DLWorker.Config.DownloadDirectory);
                 }
 
-            }
-            else
-            {
-                var ownershipToken = ownershipConnection.GetOwnershipToken(productId);
+                // Getting ownership token
+                var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
                 if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
                 OWToken = ownershipToken.Item1;
                 Exp = ownershipToken.Item2;
@@ -176,119 +127,152 @@ namespace Downloader
 
                 if (manifest_path != "")
                 {
+                    File.Copy(manifest_path, DLWorker.Config.DownloadDirectory + "uplay_install.manifest", true);
                     parsedManifest = Parsers.ParseManifestFile(manifest_path);
                 }
                 else
                 {
-                    string manifestUrl = downloadConnection.GetUrl(manifest, productId);
+                    string manifestUrl = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId);
 
                     var manifestBytes = rc.DownloadData(new(manifestUrl));
                     if (manifestBytes == null)
                         throw new("Manifest not found?");
 
-                    File.WriteAllBytes(product_manifest + ".manifest", manifestBytes);
-                    parsedManifest = Parsers.ParseManifestFile(product_manifest + ".manifest");
+                    File.WriteAllBytes(DLWorker.Config.ProductManifest + ".manifest", manifestBytes);
+                    parsedManifest = Parsers.ParseManifestFile(DLWorker.Config.ProductManifest + ".manifest");
                 }
             }
-
-            if (HasParameter(args, "-addons"))
+            #endregion
+            #region Game from Argument
+            else
             {
-                string LicenseURL = downloadConnection.GetUrl(manifest, productId, "license");
+                var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
+                if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
+                OWToken = ownershipToken.Item1;
+                Exp = ownershipToken.Item2;
+                Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
+                downloadConnection.InitDownloadToken(OWToken);
+                if (manifest_path != "")
+                {
+                    File.Copy(manifest_path, DLWorker.Config.DownloadDirectory + "uplay_install.manifest", true);
+                    parsedManifest = Parsers.ParseManifestFile(manifest_path);
+                }
+                else
+                {
+                    string manifestUrl = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId);
+
+                    var manifestBytes = rc.DownloadData(new(manifestUrl));
+                    if (manifestBytes == null)
+                        throw new("Manifest not found?");
+
+                    File.WriteAllBytes(DLWorker.Config.ProductManifest + ".manifest", manifestBytes);
+                    File.Copy(DLWorker.Config.ProductManifest + ".manifest", DLWorker.Config.DownloadDirectory + "uplay_install.manifest", true);
+                    parsedManifest = Parsers.ParseManifestFile(DLWorker.Config.ProductManifest + ".manifest");
+                }
+            }
+            #endregion
+            #region Addons check
+            if (hasAddons)
+            {
+                string LicenseURL = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId, "license");
                 var License = rc.DownloadData(new(LicenseURL));
                 if (License == null)
                     throw new("License not found?");
-                File.WriteAllBytes(product_manifest + ".license", License);
+                File.WriteAllBytes(DLWorker.Config.ProductManifest + ".license", License);
 
-                string MetadataURL = downloadConnection.GetUrl(manifest, productId, "metadata");
+                string MetadataURL = downloadConnection.GetUrl(DLWorker.Config.ManifestId, DLWorker.Config.ProductId, "metadata");
                 var Metadata = rc.DownloadData(new(MetadataURL));
                 if (Metadata == null)
                     throw new("Metadata not found?");
-                File.WriteAllBytes(product_manifest + ".metadata", Metadata);
+                File.WriteAllBytes(DLWorker.Config.ProductManifest + ".metadata", Metadata);
             }
             rc.Dispose();
             #endregion
             #region Compression Print
             Console.WriteLine($"\nDownloaded and parsed manifest successfully:");
             Console.WriteLine($"Compression Method: {parsedManifest.CompressionMethod} IsCompressed? {parsedManifest.IsCompressed} Version {parsedManifest.Version}");
-            if (parsedManifest.CompressionMethod == Uplay.Download.CompressionMethod.Lzham) { Console.WriteLine("LZHAM ISNT SUPPORTED!"); }
             #endregion
             #region Lang Chunks
             List<Uplay.Download.File> files = new();
-            var lang = GetParameter(args, "-lang", "default");
 
-            if (lang == "default")
+            if (parsedManifest.Languages.ToList().Count > 0)
             {
-                Console.WriteLine("Languages to use (just press enter to choose nothing, and all for all chunks)");
-                parsedManifest.Languages.ToList().ForEach(x => Console.WriteLine(x.Code));
-
-                var langchoosed = Console.ReadLine();
-
-                if (!string.IsNullOrEmpty(langchoosed))
+                if (lang == "default")
                 {
-                    if (langchoosed == "all")
+                    Console.WriteLine("Languages to use (just press enter to choose nothing, and all for all chunks)");
+                    parsedManifest.Languages.ToList().ForEach(x => Console.WriteLine(x.Code));
+
+                    var langchoosed = Console.ReadLine();
+
+                    if (!string.IsNullOrEmpty(langchoosed))
                     {
-                        files = ChunkManager.AllFiles(parsedManifest);
+                        if (langchoosed == "all")
+                        {
+                            files = ChunkManager.AllFiles(parsedManifest);
+                        }
+                        else
+                        {
+                            files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
+                            lang = langchoosed;
+                            files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
+                        }
                     }
-                    files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
-                    lang = langchoosed;
-                    files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
+                    else
+                    {
+                        files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
+
+                    }
+                }
+                else if (lang == "all")
+                {
+                    files = ChunkManager.AllFiles(parsedManifest);
                 }
                 else
                 {
                     files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
-
+                    files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
                 }
             }
             else
             {
-                files.AddRange(ChunkManager.RemoveNonEnglish(parsedManifest));
-                files.AddRange(ChunkManager.AddLanguage(parsedManifest, lang));
+                files = ChunkManager.AllFiles(parsedManifest);
             }
             #endregion
             #region Skipping files from chunk
+            DLWorker.Config.FilesToDownload = DLFile.FileNormalizer(files);
             List<string> skip_files = new();
-
-            if (HasParameter(args, "-skip"))
+            if (DLWorker.Config.UsingFileList)
             {
-                var skipping = GetParameter(args, "-skip", "skip.txt");
                 if (File.Exists(skipping))
                 {
                     var lines = File.ReadAllLines(skipping);
                     skip_files.AddRange(lines);
                     Console.WriteLine("Skipping files Added");
                 }
-                files = ChunkManager.RemoveSkipFiles(files, skip_files);
+                ChunkManager.RemoveSkipFiles(skip_files);
             }
-            if (HasParameter(args, "-only"))
+            if (DLWorker.Config.UsingOnlyFileList)
             {
-                var onlygetting = GetParameter(args, "-only", "only.txt");
                 if (File.Exists(onlygetting))
                 {
                     var lines = File.ReadAllLines(onlygetting);
                     skip_files.AddRange(lines);
                     Console.WriteLine("Download only Added");
                 }
-                files = ChunkManager.AddDLOnlyFiles(files, skip_files);
+                DLWorker.Config.FilesToDownload = ChunkManager.AddDLOnlyFiles(skip_files);
             }
-            #endregion
-            #region Get Path and Create
             Console.WriteLine("\tFiles Ready to work\n");
-            string downloadPath = GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{productId}\\{manifest}\\");
-            if (!Directory.Exists(downloadPath))
-            {
-                Directory.CreateDirectory(downloadPath);
-            }
             #endregion
             #region Saving
             Saving.Root saving = new();
-            var savingpath = Path.Combine(downloadPath, ".UD\\saved.bin");
-            Directory.CreateDirectory(Path.GetDirectoryName(savingpath));
-            if (File.Exists(savingpath))
+            DLWorker.Config.VerifyBinPath = Path.Combine(DLWorker.Config.DownloadDirectory, ".UD\\verify.bin");
+            Directory.CreateDirectory(Path.GetDirectoryName(DLWorker.Config.VerifyBinPath));
+            if (File.Exists(DLWorker.Config.VerifyBinPath))
             {
-                var readedBin = Saving.Read(savingpath);
+                var readedBin = Saving.Read();
                 if (readedBin == null)
                 {
-                    saving = Saving.MakeNew(productId, manifest, parsedManifest);
+                    saving = Saving.MakeNew(DLWorker.Config.ProductId, DLWorker.Config.ManifestId, parsedManifest);
                 }
                 else
                 {
@@ -297,22 +281,25 @@ namespace Downloader
             }
             else
             {
-                saving = Saving.MakeNew(productId, manifest, parsedManifest);
+                saving = Saving.MakeNew(DLWorker.Config.ProductId, DLWorker.Config.ManifestId, parsedManifest);
             }
-            if (HasParameter(args, "-filetosaved"))
+            if (hasVerifyPrint)
             {
-                File.WriteAllText(savingpath + ".json", JsonConvert.SerializeObject(saving));
+                File.WriteAllText(DLWorker.Config.VerifyBinPath + ".json", JsonConvert.SerializeObject(saving));
                 Console.ReadLine();
             }
-            Saving.Save(saving,savingpath);
+            Saving.Save(saving);
             #endregion
             #region Verify + Downloading
-            if (HasParameter(args, "-verify"))
+            if (DLWorker.Config.Verify)
             {
-                files = Verifier.Verify(files, saving, downloadPath);
+                Verifier.Verify();
             }
-            Console.ReadLine();
-            Downloader.DownloadWorker(files, downloadPath, downloadConnection, productId, saving);
+            /*
+            var resRoot = AutoRes.MakeNew(DLWorker.Config.ProductId, DLWorker.Config.ManifestId, DLWorker.Config.DownloadDirectory, DLWorker.Config.VerifyBinPath, Path.Combine(DLWorker.Config.DownloadDirectory, "uplay_install.manifest"));
+            AutoRes.Save(resRoot);
+            */
+            DLWorker.DownloadWorker(downloadConnection);
             #endregion
             #region Closing and GoodBye
             Console.WriteLine("Goodbye!");
@@ -326,13 +313,12 @@ namespace Downloader
 
         static void PrintHelp()
         {
-            Console.WriteLine();
+            CoreLib.HelpArgs.PrintHelp();
+            Console.WriteLine("\n");
             Console.WriteLine("\t\tWelcome to Uplay Downloader CLI!");
             Console.WriteLine();
-            Console.WriteLine("\t Arguments\t\t What does it do");
-            Console.WriteLine("\t -b64\t\t\t Login with providen Base64 of email and password");
-            Console.WriteLine("\t -username\t\t Using that email to login");
-            Console.WriteLine("\t -password\t\t Using that password to login");
+            Console.WriteLine("\t Arguments\t\t Arguments Description");
+            Console.WriteLine();
             Console.WriteLine("\t -debug\t\t\t Debugging every request/response");
             Console.WriteLine("\t -time\t\t\t Using that as a wait time (5 is default [Low is better])");
             Console.WriteLine("\t -product\t\t -");
@@ -342,133 +328,38 @@ namespace Downloader
             Console.WriteLine("\t -skip\t\t\t -");
             Console.WriteLine("\t -only\t\t\t -");
             Console.WriteLine("\t -dir\t\t\t -");
-            Console.WriteLine("\t -filetosaved\t\t -");
+            Console.WriteLine("\t -vp\t\t\t -");
             Console.WriteLine("\t -verify\t\t -");
             Console.WriteLine();
             Environment.Exit(0);
         }
 
-        static int IndexOfParam(string[] args, string param)
-        {
-            for (var x = 0; x < args.Length; ++x)
-            {
-                if (args[x].Equals(param, StringComparison.OrdinalIgnoreCase))
-                    return x;
-            }
-
-            return -1;
-        }
-
-        public static void UbiTicketReNew()
-        {
-            if (UbiTicketExp <= DateTime.Now)
-            {
-                Console.WriteLine(UbiTicketExp);
-                
-                var renewed = LoginRenew(UbiTicket, Session);
-
-                if (renewed.Ticket != null)
-                {
-                    UbiTicket = renewed.Ticket;
-                    Session = renewed.SessionId;
-                    UbiTicketExp = (DateTime)renewed.Expiration;
-                    bool authed = socket.Authenticate(renewed.Ticket);
-                    Console.WriteLine("Renewed and Authed? " + authed);
-                }
-            }
-        }
-
         static DateTime GetTimeFromEpoc(ulong epoc)
         {
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return dateTime.AddSeconds(epoc).ToLocalTime();
+            return dateTime.AddSeconds(epoc);
+        }
+
+        static ulong GetEpocTime()
+        {
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return (ulong)t.TotalSeconds;
+
         }
 
         public static void CheckOW(uint ProdId)
         {
-            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(Exp).ToLocalTime();
-
-            if (dateTime <= DateTime.Now)
+            if (Exp <= GetEpocTime())
             {
                 Console.WriteLine("Your token has no more valid, getting new!");
-                Console.WriteLine(dateTime + " " + DateTime.Now);
                 if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
                 {
                     var token = ownershipConnection.GetOwnershipToken(ProdId);
+                    Console.WriteLine("Is Token get success? " + ownershipConnection.isServiceSuccess);
                     Exp = token.Item2;
                     OWToken = token.Item1;
                 }
             }
-        }
-
-
-        static bool HasParameter(string[] args, string param)
-        {
-            return IndexOfParam(args, param) > -1;
-        }
-
-        static T GetParameter<T>(string[] args, string param, T defaultValue = default(T))
-        {
-            var index = IndexOfParam(args, param);
-
-            if (index == -1 || index == (args.Length - 1))
-                return defaultValue;
-
-            var strParam = args[index + 1];
-
-            var converter = TypeDescriptor.GetConverter(typeof(T));
-            if (converter != null)
-            {
-                return (T)converter.ConvertFromString(strParam);
-            }
-
-            return default(T);
-        }
-
-        //Validate the eamil address for you
-        public static bool EmailValidation(string email)
-        {
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            Match match = regex.Match(email);
-            if (match.Success)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        //Literally stolen from SteamRE guys.
-        public static string ReadPassword()
-        {
-            ConsoleKeyInfo keyInfo;
-            var password = new StringBuilder();
-
-            do
-            {
-                keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == ConsoleKey.Backspace)
-                {
-                    if (password.Length > 0)
-                    {
-                        password.Remove(password.Length - 1, 1);
-                        Console.Write("\b \b");
-                    }
-
-                    continue;
-                }
-                /* Printable ASCII characters only */
-                var c = keyInfo.KeyChar;
-                if (c >= ' ' && c <= '~')
-                {
-                    password.Append(c);
-                    Console.Write('*');
-                }
-            } while (keyInfo.Key != ConsoleKey.Enter);
-
-            return password.ToString();
         }
         #endregion
     }
