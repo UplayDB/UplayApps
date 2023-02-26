@@ -64,10 +64,11 @@ namespace Downloader
             {
                 failinplace.Add(-1);
             }
+            /*
             byte[] filebytes = new byte[fileInfo.Length];
 
             filebytes = File.ReadAllBytes(PathToFile);
-
+            */
             var saving = Saving.Read();
             if (saving == null)
                 goto END;
@@ -78,11 +79,14 @@ namespace Downloader
             if (sfile == null)
                 goto END;
             var takenSize = 0;
+            var fileread = File.OpenRead(PathToFile);
             for (int sinfocount = 0; sinfocount < sfile.SliceInfo.Count; sinfocount++)
             {
                 var sinfo = sfile.SliceInfo[sinfocount];
                 var fslist = file.SliceList[sinfocount];
-                var fibytes = filebytes.Skip(takenSize).Take(sinfo.DecompressedSize).ToArray();
+                byte[] fibytes = new byte[sinfo.DecompressedSize];
+
+                fileread.Read(fibytes, takenSize, sinfo.DecompressedSize);
                 /*
                 var compBytes = LzhamWrapper.Compress(fibytes,(ulong)sinfo.DownloadedSize);
                 var compsha1 = GetSHA1Hash(compBytes);
