@@ -65,7 +65,7 @@ namespace PipeProxy
                                     Console.WriteLine(Uplay.Overlay.Downstream.Parser.ParseFrom(BufferDone));
                                     break;
                                 case "\\terminal_1_uplay_ipc_pipe_":
-                                    Console.WriteLine(Uplay.Uplay.Req.Parser.ParseFrom(BufferDone));
+                                    //Console.WriteLine(Uplay.Uplay.Req.Parser.ParseFrom(BufferDone)); //This should be something else I think
                                     break;
                                 case "\\terminal_1_uplay_crash_reporter_ipc_pipe_":
                                     Console.WriteLine(Uplay.CrashReporter.Downstream.Parser.ParseFrom(BufferDone));
