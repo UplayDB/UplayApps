@@ -73,6 +73,10 @@ namespace TestApp
 
                 socket.Authenticate(login.Ticket);
 
+                OwnershipConnection ownershipConnection = new(socket);
+                ownershipConnection.PushEvent += Ownership_PushEvent;
+                ownershipConnection.GetOwnedGames();
+                /*
                 ChannelProfile.GetPendingChannels(login.Ticket,login.SessionId);
                 ChannelProfile.GetActiveChannels(login.Ticket, login.SessionId);
 
@@ -80,6 +84,7 @@ namespace TestApp
                 webSocket.Start();
                 Console.ReadLine();
                 webSocket.Stop();
+                */
                 /*
                 socket.StopCheck();
                 Console.ReadLine();
@@ -204,7 +209,6 @@ namespace TestApp
             */
 
         }
-
 
         static byte[] Decompress(byte[] data)
         {

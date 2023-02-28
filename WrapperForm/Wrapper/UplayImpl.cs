@@ -220,40 +220,41 @@ namespace TestForm.Wrapper
         {
             long ptrImage = 0L;
             long num = PushRequest(delegate (int inResult)
-            {
-            Debug.PWDebug("UPC_AchievementImageGet PushRequest " + inResult);
-            byte[] array = { 0x0 };
-            if (inResult == 0)
-            {
-                try
                 {
-                        Debug.PWDebug($"UPC_AchievementImageGet ptrImage {ptrImage}");
-                        Debug.PWDebug(string.Format("{0:X8}", ptrImage));
-                        IntPtr ptr_img = new IntPtr(ptrImage);
-                        IntPtr source = Global.IntPtrToStruct<IntPtr>(ptr_img);
-                        Debug.PWDebug($"UPC_AchievementImageGet source {source}");
-                        int num3 = 16384;
-                        array = new byte[num3];
-                        Debug.PWDebug($"UPC_AchievementImageGet Marshal.Copy next!");
-                        Debug.PWDebug(string.Format("{0:X8}", source.ToInt64()));
-                        MessageBox.Show("xx");
-                        var y = Marshal.ReadByte(ptr_img);
-                        Debug.PWDebug(y);
-                        Marshal.Copy(source, array, 0, num3);
-                        Debug.PWDebug($"UPC_AchievementImageGet {array.Length}/{num3} | {ptrImage}");
-                    }
-                    catch (Exception ex)
+                    Debug.PWDebug("UPC_AchievementImageGet PushRequest " + inResult);
+                    byte[] array = { 0x0 };
+                    if (inResult == 0)
                     {
-                        File.WriteAllText("UPC_AchievementImageGet_ex", ex.ToString());
-                    }
+                        try
+                        {
+                            Debug.PWDebug($"UPC_AchievementImageGet ptrImage {ptrImage}");
+                            Debug.PWDebug(string.Format("{0:X8}", ptrImage));
+                            IntPtr ptr_img = new IntPtr(ptrImage);
+                            IntPtr source = Global.IntPtrToStruct<IntPtr>(ptr_img);
+                            Debug.PWDebug($"UPC_AchievementImageGet source {source}");
+                            int num3 = 16384;
+                            array = new byte[num3];
+                            Debug.PWDebug($"UPC_AchievementImageGet Marshal.Copy next!");
+                            Debug.PWDebug(string.Format("{0:X8}", source.ToInt64()));
+                            MessageBox.Show("xx");
+                            var y = Marshal.ReadByte(ptr_img);
+                            Debug.PWDebug(y);
+                            Marshal.Copy(source, array, 0, num3);
+                            Debug.PWDebug($"UPC_AchievementImageGet {array.Length}/{num3} | {ptrImage}");
+                        }
+                        catch (Exception ex)
+                        {
+                            File.WriteAllText("UPC_AchievementImageGet_ex", ex.ToString());
+                        }
 
-                    upc_r2_loader64.UPC_AchievementImageFreeImpl(inContext, ptrImage);
+                        upc_r2_loader64.UPC_AchievementImageFreeImpl(inContext, ptrImage);
+                    }
+                    if (callback != null)
+                    {
+                        callback(new UPC_TaskResult<byte[]>(inResult, array, inResultOptData));
+                    }
                 }
-                if (callback != null)
-                {
-                    callback(new UPC_TaskResult<byte[]>(inResult, array, inResultOptData));
-                }
-            }); 
+            ); 
             var funcpointer = Marshal.GetFunctionPointerForDelegate<UPC_CallbackImpl>(new UPC_CallbackImpl(HandleRequest));
             Debug.PWDebug($"[UPC_AchievementImageGet] Func: {funcpointer}");
             int num2 = upc_r2_loader64.UPC_AchievementImageGetImpl(inContext, inId, ref ptrImage, funcpointer, new IntPtr(num));

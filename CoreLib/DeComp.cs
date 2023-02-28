@@ -17,11 +17,11 @@ namespace CoreLib
             {
                 case "Zstd":
                     Decompressor decompressorZstd = new();
-                    var returner = decompressorZstd.Unwrap(bytesToDecompress);
+                    byte[] returner = decompressorZstd.Unwrap(bytesToDecompress);
                     decompressorZstd.Dispose();
                     return returner;
                 case "Deflate":
-                    var decompressor = new InflaterInputStream(new MemoryStream(bytesToDecompress), new(false));
+                    InflaterInputStream decompressor = new InflaterInputStream(new MemoryStream(bytesToDecompress), new(false));
                     MemoryStream ms = new((int)outputsize);
                     decompressor.CopyTo(ms);
                     decompressor.Dispose();
@@ -43,12 +43,12 @@ namespace CoreLib
             {
                 case "Zstd":
                     Compressor compressZstd = new();
-                    var returner = compressZstd.Wrap(bytesToCompress);
+                    byte[] returner = compressZstd.Wrap(bytesToCompress);
                     compressZstd.Dispose();
                     return returner;
                 case "Deflate":
                     MemoryStream ms = new();
-                    var compressor = new ZLibStream(new MemoryStream(bytesToCompress), CompressionLevel.SmallestSize);
+                    ZLibStream compressor = new ZLibStream(new MemoryStream(bytesToCompress), CompressionLevel.SmallestSize);
                     ms.CopyTo(compressor);
                     compressor.Close();
                     return ms.ToArray();

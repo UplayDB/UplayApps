@@ -39,8 +39,8 @@ namespace CoreLib
                 }
                 if (ParameterLib.HasParameter(args, "-trustedname"))
                 {
-                    var trustedname = ParameterLib.GetParameter(args, "-trustedname", Environment.MachineName);
-                    var trustedid = ParameterLib.GetParameter(args, "-trustedid", GenerateDeviceId(trustedname));
+                    string trustedname = ParameterLib.GetParameter(args, "-trustedname", Environment.MachineName);
+                    string trustedid = ParameterLib.GetParameter(args, "-trustedid", GenerateDeviceId(trustedname));
                     login = TryLoginWith2FA_Rem(login, trustedname, trustedid);
                 }
                 else

@@ -7,17 +7,17 @@ namespace CoreLib
     {
         public static bool Check()
         {
-            var callAss = Assembly.GetCallingAssembly();
-            var TypesVersion = callAss.GetTypes().Where(z => z.GetFields().Where(b => b.Name == "Version").Any()).ToArray();
-            var Namespace = TypesVersion.Select(t => t.Namespace).Distinct().First();
+            Assembly callAss = Assembly.GetCallingAssembly();
+            Type[] TypesVersion = callAss.GetTypes().Where(z => z.GetFields().Where(b => b.Name == "Version").Any()).ToArray();
+            string? Namespace = TypesVersion.Select(t => t.Namespace).Distinct().First();
 
-            var versionField = TypesVersion.Select(x=>x.GetField("Version")).First();
+            FieldInfo? versionField = TypesVersion.Select(x=>x.GetField("Version")).First();
             if (versionField != null)
-            {        
-                var version = versionField.GetValue(callAss) as string;
+            {
+                string? version = versionField.GetValue(callAss) as string;
 
-                var client = new RestClient($"https://raw.githubusercontent.com/UplayDB/UplayApps/main/Released/{Namespace}/{version}.txt");
-                var request = new RestRequest();
+                RestClient client = new RestClient($"https://raw.githubusercontent.com/UplayDB/UplayApps/main/Released/{Namespace}/{version}.txt");
+                RestRequest request = new RestRequest();
 
                 try
                 {
