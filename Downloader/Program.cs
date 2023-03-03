@@ -1,6 +1,7 @@
 ﻿using CoreLib;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Text;
 using UbiServices.Records;
 using UplayKit;
 using UplayKit.Connection;
@@ -88,7 +89,8 @@ namespace Downloader
                 int gameIds = 0;
                 foreach (var game in owned)
                 {
-                    Console.WriteLine($"\n({gameIds}) ProductId ({game.ProductId}) Manifest {game.LatestManifest}");
+                    Console.WriteLine($"\n\t{Appname.GetAppName(game.ProductId)}");
+                    Console.WriteLine($"({gameIds}) ProductId ({game.ProductId}) Manifest {game.LatestManifest}");
                     gameIds++;
                 }
                 Console.WriteLine("Please select:");

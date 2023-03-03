@@ -6,12 +6,12 @@ namespace Dumperv2
 {
     internal class Program
     {
-        public static string Version = "0.2";
+        public static string Version = "0.3";
         static void Main(string[] args)
         {
             if (!VersionCheck.Check())
             {
-                Console.WriteLine("yrrz");
+                Console.WriteLine("Your version outdated you may can check out in github what is updated");
             }
             if (ParameterLib.HasParameter(args, "-help") || ParameterLib.HasParameter(args, "-?") || ParameterLib.HasParameter(args, "?"))
             {
@@ -72,6 +72,8 @@ namespace Dumperv2
             LatestManifest.Work(currentDir, games, downloadConnection, ownership);
             var games2 = games_.Where(x => x.Configuration.Length != 0).ToArray();
             ProductConfig.Work(currentDir, games2);
+            var games3 = games2.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
+            ProductConfigWithManifest.Work(currentDir,games3);
             if (ParameterLib.HasParameter(args, "-store"))
             {
                 StoreConnection storeConnection = new(socket);
