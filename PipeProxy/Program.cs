@@ -80,11 +80,22 @@ namespace PipeProxxy
                 
                 foreach (string name in PipeNames)
                 {
-                    var longRunning = new KillMe(name);
-                    NameKill.Add(name,longRunning);
-                    Thread myThread = new Thread(longRunning.ExecuteLongRunningTask);
+                    try
+                    {
+                        if (!name.Contains("process"))
+                            continue;
 
-                    myThread.Start();
+                        var longRunning = new KillMe(name);
+                        NameKill.Add(name, longRunning);
+                        Thread myThread = new Thread(longRunning.ExecuteLongRunningTask);
+
+                        myThread.Start();
+                    }
+                    catch
+                    { 
+                    
+                    }
+
                 }
 
                 Console.ReadLine();

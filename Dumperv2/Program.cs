@@ -6,7 +6,7 @@ namespace Dumperv2
 {
     internal class Program
     {
-        public static string Version = "0.1";
+        public static string Version = "0.2";
         static void Main(string[] args)
         {
             if (!VersionCheck.Check())

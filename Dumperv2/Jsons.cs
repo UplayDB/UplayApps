@@ -31,10 +31,8 @@
         {
             public uint ProductId { get; set; }
             public string ProductType { get; set; }
-            public string State { get; set; }
             public string TargetPartner { get; set; }
             public List<uint> ProductAssociations { get; set; }
-            public List<uint> ActivationIds { get; set; }
         }
     }
 }

@@ -76,6 +76,10 @@ namespace TestApp
                 OwnershipConnection ownershipConnection = new(socket);
                 ownershipConnection.PushEvent += Ownership_PushEvent;
                 ownershipConnection.GetOwnedGames();
+
+                StoreConnection storeConnection = new(socket);
+                storeConnection.PushEvent += StoreConnection_PushEvent;
+                storeConnection.Init();
                 /*
                 ChannelProfile.GetPendingChannels(login.Ticket,login.SessionId);
                 ChannelProfile.GetActiveChannels(login.Ticket, login.SessionId);
@@ -208,6 +212,12 @@ namespace TestApp
             }
             */
 
+        }
+
+        private static void StoreConnection_PushEvent(object? sender, Uplay.Store.Push e)
+        {
+            Console.WriteLine(e.ToString());
+            File.AppendAllText("store_push_event.txt", e.ToString());
         }
 
         static byte[] Decompress(byte[] data)
