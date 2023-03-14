@@ -38,10 +38,6 @@
             sw.WriteLine("Chunk Version           : " + ManifestFile.ChunksVersion);
             sw.WriteLine("Legacy Installer        : " + ManifestFile.LegacyInstaller);
             sw.WriteLine();
-            sw.WriteLine("Max(?) Slice Size       : " + ManifestFile.SliceSizeDeprecated + " (Depracted)");
-            sw.WriteLine("Padded Slice Size:      : " + ManifestFile.PaddedSliceSizeDeprecated + " (Depracted)");
-            sw.WriteLine("Is encrypted            : " + ManifestFile.IsEncryptedDeprecated + " (Depracted)");
-            sw.WriteLine();
             if (ManifestFile.DeprecatedLanguages.Count != 0)
             {
                 sw.Write("DeprecatedLanguages: ");

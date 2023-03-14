@@ -1,9 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Sign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="UbiServices" Version="23.1.21" />
-    <PackageReference Include="UplayKit" Version="0.0.0.6" />
+    <PackageReference Include="UbiServices" Version="23.2.19" />
+    <PackageReference Include="UplayKit" Version="0.0.0.11" />
     <PackageReference Include="ZstdNet" Version="1.4.5" />
   </ItemGroup>
 

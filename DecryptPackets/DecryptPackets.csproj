@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.21.12" />
-	<PackageReference Include="Uplay-Protobufs" Version="137.0.10799" />
+	<PackageReference Include="Uplay-Protobufs" Version="139.0.10836" />
   </ItemGroup>
 	
 </Project>

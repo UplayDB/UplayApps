@@ -117,6 +117,13 @@ namespace TestForm
             UPC_AchievementImageGet(Context, 3, new GenericUpcDelegate<byte[]>(ImageGet));
         }
 
+        public void TestErrors(int error)
+        {
+            var ptr = upc_r2_loader64.UPC_ErrorToStringImpl(error);
+            var str = Marshal.PtrToStringAnsi(ptr);
+            Debug.PWDebug("[TestErrors]" + str + " " + error);
+        }
+
         private void AchiList(UPC_TaskResult<UPC_Achievement[]> result)
         {
             var x = JsonConvert.SerializeObject(result);

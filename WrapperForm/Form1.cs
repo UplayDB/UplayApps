@@ -59,5 +59,14 @@ namespace TestForm
         {
             backgroundWorker1.RunWorkerAsync(e);
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox1.Text))
+            {
+                return;
+            }
+            dllTest.TestErrors(int.Parse(textBox1.Text));
+        }
     }
 }
