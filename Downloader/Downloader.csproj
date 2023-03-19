@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="ZstdNet" Version="1.4.5" />
-	  <PackageReference Include="UbiServices" Version="23.2.19" />
-	  <PackageReference Include="UplayKit" Version="0.0.0.11" />
+	  <PackageReference Include="UbiServices" Version="23.3.19" />
+	  <PackageReference Include="UplayKit" Version="0.0.0.12" />
   </ItemGroup>
 
   <ItemGroup>
