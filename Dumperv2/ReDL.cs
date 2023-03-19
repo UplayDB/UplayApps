@@ -36,7 +36,11 @@ namespace Dumperv2
                         {
                             Console.WriteLine("Manifest dl!");
                             var rc1 = new RestClient();
-                            File.WriteAllBytes(currentDir + "\\files\\" + prod + "_" + manifest + ".manifest", rc1.DownloadData(new(manifestUrl_1)));
+                            var data = rc1.DownloadData(new(manifestUrl_1));
+                            if (data == null)
+                                Console.WriteLine("Manifest dl failed! Url return nothing.\nURL: " + manifestUrl_1);
+                            else
+                                File.WriteAllBytes(currentDir + "\\files\\" + prod + "_" + manifest + ".manifest", data);
                         }
                     }
                     Console.WriteLine(manifest + " " + prod + " " + i);
