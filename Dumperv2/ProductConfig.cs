@@ -33,6 +33,7 @@ namespace Dumperv2
                 {
                     Console.WriteLine(listdiffconf.Count);
                     listconf.Where(x => x.ProductId == g.ProductId).First().Configuration = g.Configuration;
+                    Console.WriteLine(JsonConvert.SerializeObject(listconf.Where(x => x.ProductId == g.ProductId).First()));
                 }
             }
             listconf = listconf.OrderBy(x => x.ProductId).ToList();

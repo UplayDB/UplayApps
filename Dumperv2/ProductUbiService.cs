@@ -12,6 +12,7 @@ namespace Dumperv2
             if (File.Exists("productservice.json"))
             {
                 listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText("productservice.json"));
+                Console.WriteLine($"ProductUbiService list item number is {listconf.Count}");
             }
 
             foreach (var g in games)
@@ -42,8 +43,10 @@ namespace Dumperv2
                     var x = listconf.Where(x => x.ProductId == g.ProductId).First();
                     x.SpaceId = g.UbiservicesSpaceId;
                     x.AppId = g.UbiservicesAppId;
+                    Console.WriteLine(JsonConvert.SerializeObject(x));
                 }
             }
+            listconf = listconf.OrderBy(x => x.ProductId).ToList();
             File.WriteAllText("productservice.json", JsonConvert.SerializeObject(listconf, Formatting.Indented));
         }
     }
