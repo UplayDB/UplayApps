@@ -37,6 +37,7 @@ namespace Downloader
             string onlygetting = ParameterLib.GetParameter(args, "-only", "only.txt");
             DLWorker.Config.Verify = ParameterLib.GetParameter(args, "-verify", true);
             bool hasVerifyPrint = ParameterLib.HasParameter(args, "-vp");
+            DLWorker.Config.DownloadAsChunks = ParameterLib.GetParameter(args, "-onlychunk", true);
 
             if (DLWorker.Config.UsingFileList && DLWorker.Config.UsingOnlyFileList)
             {
@@ -293,7 +294,7 @@ namespace Downloader
             Saving.Save(saving);
             #endregion
             #region Verify + Downloading
-            if (DLWorker.Config.Verify)
+            if (DLWorker.Config.Verify && !DLWorker.Config.DownloadAsChunks)
             {
                 Verifier.Verify();
             }
@@ -323,15 +324,16 @@ namespace Downloader
             Console.WriteLine();
             Console.WriteLine("\t -debug\t\t\t Debugging every request/response");
             Console.WriteLine("\t -time\t\t\t Using that as a wait time (5 is default [Low is better])");
-            Console.WriteLine("\t -product\t\t -");
-            Console.WriteLine("\t -manifest\t\t -");
-            Console.WriteLine("\t -manifestpath\t\t -");
-            Console.WriteLine("\t -lang\t\t\t -");
-            Console.WriteLine("\t -skip\t\t\t -");
-            Console.WriteLine("\t -only\t\t\t -");
-            Console.WriteLine("\t -dir\t\t\t -");
-            Console.WriteLine("\t -vp\t\t\t -");
-            Console.WriteLine("\t -verify\t\t -");
+            Console.WriteLine("\t -product\t\t Id of the Product");
+            Console.WriteLine("\t -manifest\t\t Manifest of the Product");
+            Console.WriteLine("\t -manifestpath\t\t Path to Manifest file");
+            Console.WriteLine("\t -lang\t\t\t Download selected lang if available");
+            Console.WriteLine("\t -skip\t\t\t Skip files from downloading");
+            Console.WriteLine("\t -only\t\t\t Downloading only selected files from txt");
+            Console.WriteLine("\t -dir\t\t\t A Path where to download the files");
+            Console.WriteLine("\t -vp\t\t\t Make a json from verify.bin");
+            Console.WriteLine("\t -verify\t\t Verifying files before downloading");
+            Console.WriteLine("\t -chunk\t\t\t Downloading only the Uncompressed Chunks");
             Console.WriteLine();
             Environment.Exit(0);
         }

@@ -307,7 +307,7 @@ namespace Tracker
             var newtmp = ParseOWList(temp);
             if (OwnedGames == null)
             {
-                OwnedGames = ParseOWList(temp);
+                OwnedGames = newtmp;
                 return;
             }
             foreach (var item in newtmp)

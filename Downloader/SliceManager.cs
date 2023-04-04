@@ -19,14 +19,7 @@ namespace Downloader
 
                 if (slice.HasFileOffset) { Console.WriteLine("[!!!] FILE OFFSET! " + slice.FileOffset); }
                 string sliceId = Convert.ToHexString(slice.DownloadSha1.ToArray());
-                if (Version == 3)
-                {
-                    listOfSliceIds.Add($"slices_v3/{Formatters.FormatSliceHashChar(sliceId)}/{sliceId}");
-                }
-                else
-                {
-                    listOfSliceIds.Add($"slices/{sliceId}");
-                }
+                listOfSliceIds.Add(GetSlicePath(sliceId, Version));
             }
             return GetUrlsForSlices(listOfSliceIds, downloadConnection);
         }
@@ -36,17 +29,28 @@ namespace Downloader
             List<string> listOfSliceIds = new();
             foreach (var slice in slices)
             {
-                if (Version == 3)
-                {
-                    listOfSliceIds.Add($"slices_v3/{Formatters.FormatSliceHashChar(slice)}/{slice}");
-                }
-                else
-                {
-                    listOfSliceIds.Add($"slices/{slice}");
-                }
+                listOfSliceIds.Add(GetSlicePath(slice, Version));
             }
             return GetUrlsForSlices(listOfSliceIds, downloadConnection);
         }
+
+        public static string GetSlicePath(string Slice, uint Version)
+        {
+            if (Version == 2)
+            {
+                Console.WriteLine("Version 2!!!!!!!!!!!");
+                new Exception("Version 2 in slice hasnt been reversed yet!, Please get help from github!");
+            }
+            if (Version == 3)
+            {
+                return ($"slices_v3/{Formatters.FormatSliceHashChar(Slice)}/{Slice}");
+            }
+            else
+            {
+                return ($"slices/{Slice}");
+            }
+        }
+
 
         public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection)
         {

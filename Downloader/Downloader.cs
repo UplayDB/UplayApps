@@ -173,10 +173,21 @@ namespace Downloader
                     {
                         var spList = splittedList[listcounter];
                         var dlbytes = ByteDownloader.DownloadBytes(file.Name, spList.ToList(), downloadConnection);
-                        foreach (var barray in dlbytes)
+                        for (int i = 0; i < spList.Count; i++)
                         {
-                            fs.Write(barray);
-                            fs.Flush(true);
+                            var sp = spList[i];
+                            var barray = dlbytes[i];
+                            if (Config.DownloadAsChunks)
+                            {
+                                var sliceId = Convert.ToHexString(sp.DownloadSha1.ToArray());
+                                var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
+                                File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                            }
+                            else
+                            {
+                                fs.Write(barray);
+                                fs.Flush(true);
+                            }
                         }
                         if (listcounter % 10 == 0)
                         {
@@ -189,10 +200,21 @@ namespace Downloader
                 else
                 {
                     var dlbytes = ByteDownloader.DownloadBytes(file.Name, file.SliceList.ToList(), downloadConnection);
-                    foreach (var barray in dlbytes)
+                    for (int i = 0; i < file.SliceList.ToList().Count; i++)
                     {
-                        fs.Write(barray);
-                        fs.Flush(true);
+                        var sp = file.SliceList.ToList()[i];
+                        var barray = dlbytes[i];
+                        if (Config.DownloadAsChunks)
+                        {
+                            var sliceId = Convert.ToHexString(sp.DownloadSha1.ToArray());
+                            var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
+                            File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                        }
+                        else
+                        {
+                            fs.Write(barray);
+                            fs.Flush(true);
+                        }
                     }
                 }
             }
@@ -206,10 +228,21 @@ namespace Downloader
                     {
                         var spList = splittedList[listcounter];
                         var dlbytes = ByteDownloader.DownloadBytes(file, spList.ToList(), downloadConnection);
-                        foreach (var barray in dlbytes)
+                        for (int i = 0; i < spList.ToList().Count; i++)
                         {
-                            fs.Write(barray);
-                            fs.Flush(true);
+                            var sp = spList.ToList()[i];
+                            var barray = dlbytes[i];
+                            if (Config.DownloadAsChunks)
+                            {
+                                var sliceId = Convert.ToHexString(sp.ToArray());
+                                var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
+                                File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                            }
+                            else
+                            {
+                                fs.Write(barray);
+                                fs.Flush(true);
+                            }
                         }
 
                         if (listcounter % 10 == 0)
@@ -224,16 +257,33 @@ namespace Downloader
                 else
                 {
                     var dlbytes = ByteDownloader.DownloadBytes(file, file.Slices.ToList(), downloadConnection);
-                    foreach (var barray in dlbytes)
+                    for (int i = 0; i < file.Slices.ToList().Count; i++)
                     {
-                        fs.Write(barray);
-                        fs.Flush(true);
+                        var sp = file.Slices.ToList()[i];
+                        var barray = dlbytes[i];
+                        if (Config.DownloadAsChunks)
+                        {
+                            var sliceId = Convert.ToHexString(sp.ToArray());
+                            var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
+                            File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                        }
+                        else
+                        {
+                            fs.Write(barray);
+                            fs.Flush(true);
+                        }
                     }
                 }
 
             }
-            fs.Close();
+            fs.Close(); 
             Console.WriteLine($"\t\tFile {file.Name} finished");
+            if (Config.DownloadAsChunks)
+            {
+                //we delete the file because we arent even writing to it :)
+                File.Delete(fullPath);
+            }
+            
         }
     }
 }

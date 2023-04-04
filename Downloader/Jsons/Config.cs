@@ -14,7 +14,7 @@
         public string? ManifestId { get; set; }
         public uint ProductId { get; set; }
         public string? ProductManifest { get; set; }
-
+        public bool DownloadAsChunks { get; set; } = false;
         public List<Uplay.Download.File>? FilesToDownload { get; set; }
 
     }
