@@ -37,7 +37,7 @@ namespace Downloader
             string onlygetting = ParameterLib.GetParameter(args, "-only", "only.txt");
             DLWorker.Config.Verify = ParameterLib.GetParameter(args, "-verify", true);
             bool hasVerifyPrint = ParameterLib.HasParameter(args, "-vp");
-            DLWorker.Config.DownloadAsChunks = ParameterLib.GetParameter(args, "-onlychunk", true);
+            DLWorker.Config.DownloadAsChunks = ParameterLib.GetParameter(args, "-onlychunk", false);
 
             if (DLWorker.Config.UsingFileList && DLWorker.Config.UsingOnlyFileList)
             {
