@@ -11,7 +11,7 @@
     <PackageReference Include="CSharpDiscordWebhook.NET" Version="2.7.1" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	<PackageReference Include="RestSharp" Version="109.0.1" />
-    <PackageReference Include="UplayKit" Version="0.0.0.14" />
+    <PackageReference Include="UplayKit" Version="0.0.0.15" />
   </ItemGroup>
 
   <ItemGroup>

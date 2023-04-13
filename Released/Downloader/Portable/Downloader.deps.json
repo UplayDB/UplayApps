@@ -11,7 +11,7 @@
           "CoreLib": "1.0.0",
           "Newtonsoft.Json": "13.0.3",
           "UbiServices": "23.3.28",
-          "UplayKit": "0.0.0.14",
+          "UplayKit": "0.0.0.15",
           "ZstdNet": "1.4.5"
         },
         "runtime": {
@@ -62,29 +62,29 @@
           }
         }
       },
-      "Uplay-Protobufs/139.2.10843": {
+      "Uplay-Protobufs/140.0.10857": {
         "dependencies": {
           "Google.Protobuf": "3.22.1"
         },
         "runtime": {
           "lib/net6.0/Uplay-Protobufs.dll": {
-            "assemblyVersion": "139.2.10843.0",
-            "fileVersion": "139.2.10843.0"
+            "assemblyVersion": "140.0.10857.0",
+            "fileVersion": "140.0.10857.0"
           }
         }
       },
-      "UplayKit/0.0.0.14": {
+      "UplayKit/0.0.0.15": {
         "dependencies": {
           "Google.Protobuf": "3.22.1",
           "Newtonsoft.Json": "13.0.3",
           "RestSharp": "109.0.1",
           "SharpZipLib": "1.4.2",
-          "Uplay-Protobufs": "139.2.10843"
+          "Uplay-Protobufs": "140.0.10857"
         },
         "runtime": {
           "lib/net6.0/UplayKit.dll": {
-            "assemblyVersion": "0.0.0.14",
-            "fileVersion": "0.0.0.14"
+            "assemblyVersion": "0.0.0.15",
+            "fileVersion": "0.0.0.15"
           }
         }
       },
@@ -99,7 +99,7 @@
       "CoreLib/1.0.0": {
         "dependencies": {
           "UbiServices": "23.3.28",
-          "UplayKit": "0.0.0.14",
+          "UplayKit": "0.0.0.15",
           "ZstdNet": "1.4.5"
         },
         "runtime": {
@@ -149,19 +149,19 @@
       "path": "ubiservices/23.3.28",
       "hashPath": "ubiservices.23.3.28.nupkg.sha512"
     },
-    "Uplay-Protobufs/139.2.10843": {
+    "Uplay-Protobufs/140.0.10857": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1WyV4OHiSCLJMEOnaMdfyahkcWELZu3MpKL35YDxqO0c4Dm5mZhYMm2W/wqH1XhzK8bFVtcg/G4+s1YpYHFibA==",
-      "path": "uplay-protobufs/139.2.10843",
-      "hashPath": "uplay-protobufs.139.2.10843.nupkg.sha512"
+      "sha512": "sha512-wDRDFjSVUI/ijM8V3YKLHU/pTS+iK5jQOw/Mj/fSZyEUBO/3lll4qOyWfn4R5GmjcyXkGJ5gB18elX/1X78/BQ==",
+      "path": "uplay-protobufs/140.0.10857",
+      "hashPath": "uplay-protobufs.140.0.10857.nupkg.sha512"
     },
-    "UplayKit/0.0.0.14": {
+    "UplayKit/0.0.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-fNGCgUBRuSS64+MRoxQzqixMfat5YJPATHp3Shn4VlQLAgxsik/dRVdOxoIo3SaiQF9/rc3Rj9AXfWCwfOgD+g==",
-      "path": "uplaykit/0.0.0.14",
-      "hashPath": "uplaykit.0.0.0.14.nupkg.sha512"
+      "sha512": "sha512-DoHr3xcQQtgMS13TmbVN9iIaAGlXrX5l33dzvop0jmN+Q8UKcv1g6o1bBq89aiTPJfG2sEQcmvZlvcIpHU4Olg==",
+      "path": "uplaykit/0.0.0.15",
+      "hashPath": "uplaykit.0.0.0.15.nupkg.sha512"
     },
     "ZstdNet/1.4.5": {
       "type": "package",
