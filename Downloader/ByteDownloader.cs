@@ -57,19 +57,26 @@ namespace Downloader
                     {
                         size = slice.Size;
                     }
-
-                    //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, size);
-                    if (!sliceInfoList.Where(x => x.CompressedSHA == sliceId).Any())
+                    if (DLWorker.Config.DownloadAsChunks)
                     {
-                        sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
-                        sliceInfo.CompressedSHA = sliceId;
-                        sliceInfo.DownloadedSize = downloadedSlice.Length;
-                        sliceInfo.DecompressedSize = decompressedslice.Length;
-                        sliceInfoList.Add(sliceInfo);
+                        sliceInfo = new();
+                        bytes.Add(downloadedSlice);
                     }
-                    sliceInfo = new();
-                    bytes.Add(decompressedslice);
+                    else
+                    {
+                        //for saving the slices
+                        var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, size);
+                        if (!sliceInfoList.Where(x => x.CompressedSHA == sliceId).Any())
+                        {
+                            sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
+                            sliceInfo.CompressedSHA = sliceId;
+                            sliceInfo.DownloadedSize = downloadedSlice.Length;
+                            sliceInfo.DecompressedSize = decompressedslice.Length;
+                            sliceInfoList.Add(sliceInfo);
+                        }
+                        sliceInfo = new();
+                        bytes.Add(decompressedslice);
+                    }
                 }
             }
             saving.Verify.Files.SingleOrDefault(x => x.Name == file.Name).SliceInfo.AddRange(sliceInfoList);
@@ -127,18 +134,27 @@ namespace Downloader
                         saving.Work.NextId = "";
                     }
 
-                    //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, slices[urlcounter].Size);
-                    if (!sliceInfoList.Where(x => x.CompressedSHA == sliceId).Any())
+                    if (DLWorker.Config.DownloadAsChunks)
                     {
-                        sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
-                        sliceInfo.CompressedSHA = sliceId;
-                        sliceInfo.DownloadedSize = downloadedSlice.Length;
-                        sliceInfo.DecompressedSize = decompressedslice.Length;
-                        sliceInfoList.Add(sliceInfo);
+                        sliceInfo = new();
+                        bytes.Add(downloadedSlice);
                     }
-                    sliceInfo = new();
-                    bytes.Add(decompressedslice);
+                    else
+                    {
+                        //for saving the slices
+                        var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, slices[urlcounter].Size);
+                        if (!sliceInfoList.Where(x => x.CompressedSHA == sliceId).Any())
+                        {
+                            sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
+                            sliceInfo.CompressedSHA = sliceId;
+                            sliceInfo.DownloadedSize = downloadedSlice.Length;
+                            sliceInfo.DecompressedSize = decompressedslice.Length;
+                            sliceInfoList.Add(sliceInfo);
+                        }
+                        sliceInfo = new();
+                        bytes.Add(decompressedslice);
+                    }
+
                 }
             }
             saving.Verify.Files.SingleOrDefault(x => x.Name == FileName).SliceInfo.AddRange(sliceInfoList);

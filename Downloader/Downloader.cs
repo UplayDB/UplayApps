@@ -42,10 +42,13 @@ namespace Downloader
                     sliceIds.Add(Convert.ToHexString(sl.ToArray()));
                 }
 
+                var saving = Read();
+                if (saving.Verify.Files.Exists(x => x.Name == file.Name))
+                    continue;
+
                 if (CheckCurrentFile(file, downloadConnection))
                     continue;
 
-                var saving = Read();
                 saving.Work.FileInfo = new()
                 {
                     Name = file.Name,
@@ -181,7 +184,10 @@ namespace Downloader
                             {
                                 var sliceId = Convert.ToHexString(sp.DownloadSha1.ToArray());
                                 var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
-                                File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                                var fpath = Path.Combine(Config.DownloadDirectory, slicepath);
+                                Directory.CreateDirectory(Path.GetDirectoryName(fpath));
+                                if (!File.Exists(fpath))
+                                    File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
                             }
                             else
                             {
@@ -208,7 +214,10 @@ namespace Downloader
                         {
                             var sliceId = Convert.ToHexString(sp.DownloadSha1.ToArray());
                             var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
-                            File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                            var fpath = Path.Combine(Config.DownloadDirectory, slicepath);
+                            Directory.CreateDirectory(Path.GetDirectoryName(fpath));
+                            if (!File.Exists(fpath))
+                                File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
                         }
                         else
                         {
@@ -236,7 +245,10 @@ namespace Downloader
                             {
                                 var sliceId = Convert.ToHexString(sp.ToArray());
                                 var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
-                                File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                                var fpath = Path.Combine(Config.DownloadDirectory, slicepath);
+                                Directory.CreateDirectory(Path.GetDirectoryName(fpath));
+                                if (!File.Exists(fpath))
+                                    File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
                             }
                             else
                             {
@@ -265,7 +277,10 @@ namespace Downloader
                         {
                             var sliceId = Convert.ToHexString(sp.ToArray());
                             var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
-                            File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                            var fpath = Path.Combine(Config.DownloadDirectory, slicepath);
+                            Directory.CreateDirectory(Path.GetDirectoryName(fpath));
+                            if (!File.Exists(fpath))
+                                File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
                         }
                         else
                         {

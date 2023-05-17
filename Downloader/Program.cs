@@ -37,7 +37,7 @@ namespace Downloader
             string onlygetting = ParameterLib.GetParameter(args, "-only", "only.txt");
             DLWorker.Config.Verify = ParameterLib.GetParameter(args, "-verify", true);
             bool hasVerifyPrint = ParameterLib.HasParameter(args, "-vp");
-            DLWorker.Config.DownloadAsChunks = ParameterLib.GetParameter(args, "-onlychunk", false);
+            DLWorker.Config.DownloadAsChunks = ParameterLib.HasParameter(args, "-onlychunk");
 
             if (DLWorker.Config.UsingFileList && DLWorker.Config.UsingOnlyFileList)
             {
@@ -270,7 +270,11 @@ namespace Downloader
             Saving.Root saving = new();
             DLWorker.Config.VerifyBinPath = Path.Combine(DLWorker.Config.DownloadDirectory, ".UD\\verify.bin");
             Directory.CreateDirectory(Path.GetDirectoryName(DLWorker.Config.VerifyBinPath));
-            if (File.Exists(DLWorker.Config.VerifyBinPath))
+            if (File.Exists(Path.Combine(DLWorker.Config.DownloadDirectory, ".UD\\verify.bin.json")))
+            {
+                saving = JsonConvert.DeserializeObject<Saving.Root>(File.ReadAllText(Path.Combine(DLWorker.Config.DownloadDirectory, ".UD\\verify.bin.json")));
+            }
+            else if (File.Exists(DLWorker.Config.VerifyBinPath))
             {
                 var readedBin = Saving.Read();
                 if (readedBin == null)
@@ -333,7 +337,7 @@ namespace Downloader
             Console.WriteLine("\t -dir\t\t\t A Path where to download the files");
             Console.WriteLine("\t -vp\t\t\t Make a json from verify.bin");
             Console.WriteLine("\t -verify\t\t Verifying files before downloading");
-            Console.WriteLine("\t -chunk\t\t\t Downloading only the Uncompressed Chunks");
+            Console.WriteLine("\t -onlychunk\t\t\t Downloading only the Uncompressed Chunks");
             Console.WriteLine();
             Environment.Exit(0);
         }
