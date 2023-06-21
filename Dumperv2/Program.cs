@@ -85,7 +85,7 @@ namespace Dumperv2
 
             downloadConnection.Close();
             ownership.Close();
-            socket.Close();
+            socket.Disconnect();
             Console.WriteLine("Goodbye World!");
         }
 

@@ -1,8 +1,11 @@
 ﻿using ChannelKit;
 using Google.Protobuf;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using System.ComponentModel;
 using System.IO.Compression;
+using System.Net.Sockets;
 using System.Text;
 using UbiServices.Public;
 using UbiServices.Records;
@@ -15,6 +18,37 @@ namespace TestApp
 {
     internal class Program
     {
+        static void yeet(uint prodid, CloudSaveConnection cloudSaveConnection,  OwnershipConnection con, DemuxSocket socket, string nameon)
+        {
+            var ow = con.GetOwnershipToken(prodid);
+
+            
+            var rsp = (cloudSaveConnection.List(prodid, nameon, ow.Item1));
+
+            if (rsp == null || rsp.Status != Uplay.CloudsaveService.CloudsaveRsp.Types.Status.Ok)
+                return;
+            var client = new RestClient("https://" + rsp.HostString + rsp.PathString);
+            var request = new RestRequest();
+
+            var x = rsp.HeaderString.Split("\n");
+
+            foreach (var item in x)
+            {
+                if (!item.Contains(": "))
+                    continue;
+                var i = item.Split(": ");
+
+                Console.WriteLine(i[0]);
+                Console.WriteLine(i[1]);
+                request.AddHeader(i[0], i[1]);
+            }
+            RestResponse response = client.GetAsync(request).Result;
+            if (response.Content != null)
+            {
+                Console.WriteLine(response.Content);
+            }
+        }
+
         static void Main(string[] args)
         {
             //AppID = "6c6b8cd7-d901-4cd5-8279-07ba92088f06";
@@ -75,8 +109,15 @@ namespace TestApp
 
                 OwnershipConnection ownershipConnection = new(socket);
                 ownershipConnection.PushEvent += Ownership_PushEvent;
-                ownershipConnection.GetOwnedGames();
+                var games = ownershipConnection.GetOwnedGames();
+                Console.WriteLine("owned games: " + games.Count);
+                CloudSaveConnection cloudSaveConnection = new(socket);
+                games.ForEach(x=> yeet(x.ProductId, cloudSaveConnection, ownershipConnection, socket, login.NameOnPlatform));
 
+
+
+
+                /*
                 StoreConnection storeConnection = new(socket);
                 storeConnection.PushEvent += StoreConnection_PushEvent;
                 storeConnection.Init();
@@ -125,7 +166,7 @@ namespace TestApp
                 Console.WriteLine("end?");
                 Console.ReadLine();
                 Console.WriteLine();
-                socket.Close();
+                socket.Disconnect();
                 
 
 
