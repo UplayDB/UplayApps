@@ -5,16 +5,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
 	  <PackageReference Include="UbiServices" Version="23.3.28" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ChannelKit\ChannelKit\ChannelKit.csproj" />
-    <ProjectReference Include="..\..\UplayKit\UplayKit\UplayKit.csproj" />
-    <ProjectReference Include="..\UplayWrapper\UplayWrapper.csproj" />
   </ItemGroup>
 
 </Project>

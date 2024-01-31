@@ -9,10 +9,11 @@ namespace Dumperv2
         public static string Version = "0.3";
         static void Main(string[] args)
         {
+            /*
             if (!VersionCheck.Check())
             {
                 Console.WriteLine("Your version outdated you may can check out in github what is updated");
-            }
+            }*/
             if (ParameterLib.HasParameter(args, "-help") || ParameterLib.HasParameter(args, "-?") || ParameterLib.HasParameter(args, "?"))
             {
                 PrintHelp();
@@ -42,7 +43,8 @@ namespace Dumperv2
                 Console.WriteLine("Login was wrong :(!");
                 Environment.Exit(1);
             }
-
+            
+            Debug.isDebug = ParameterLib.HasParameter(args, "debug");
             DemuxSocket socket = new();
             Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();
@@ -69,7 +71,10 @@ namespace Dumperv2
             }
 
             var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
+
             LatestManifest.Work(currentDir, games, downloadConnection, ownership);
+            FromBranches.Work(currentDir, games, downloadConnection, ownership);
+
             var games2 = games_.Where(x => x.Configuration.Length != 0).ToArray();
             ProductConfig.Work(currentDir, games2);
             var games3 = games2.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
@@ -108,7 +113,7 @@ namespace Dumperv2
 
         private static void Ownership_PushEvent(object? sender, Uplay.Ownership.Push e)
         {
-
+            Console.WriteLine("Ownership_PushEvent!" + e.ToString());
         }
     }
 }

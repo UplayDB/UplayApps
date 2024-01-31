@@ -21,7 +21,7 @@ namespace Dumperv2
                 {
                     continue;
                 }
-
+                Console.WriteLine("Working on " + storeprod.StoreReference);
                 storeconf storeconf_ = new()
                 {
                     ProductId = storeprod.ProductId,
