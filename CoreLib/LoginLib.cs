@@ -7,6 +7,38 @@ namespace CoreLib
 {
     public class LoginLib
     {
+        public static LoginJson? LoginFromStore(string[] args, int index)
+        {
+            var logins = LoginStore.Load();
+            if (index > logins.Count)
+                return null;
+            return LoginFromStore(args, logins[index].UserId);
+        }
+        public static LoginJson? LoginFromStore(string[] args,string UserId)
+        {
+            LoginJson? login = null;
+            var logins = LoginStore.Load();
+            var loginUser = logins.Where(x => x.UserId == UserId);
+            if (loginUser.Any())
+            {
+                var loginFirst = loginUser.First();
+                if (!string.IsNullOrEmpty(loginFirst.RemDeviceTicket))
+                    login = LoginRememberDevice(loginFirst.RemTicket, loginFirst.RemDeviceTicket);
+                if (!string.IsNullOrEmpty(loginFirst.RemTicket))
+                    login = LoginRemember(loginFirst.RemTicket);
+            }
+            else
+            {
+                args = args.Append("-savedevice").ToArray();
+                TryLoginWithArgsCLI(args);
+            }
+            if (login != null)
+            {
+                LoginStore.FromLogin(login);
+            }
+            return login;
+        }
+
         public static LoginJson? TryLoginWithArgsCLI(string[] args)
         {
             LoginJson? login = null;
@@ -38,7 +70,7 @@ namespace CoreLib
                     Console.WriteLine("Code cannot be empty!");
                     return null;
                 }
-                if (ParameterLib.HasParameter(args, "-trustedname"))
+                if (ParameterLib.HasParameter(args, "-savedevice"))
                 {
                     string trustedname = ParameterLib.GetParameter(args, "-trustedname", Environment.MachineName);
                     string trustedid = ParameterLib.GetParameter(args, "-trustedid", GenerateDeviceId(trustedname));
@@ -48,6 +80,10 @@ namespace CoreLib
                 {
                     login = TryLoginWith2FA(login, code2fa);
                 }
+            }
+            if (login != null)
+            {
+                LoginStore.FromLogin(login);
             }
             return login;
         }
@@ -113,6 +149,10 @@ namespace CoreLib
                     login = TryLoginWith2FA(login, code2fa);
                 }
             }
+            if (login != null)
+            {
+                LoginStore.FromLogin(login);
+            }
             return login;
         }
 
@@ -129,6 +169,10 @@ namespace CoreLib
                 var username = ParameterLib.GetParameter<string>(args, "-username") ?? ParameterLib.GetParameter<string>(args, "-user");
                 var password = ParameterLib.GetParameter<string>(args, "-password") ?? ParameterLib.GetParameter<string>(args, "-pass");
                 login = Login(username, password);
+            }
+            if (login != null)
+            {
+                LoginStore.FromLogin(login);
             }
             return login;
         }

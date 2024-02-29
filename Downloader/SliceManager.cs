@@ -75,6 +75,7 @@ namespace Downloader
                 }
 
             }
+            Console.WriteLine("Slices: " + listOfSliceIds.Count);
             return downloadConnection.GetUrlList(DLWorker.Config.ProductId, listOfSliceIds);
         }
 

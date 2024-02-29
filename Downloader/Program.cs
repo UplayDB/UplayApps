@@ -48,7 +48,15 @@ namespace Downloader
 
             UbiServices.Urls.IsLocalTest = haslocal;
             #region Login
-            LoginJson? login = LoginLib.TryLoginWithArgsCLI(args);
+            var login = LoginLib.LoginFromStore(args, 0);
+
+            if (login == null)
+            {
+                Console.WriteLine("Login was wrong :(!");
+                Environment.Exit(1);
+            }
+
+            login = LoginLib.TryLoginWithArgsCLI(args);
             // Last login check
             if (login == null)
             {
@@ -57,7 +65,7 @@ namespace Downloader
             }
             #endregion
             #region Starting Connections, Getting game
-            socket = new(haslocal);
+            socket = new();
             socket.WaitInTimeMS = WaitTime;
             Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();
@@ -130,7 +138,7 @@ namespace Downloader
 
                 if (manifest_path != "")
                 {
-                    File.Copy(manifest_path, DLWorker.Config.DownloadDirectory + "uplay_install.manifest", true);
+                    File.Copy(manifest_path, DLWorker.Config.DownloadDirectory + "/uplay_install.manifest", true);
                     parsedManifest = Parsers.ParseManifestFile(manifest_path);
                 }
                 else
@@ -149,6 +157,10 @@ namespace Downloader
             #region Game from Argument
             else
             {
+                if (!Directory.Exists(DLWorker.Config.DownloadDirectory))
+                {
+                    Directory.CreateDirectory(DLWorker.Config.DownloadDirectory);
+                }
                 var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
                 if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
                 OWToken = ownershipToken.Item1;
@@ -157,7 +169,7 @@ namespace Downloader
                 downloadConnection.InitDownloadToken(OWToken);
                 if (manifest_path != "")
                 {
-                    File.Copy(manifest_path, DLWorker.Config.DownloadDirectory + "uplay_install.manifest", true);
+                    File.Copy(manifest_path, DLWorker.Config.DownloadDirectory + "/uplay_install.manifest", true);
                     parsedManifest = Parsers.ParseManifestFile(manifest_path);
                 }
                 else
@@ -169,7 +181,7 @@ namespace Downloader
                         throw new("Manifest not found?");
 
                     File.WriteAllBytes(DLWorker.Config.ProductManifest + ".manifest", manifestBytes);
-                    File.Copy(DLWorker.Config.ProductManifest + ".manifest", DLWorker.Config.DownloadDirectory + "uplay_install.manifest", true);
+                    File.Copy(DLWorker.Config.ProductManifest + ".manifest", DLWorker.Config.DownloadDirectory + "/uplay_install.manifest", true);
                     parsedManifest = Parsers.ParseManifestFile(DLWorker.Config.ProductManifest + ".manifest");
                 }
             }
@@ -313,7 +325,7 @@ namespace Downloader
             Console.ReadLine();
             downloadConnection.Close();
             ownershipConnection.Close();
-            socket.Close();
+            socket.Disconnect();
             #endregion
         }
         #region Other Functions

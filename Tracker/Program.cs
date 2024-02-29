@@ -156,7 +156,7 @@ namespace Tracker
 
         static void DoTheStuff(LoginJson login, int accountId)
         {
-            DemuxSocket demuxSocket = new DemuxSocket(false);
+            DemuxSocket demuxSocket = new DemuxSocket();
             Console.WriteLine("Opened");
             demuxSocket.WaitInTimeMS = 2;
             demuxSocket.VersionCheck();
@@ -195,7 +195,7 @@ namespace Tracker
             Thread.Sleep(1000);
             storeConnection.Close();
             ownershipConnection.Close();
-            demuxSocket.Close();
+            demuxSocket.Disconnect();
 
         }
 

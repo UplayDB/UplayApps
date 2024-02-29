@@ -80,13 +80,15 @@ namespace Downloader
                 goto END;
             var takenSize = 0;
             var fileread = File.OpenRead(PathToFile);
+            Console.WriteLine(fileInfo.Length);
             for (int sinfocount = 0; sinfocount < sfile.SliceInfo.Count; sinfocount++)
             {
                 var sinfo = sfile.SliceInfo[sinfocount];
                 var fslist = file.SliceList[sinfocount];
                 byte[] fibytes = new byte[sinfo.DecompressedSize];
 
-                fileread.Read(fibytes, takenSize, sinfo.DecompressedSize);
+                Console.WriteLine(takenSize + " " + sinfo);
+                fileread.Read(fibytes, 0, sinfo.DecompressedSize);
                 /*
                 var compBytes = LzhamWrapper.Compress(fibytes,(ulong)sinfo.DownloadedSize);
                 var compsha1 = GetSHA1Hash(compBytes);

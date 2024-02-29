@@ -1,4 +1,5 @@
 ﻿using CoreLib;
+using Google.Protobuf;
 using UplayKit;
 using UplayKit.Connection;
 
@@ -37,7 +38,8 @@ namespace Dumperv2
                 }
                 Environment.Exit(0);
             }
-            var login = LoginLib.TryLoginWithArgsCLI(args);
+            var login = LoginLib.LoginFromStore(args,0);
+            
             if (login == null)
             {
                 Console.WriteLine("Login was wrong :(!");
@@ -73,8 +75,9 @@ namespace Dumperv2
             var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
 
             LatestManifest.Work(currentDir, games, downloadConnection, ownership);
-            FromBranches.Work(currentDir, games, downloadConnection, ownership);
-
+            ownership.Close();
+            downloadConnection.Close();
+            var pb = FromBranches.Work(currentDir, games);
             var games2 = games_.Where(x => x.Configuration.Length != 0).ToArray();
             ProductConfig.Work(currentDir, games2);
             var games3 = games2.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
@@ -87,9 +90,38 @@ namespace Dumperv2
                 StoreWork.Work(store);
                 storeConnection.Close();
             }
+            /*
+OwnershipConnection ownershipConnection = new(socket);
 
-            downloadConnection.Close();
-            ownership.Close();
+List<Uplay.Ownership.InitializeReq.Types.ProductBranchData> productBranchDatas = new();
+foreach (var item in pb)
+{
+    productBranchDatas.Add(new()
+    { 
+        ActiveBranchId = item.branch,
+        ProductId = item.Product
+    });
+}
+var rsp = ownershipConnection.SendRequest(new Uplay.Ownership.Req()
+{ 
+    InitializeReq = new()
+    { 
+        Branches = 
+        {
+            productBranchDatas
+        },
+        GetAssociations = false,
+        ProtoVersion = 7,
+        UseStaging = false
+    },
+    RequestId = 101,
+    UbiTicket = login.Ticket
+});
+File.WriteAllText("Ownership_Bracnhes.json", rsp.ToString());
+            */
+             
+
+            //ownership.Close();
             socket.Disconnect();
             Console.WriteLine("Goodbye World!");
         }
@@ -114,6 +146,7 @@ namespace Dumperv2
         private static void Ownership_PushEvent(object? sender, Uplay.Ownership.Push e)
         {
             Console.WriteLine("Ownership_PushEvent!" + e.ToString());
+            File.AppendAllText("", "\n");
         }
     }
 }

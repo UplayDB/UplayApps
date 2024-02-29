@@ -1,28 +1,38 @@
-﻿using UplayKit.Connection;
+﻿using RestSharp;
+using UplayKit;
+using UplayKit.Connection;
 
 namespace Dumperv2
 {
     internal class FromBranches
     {
-        public static void Work(string currentDir, Uplay.Ownership.OwnedGame[]? games, DownloadConnection downloadConnection, OwnershipConnection ownership)
+        public class pb
         {
+            public uint Product;
+            public uint branch;
+        }
+
+        public static List<pb> Work(string currentDir, Uplay.Ownership.OwnedGame[]? games)
+        {
+            List<pb> pb = new();
+            //OwnershipConnection ownershipConnection = null;
+            Console.WriteLine("FromBranches.Work!");
             foreach (var game in games)
             {
+                Console.WriteLine("FromBranches.Work! " + game.ProductId);
                 if (game.AvailableBranches.Count > 1)
                 {
                     foreach (var productBranch in game.AvailableBranches)
                     {
                         if (productBranch.BranchId == game.ActiveBranchId)
                             continue;
-
-                        var branch = ownership.SwitchProductBranch(game.ProductId, productBranch.BranchId, null);
-                        if (branch != null)
-                        {
-                            File.WriteAllText($"{game.ProductId}_{productBranch.BranchId}.ownership.txt", branch.ToString());
-                        }
+                        Console.WriteLine($"{game.ProductId} _ {productBranch.BranchId}");
+                        pb.Add( new FromBranches.pb() { Product = game.ProductId, branch = game.BrandId } );
                     }
                 }
             }
+            File.WriteAllText("product_branch.txt", Newtonsoft.Json.JsonConvert.SerializeObject(pb));
+            return pb;
         }
     }
 }

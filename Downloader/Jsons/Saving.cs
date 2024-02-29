@@ -74,6 +74,11 @@ namespace Downloader
 
             [JsonProperty("DecompressedSize")]
             public int DecompressedSize;
+
+            public override string ToString()
+            {
+                return $"CSHA: {CompressedSHA}, DSHA: {DecompressedSHA}, DSIze: {DownloadedSize}, DCSize: {DecompressedSize}";
+            }
         }
 
         public class FileInfo

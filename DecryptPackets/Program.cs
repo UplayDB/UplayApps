@@ -37,6 +37,8 @@ namespace DecryptPackets
                 string fromfile = File.ReadAllText("decrpyt.txt");
                 ByteString bytestring = ByteString.FromBase64(fromfile);
                 var todecrypt = bytestring.ToArray();
+                var len = BitConverter.ToUInt32(todecrypt.Take(4).ToArray());
+                File.WriteAllText("len.txt", "len: " + len);
                 byteArr = todecrypt.Skip(4).ToArray();
                 Console.WriteLine("Reading done");
             }
@@ -131,7 +133,7 @@ namespace DecryptPackets
                                             Console.WriteLine("Bytes: " + BitConverter.ToString(byarra));
                                         }
                                     }
-                                    catch { }
+                                    catch (Exception ex) { File.WriteAllText("ex.txt",ex.ToString()); }
                                     break;
                                 default:
                                     break;
@@ -260,56 +262,6 @@ namespace DecryptPackets
                                     try
                                     {
                                         var demux_down_rsp = Uplay.CloudsaveService.Downstream.Parser.ParseFrom(byteArr).Response;
-                                        Console.WriteLine(demux_down_rsp);
-                                        WriteOut = demux_down_rsp.ToString();
-                                    }
-                                    catch { }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                #endregion
-                #region ControlPanel
-                case "control":
-                    switch (up_or_down)
-                    {
-                        case "up":
-                            switch (push_r)
-                            {
-                                case "req":
-                                    try
-                                    {
-                                        var demux_down_rsp = Uplay.ControlPanel.Upstream.Parser.ParseFrom(byteArr).Req;
-                                        Console.WriteLine(demux_down_rsp);
-                                        WriteOut = demux_down_rsp.ToString();
-                                    }
-                                    catch { }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "down":
-                            switch (push_r)
-                            {
-                                case "rsp":
-                                    try
-                                    {
-                                        var demux_down_rsp = Uplay.ControlPanel.Downstream.Parser.ParseFrom(byteArr).Rsp;
-                                        Console.WriteLine(demux_down_rsp);
-                                        WriteOut = demux_down_rsp.ToString();
-                                    }
-                                    catch { }
-                                    break;
-                                case "push":
-                                    try
-                                    {
-                                        var demux_down_rsp = Uplay.ControlPanel.Downstream.Parser.ParseFrom(byteArr).Push;
                                         Console.WriteLine(demux_down_rsp);
                                         WriteOut = demux_down_rsp.ToString();
                                     }
@@ -639,6 +591,13 @@ namespace DecryptPackets
                                     catch { }
                                     break;
                                 default:
+                                    try
+                                    {
+                                        var demux_down = Uplay.Ownership.Downstream.Parser.ParseFrom(byteArr);
+                                        Console.WriteLine(demux_down);
+                                        WriteOut = demux_down.ToString();
+                                    }
+                                    catch { }
                                     break;
                             }
                             break;
@@ -1099,6 +1058,7 @@ namespace DecryptPackets
             if (towrite.Trim() != "{}" || towrite.Trim() != "{ }" || !string.IsNullOrEmpty(towrite.Trim()))
             {
                 Console.WriteLine(towrite);
+                File.WriteAllText($"xx/{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}.txt", towrite);
             }
         }
 
@@ -1184,21 +1144,6 @@ namespace DecryptPackets
             try
             {
                 CheckOutWrite(Uplay.CloudsaveService.Downstream.Parser.ParseFrom(array).ToString());
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                CheckOutWrite(Uplay.ControlPanel.Upstream.Parser.ParseFrom(array).ToString());
-            }
-            catch
-            {
-            }
-            try
-            {
-                CheckOutWrite(Uplay.ControlPanel.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
