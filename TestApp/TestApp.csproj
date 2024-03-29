@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="UbiServices" Version="23.3.28" />
+    <ProjectReference Include="..\..\UbiServices\UbiServices\UbiServices.csproj" />
   </ItemGroup>
 
 </Project>

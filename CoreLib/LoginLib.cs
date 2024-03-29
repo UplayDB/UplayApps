@@ -10,8 +10,8 @@ namespace CoreLib
         public static LoginJson? LoginFromStore(string[] args, int index)
         {
             var logins = LoginStore.Load();
-            if (index > logins.Count)
-                return null;
+            if (index >= logins.Count)
+                return TryLoginWithArgsCLI(args);
             return LoginFromStore(args, logins[index].UserId);
         }
         public static LoginJson? LoginFromStore(string[] args,string UserId)

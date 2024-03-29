@@ -48,7 +48,8 @@ namespace Downloader
 
             UbiServices.Urls.IsLocalTest = haslocal;
             #region Login
-            var login = LoginLib.LoginFromStore(args, 0);
+            int indx = ParameterLib.GetParameter(args, "-lindx", 0);
+            var login = LoginLib.LoginFromStore(args, indx);
 
             if (login == null)
             {
@@ -56,13 +57,6 @@ namespace Downloader
                 Environment.Exit(1);
             }
 
-            login = LoginLib.TryLoginWithArgsCLI(args);
-            // Last login check
-            if (login == null)
-            {
-                Console.WriteLine("Login failed");
-                Environment.Exit(1);
-            }
             #endregion
             #region Starting Connections, Getting game
             socket = new();

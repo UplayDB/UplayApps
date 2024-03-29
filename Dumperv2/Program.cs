@@ -25,6 +25,7 @@ namespace Dumperv2
                 GenerateStore.Work(ParameterLib.HasParameter(args, "-eng"));
                 Environment.Exit(0);
             }
+            int indx = ParameterLib.GetParameter(args, "-lindx", 0);
             if (ParameterLib.HasParameter(args, "-csv"))
             {
                 foreach (var file in Directory.GetFileSystemEntries(currentDir + "\\files", "*.manifest", SearchOption.AllDirectories))
@@ -38,7 +39,7 @@ namespace Dumperv2
                 }
                 Environment.Exit(0);
             }
-            var login = LoginLib.LoginFromStore(args,0);
+            var login = LoginLib.LoginFromStore(args, indx);
             
             if (login == null)
             {

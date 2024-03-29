@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.IO.Compression;
 using System.Net.Sockets;
 using System.Text;
@@ -9,6 +10,86 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
+            var login = UbiServices.Public.V3.LoginBase64("");
+            List<string> AppIds = new();
+            for (uint i = 0; i <= 1200; i = i +100)
+            {
+                var catalogy = UbiServices.Public.V1.Spaces.GetCatalog(login.Ticket,
+                login.SessionId,
+                false,
+                i,
+                100);
+                File.WriteAllText("Catalogy/" + i + ".json", JsonConvert.SerializeObject(catalogy, Formatting.Indented));
+                foreach (var item in catalogy.Games)
+                {
+                    if (item.SiblingGames.Count != 0)
+                    {
+                        foreach (var siblingGame in item.SiblingGames)
+                        {
+                            foreach (var platform in siblingGame.Platforms)
+                            {
+                                if (!AppIds.Contains(platform.ApplicationId))
+                                    AppIds.Add(platform.ApplicationId);
+                            }
+                        }
+                        foreach (var platform in item.Platforms)
+                        {
+                            if (!AppIds.Contains(platform.ApplicationId))
+                                AppIds.Add(platform.ApplicationId);
+                        }
+                    }
+                    
+                }
+
+            }
+            for (uint i = 0; i <= 1200; i = i + 100)
+            {
+                var catalogy = UbiServices.Public.V1.Spaces.GetCatalog(login.Ticket,
+                login.SessionId,
+                true,
+                i,
+                100);
+                File.WriteAllText("Catalogy/" + i + ".json", JsonConvert.SerializeObject(catalogy, Formatting.Indented));
+                foreach (var item in catalogy.Games)
+                {
+                    if (item.SiblingGames.Count != 0)
+                    {
+                        foreach (var siblingGame in item.SiblingGames)
+                        {
+                            foreach (var platform in siblingGame.Platforms)
+                            {
+                                if (!AppIds.Contains(platform.ApplicationId))
+                                    AppIds.Add(platform.ApplicationId);
+                            }
+                        }
+                        foreach (var platform in item.Platforms)
+                        {
+                            if (!AppIds.Contains(platform.ApplicationId))
+                                AppIds.Add(platform.ApplicationId);
+                        }
+                    }
+
+                }
+
+            }
+            File.WriteAllText("AppIds.json", JsonConvert.SerializeObject(AppIds, Formatting.Indented));
+            foreach (var line in AppIds)
+            {
+                Console.WriteLine(line);
+                File.WriteAllText("apps/v1_" + line + "_config.json", JsonConvert.SerializeObject(UbiServices.Public.V1.Applications.GetApplicationConfig(line), Formatting.Indented));
+                File.WriteAllText("apps/v1_" + line + "_param.json", JsonConvert.SerializeObject(UbiServices.Public.V1.Applications.GetApplicationParameters(line), Formatting.Indented));
+                File.WriteAllText("apps/v2_" + line + "_config.json", JsonConvert.SerializeObject(UbiServices.Public.V2.Applications.GetApplicationConfig(line), Formatting.Indented));
+                File.WriteAllText("apps/v2_" + line + "_param.json", JsonConvert.SerializeObject(UbiServices.Public.V2.Applications.GetApplicationParameters(line), Formatting.Indented));
+            }
+            /*
+            if (!File.Exists("All_Extract.txt"))
+                return;
+
+            var lines = File.ReadAllLines("All_Extract.txt");
+
+            
+            */
+            /*
             Console.WriteLine(uplay_r1.UPLAY_Start(410,0));
             Console.WriteLine(uplay_r1.UPLAY_PARTY_Init(3));
             Console.WriteLine(uplay_r1.UPLAY_FRIENDS_Init(0));
@@ -17,7 +98,7 @@ namespace TestApp
             Console.WriteLine(uplay_r1.UPLAY_USER_IsOwned(410));
             Console.WriteLine(uplay_r1.UPLAY_Update());
             Console.WriteLine(uplay_r1.UPLAY_Quit());
-
+            */
         }
 
         static int IndexOfParam(string[] args, string param)
