@@ -16,6 +16,7 @@
             Console.WriteLine("\t -pass\t\t\t Using that password to login (short version)");
             Console.WriteLine("\t -trustedid\t\t Login with that trusted Id, if not present, make with trustedname");
             Console.WriteLine("\t -trustedname\t\t Name of trusted device, if not given name, using MachineName (PC name)");
+            Console.WriteLine("\t -remember-me\t\t Using the user to remember and use that information next time on logon");
             Console.WriteLine();
             WritePadder();
         }

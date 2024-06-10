@@ -70,7 +70,7 @@ namespace Downloader
                 Console.WriteLine("Oops something is wrong!");
                 Environment.Exit(1);
             }
-            ownershipConnection = new(socket);
+            ownershipConnection = new(socket, login.Ticket, login.SessionId);
             DownloadConnection downloadConnection = new(socket);
             var owned = ownershipConnection.GetOwnedGames(false);
             if (owned == null || owned.Count == 0)
@@ -85,7 +85,11 @@ namespace Downloader
 
             if (DLWorker.Config.ProductId == 0 && DLWorker.Config.ManifestId == "")
             {
-                owned = owned.Where(game => game.LatestManifest.Trim().Length > 0 && game.ProductType == (uint)Uplay.Ownership.OwnedGame.Types.ProductType.Game).ToList();
+                owned = owned.Where(game => game.LatestManifest.Trim().Length > 0 
+                && game.ProductType == (uint)Uplay.Ownership.OwnedGame.Types.ProductType.Game
+                && game.Owned
+                && !game.LockedBySubscription
+                ).ToList();
 
                 Console.WriteLine("-1) Your games:.");
                 Console.WriteLine("----------------------");
@@ -112,6 +116,7 @@ namespace Downloader
                 {
                     DLWorker.Config.ManifestId = owned[selection].LatestManifest;
                     DLWorker.Config.ProductId = owned[selection].ProductId;
+                    Console.WriteLine(DLWorker.Config.ManifestId + " " + DLWorker.Config.ProductId);
                 }
 
                 DLWorker.Config.DownloadDirectory = ParameterLib.GetParameter(args, "-dir", $"{Directory.GetCurrentDirectory()}\\{DLWorker.Config.ProductId}\\{DLWorker.Config.ManifestId}\\");
@@ -124,7 +129,7 @@ namespace Downloader
 
                 // Getting ownership token
                 var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
-                if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
+                if (ownershipConnection.IsConnectionClosed == false || string.IsNullOrEmpty(ownershipToken.Item1)) { throw new("Product not owned"); }
                 OWToken = ownershipToken.Item1;
                 Exp = ownershipToken.Item2;
                 Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
@@ -156,7 +161,7 @@ namespace Downloader
                     Directory.CreateDirectory(DLWorker.Config.DownloadDirectory);
                 }
                 var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
-                if (ownershipConnection.isServiceSuccess == false) { throw new("Product not owned"); }
+                if (ownershipConnection.IsConnectionClosed == false || string.IsNullOrEmpty(ownershipToken.Item1)) { throw new("Product not owned"); }
                 OWToken = ownershipToken.Item1;
                 Exp = ownershipToken.Item2;
                 Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
@@ -366,12 +371,13 @@ namespace Downloader
             if (Exp <= GetEpocTime())
             {
                 Console.WriteLine("Your token has no more valid, getting new!");
-                if (ownershipConnection != null && !ownershipConnection.isConnectionClosed)
+                if (ownershipConnection != null && !ownershipConnection.IsConnectionClosed)
                 {
                     var token = ownershipConnection.GetOwnershipToken(ProdId);
-                    Console.WriteLine("Is Token get success? " + ownershipConnection.isServiceSuccess);
                     Exp = token.Item2;
                     OWToken = token.Item1;
+                    Console.WriteLine("Is Token get success? " + ownershipConnection.IsConnectionClosed + " " + (Exp != 0));
+
                 }
             }
         }

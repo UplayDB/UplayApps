@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.IO.Compression;
 using ZstdNet;
+using LzhamWrapper;
 
 namespace CoreLib
 {
@@ -27,7 +28,17 @@ namespace CoreLib
                     decompressor.Dispose();
                     return ms.ToArray();
                 case "Lzham":
-                    return LzhamWrapper.Decompress(bytesToDecompress, outputsize);
+                    DecompressionParameters d = new()
+                    {
+                        Flags = LzhamWrapper.Enums.DecompressionFlag.ComputeAdler32 | LzhamWrapper.Enums.DecompressionFlag.ReadZlibStream,
+                        DictionarySize = 15,
+                        UpdateRate = LzhamWrapper.Enums.TableUpdateRate.Default
+                    };
+                    MemoryStream mem = new((int)outputsize);
+                    LzhamStream lzhamStream = new LzhamStream(new MemoryStream(bytesToDecompress), d);
+                    lzhamStream.CopyTo(mem);
+                    lzhamStream.Dispose();
+                    return mem.ToArray();
             }
             return bytesToDecompress;
         }

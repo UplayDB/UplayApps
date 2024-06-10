@@ -14,7 +14,7 @@ namespace CoreLib
                 return TryLoginWithArgsCLI(args);
             return LoginFromStore(args, logins[index].UserId);
         }
-        public static LoginJson? LoginFromStore(string[] args,string UserId)
+        public static LoginJson? LoginFromStore(string[] args, string UserId)
         {
             LoginJson? login = null;
             var logins = LoginStore.Load();
@@ -41,6 +41,7 @@ namespace CoreLib
 
         public static LoginJson? TryLoginWithArgsCLI(string[] args)
         {
+            UbisoftLoginStore.LoadFromFile("ConnectSecureStorage.dat");
             LoginJson? login = null;
             if (ParameterLib.HasParameter(args, "-b64"))
             {
@@ -52,6 +53,22 @@ namespace CoreLib
                 var username = ParameterLib.GetParameter<string>(args, "-username") ?? ParameterLib.GetParameter<string>(args, "-user");
                 var password = ParameterLib.GetParameter<string>(args, "-password") ?? ParameterLib.GetParameter<string>(args, "-pass");
                 login = Login(username, password);
+            }
+            else if ((ParameterLib.HasParameter(args, "-username") || ParameterLib.HasParameter(args, "-user")) && ParameterLib.HasParameter(args, "-remember-me"))
+            {
+                var username = ParameterLib.GetParameter<string>(args, "-username") ?? ParameterLib.GetParameter<string>(args, "-user");
+                var userdata = UbisoftLoginStore.Instance.CacheFile.Prod.Users.Where(x=>x.Email == username).FirstOrDefault();
+                if (userdata != null && string.IsNullOrEmpty(userdata.RememberMeTicket))
+                {
+                    Console.WriteLine("REMTICKET!");
+                }
+                else
+                {
+                    //fallback to ask password
+                    Console.WriteLine("Please enter your Password:");
+                    string password = ReadPassword();
+                    login = Login(username, password);
+                }
             }
             else
             {

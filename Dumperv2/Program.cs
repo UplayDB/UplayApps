@@ -10,6 +10,7 @@ namespace Dumperv2
         public static string Version = "0.3";
         static void Main(string[] args)
         {
+            Console.WriteLine(Formatters.FormatLength((uint)167772160));
             /*
             if (!VersionCheck.Check())
             {
@@ -62,12 +63,12 @@ namespace Dumperv2
             {
                 Directory.CreateDirectory(currentDir + "\\files");
             }
-            OwnershipConnection ownership = new(socket);
+            OwnershipConnection ownership = new(socket, login.Ticket, login.SessionId);
             ownership.PushEvent += Ownership_PushEvent;
-            DownloadConnection downloadConnection = new(socket);
             var games_ = ownership.GetOwnedGames(true);
             GameLister.Work(games_);
             ProductUbiService.Work(games_.ToArray());
+            DownloadConnection downloadConnection = new(socket);
             if (ParameterLib.HasParameter(args, "-todl"))
             {
                 ReDL.Work(currentDir, downloadConnection, ownership);
@@ -85,9 +86,11 @@ namespace Dumperv2
             ProductConfigWithManifest.Work(currentDir,games3);
             if (ParameterLib.HasParameter(args, "-store"))
             {
+                Console.WriteLine("STORE!!");
                 StoreConnection storeConnection = new(socket);
                 storeConnection.Init();
                 var store = storeConnection.GetStore();
+                Console.WriteLine("STORE SUCCESS!!");
                 StoreWork.Work(store);
                 storeConnection.Close();
             }

@@ -28,8 +28,8 @@ namespace Dumperv2
                 {
                     uint prodId = uint.Parse(prod);
                     string ownershipToken_1 = ownership.GetOwnershipToken(prodId).Item1;
-                    downloadConnection.InitDownloadToken(ownershipToken_1);
-                    if (downloadConnection.isServiceSuccess != false)
+                    bool IsSuccess = downloadConnection.InitDownloadToken(ownershipToken_1);
+                    if (IsSuccess != false)
                     {
                         string manifestUrl_1 = downloadConnection.GetUrl(manifest, prodId);
                         if (manifestUrl_1 != "")

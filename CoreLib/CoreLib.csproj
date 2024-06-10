@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+	<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <SignAssembly>True</SignAssembly>
@@ -9,43 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="x64\lzham_api.dll" />
-    <None Remove="x64\lzham_api.so" />
-    <None Remove="x64\lzham_x64.dll" />
-    <None Remove="x86\lzham_api.dll" />
-    <None Remove="x86\lzham_api.so" />
-    <None Remove="x86\lzham_x86.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="x64\lzham_api.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\lzham_api.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\lzham_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lzham_api.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lzham_api.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lzham_x86.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="UbiServices" Version="23.3.28" />
-	  <!--PackageReference Include="UplayKit" Version="0.0.1.1" /-->
+    <PackageReference Include="LzhamWrapper" Version="0.0.1" />
+    <PackageReference Include="UbiServices" Version="24.6.10.1" />
+	<PackageReference Include="UplayKit" Version="0.0.2.2" />
     <PackageReference Include="ZstdNet" Version="1.4.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\UplayKit\UplayKit\UplayKit.csproj" />
+	  <!--ProjectReference Include="..\..\UplayKit\UplayKit\UplayKit.csproj" /-->
   </ItemGroup>
 
 </Project>

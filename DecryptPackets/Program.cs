@@ -1331,7 +1331,7 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.SteamService.Downstream.Parser.ParseFrom(array).ToString());
+                CheckOutWrite(Uplay.SteamService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1346,7 +1346,7 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Store.Downstream.Parser.ParseFrom(array).ToString());
+                CheckOutWrite(Uplay.Store.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {

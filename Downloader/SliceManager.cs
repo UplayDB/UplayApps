@@ -55,7 +55,7 @@ namespace Downloader
         public static List<string> GetUrlsForSlices(List<string> listOfSliceIds, DownloadConnection downloadConnection)
         {
             Program.CheckOW(DLWorker.Config.ProductId);
-            if (downloadConnection.isConnectionClosed)
+            if (downloadConnection.IsConnectionClosed)
             {
                 downloadConnection.Reconnect();
                 if (downloadConnection.isServiceSuccess)

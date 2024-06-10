@@ -1,17 +1,35 @@
 ﻿using Newtonsoft.Json;
 using UbiServices.Records;
+using System.IO.IsolatedStorage;
+using System.Collections.Concurrent;
 
 namespace CoreLib
 {
-    internal class LoginStore
+    class LoginStore
     {
         public class Stored
         {
+            //public string Email { get; set; }
             public string UserId { get; set; }
             public string RemTicket { get; set; }
             public string RemDeviceTicket { get; set; }
         }
 
+        string FileName;
+
+        LoginStore()
+        {
+            EmailStoredData = new ConcurrentDictionary<string, Stored>();
+        }
+
+        public ConcurrentDictionary<string, Stored> EmailStoredData;
+
+        public static LoginStore Instance;
+        static readonly IsolatedStorageFile IsolatedStorage = IsolatedStorageFile.GetUserStoreForAssembly();
+        static bool Loaded
+        {
+            get { return Instance != null; }
+        }
         public static List<Stored> Load()
         {
             List<Stored> logins = new();

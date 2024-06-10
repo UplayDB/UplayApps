@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\UbiServices\UbiServices\UbiServices.csproj" />
+    <ProjectReference Include="..\..\UplayKit\UplayKit\UplayKit.csproj" />
   </ItemGroup>
 
 </Project>
