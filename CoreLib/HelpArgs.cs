@@ -17,6 +17,9 @@
             Console.WriteLine("\t -trustedid\t\t Login with that trusted Id, if not present, make with trustedname");
             Console.WriteLine("\t -trustedname\t\t Name of trusted device, if not given name, using MachineName (PC name)");
             Console.WriteLine("\t -remember-me\t\t Using the user to remember and use that information next time on logon");
+            Console.WriteLine("\t -remember-device\t Using trusted device to save into (use with remember-me for after long way login)");
+            Console.WriteLine("\t -accid\t\t\t Another way to use combining remember-me and this (no need for username)");
+            Console.WriteLine("\t -usefilestore\t\t\t Use normal file for storing credentials");
             Console.WriteLine();
             WritePadder();
         }

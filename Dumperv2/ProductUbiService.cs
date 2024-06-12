@@ -5,13 +5,13 @@ namespace Dumperv2
 {
     internal class ProductUbiService
     {
-        public static void Work(Uplay.Ownership.OwnedGame[] games)
+        public static void Work(string curDir, Uplay.Ownership.OwnedGame[] games)
         {
             List<prodserv> listconf = new();
 
-            if (File.Exists("productservice.json"))
+            if (File.Exists(curDir + "\\productservice.json"))
             {
-                listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText("productservice.json"));
+                listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText(curDir + "\\productservice.json"));
                 Console.WriteLine($"ProductUbiService list item number is {listconf.Count}");
             }
 
@@ -47,7 +47,7 @@ namespace Dumperv2
                 }
             }
             listconf = listconf.OrderBy(x => x.ProductId).ToList();
-            File.WriteAllText("productservice.json", JsonConvert.SerializeObject(listconf, Formatting.Indented));
+            File.WriteAllText(curDir + "\\productservice.json", JsonConvert.SerializeObject(listconf, Formatting.Indented));
         }
     }
 }

@@ -7,15 +7,8 @@ namespace Dumperv2
 {
     internal class Program
     {
-        public static string Version = "0.3";
         static void Main(string[] args)
         {
-            Console.WriteLine(Formatters.FormatLength((uint)167772160));
-            /*
-            if (!VersionCheck.Check())
-            {
-                Console.WriteLine("Your version outdated you may can check out in github what is updated");
-            }*/
             if (ParameterLib.HasParameter(args, "-help") || ParameterLib.HasParameter(args, "-?") || ParameterLib.HasParameter(args, "?"))
             {
                 PrintHelp();
@@ -26,7 +19,6 @@ namespace Dumperv2
                 GenerateStore.Work(ParameterLib.HasParameter(args, "-eng"));
                 Environment.Exit(0);
             }
-            int indx = ParameterLib.GetParameter(args, "-lindx", 0);
             if (ParameterLib.HasParameter(args, "-csv"))
             {
                 foreach (var file in Directory.GetFileSystemEntries(currentDir + "\\files", "*.manifest", SearchOption.AllDirectories))
@@ -40,7 +32,7 @@ namespace Dumperv2
                 }
                 Environment.Exit(0);
             }
-            var login = LoginLib.LoginFromStore(args, indx);
+            var login = LoginLib.LoginArgs_CLI(args);
             
             if (login == null)
             {
@@ -66,8 +58,8 @@ namespace Dumperv2
             OwnershipConnection ownership = new(socket, login.Ticket, login.SessionId);
             ownership.PushEvent += Ownership_PushEvent;
             var games_ = ownership.GetOwnedGames(true);
-            GameLister.Work(games_);
-            ProductUbiService.Work(games_.ToArray());
+            GameLister.Work(currentDir, games_);
+            ProductUbiService.Work(currentDir, games_.ToArray());
             DownloadConnection downloadConnection = new(socket);
             if (ParameterLib.HasParameter(args, "-todl"))
             {
@@ -94,38 +86,6 @@ namespace Dumperv2
                 StoreWork.Work(store);
                 storeConnection.Close();
             }
-            /*
-OwnershipConnection ownershipConnection = new(socket);
-
-List<Uplay.Ownership.InitializeReq.Types.ProductBranchData> productBranchDatas = new();
-foreach (var item in pb)
-{
-    productBranchDatas.Add(new()
-    { 
-        ActiveBranchId = item.branch,
-        ProductId = item.Product
-    });
-}
-var rsp = ownershipConnection.SendRequest(new Uplay.Ownership.Req()
-{ 
-    InitializeReq = new()
-    { 
-        Branches = 
-        {
-            productBranchDatas
-        },
-        GetAssociations = false,
-        ProtoVersion = 7,
-        UseStaging = false
-    },
-    RequestId = 101,
-    UbiTicket = login.Ticket
-});
-File.WriteAllText("Ownership_Bracnhes.json", rsp.ToString());
-            */
-             
-
-            //ownership.Close();
             socket.Disconnect();
             Console.WriteLine("Goodbye World!");
         }
@@ -133,7 +93,7 @@ File.WriteAllText("Ownership_Bracnhes.json", rsp.ToString());
         private static void PrintHelp()
         {
             HelpArgs.PrintHelp();
-            Console.WriteLine("\n");
+            Console.WriteLine();
             Console.WriteLine("\t\tWelcome to Uplay Dumper CLI!");
             Console.WriteLine();
             Console.WriteLine("\t Arguments\t\t Arguments Description");
@@ -150,7 +110,7 @@ File.WriteAllText("Ownership_Bracnhes.json", rsp.ToString());
         private static void Ownership_PushEvent(object? sender, Uplay.Ownership.Push e)
         {
             Console.WriteLine("Ownership_PushEvent!" + e.ToString());
-            File.AppendAllText("", "\n");
+            File.AppendAllText("Ownership_PushEvent.txt", "\n" + e.ToString());
         }
     }
 }

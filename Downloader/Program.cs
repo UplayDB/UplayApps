@@ -48,8 +48,7 @@ namespace Downloader
 
             UbiServices.Urls.IsLocalTest = haslocal;
             #region Login
-            int indx = ParameterLib.GetParameter(args, "-lindx", 0);
-            var login = LoginLib.LoginFromStore(args, indx);
+            var login = LoginLib.LoginArgs_CLI(args);
 
             if (login == null)
             {

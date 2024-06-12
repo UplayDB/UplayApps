@@ -5,15 +5,15 @@ namespace Dumperv2
 {
     internal class GameLister
     {
-        public static void Work(List<Uplay.Ownership.OwnedGame>? games)
+        public static void Work(string curDir, List<Uplay.Ownership.OwnedGame>? games)
         {
             if (games == null)
                 return;
 
             List<OW> owList = new();
-            if (File.Exists("gamelist.json"))
+            if (File.Exists(curDir + "\\gamelist.json"))
             {
-                owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText("gamelist.json"));
+                owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText(curDir + "\\gamelist.json"));
             }
             foreach (var game in games)
             {
@@ -45,7 +45,7 @@ namespace Dumperv2
             }
 
 
-            File.WriteAllText("gamelist.json", JsonConvert.SerializeObject(owList, Formatting.Indented));
+            File.WriteAllText(curDir + "\\gamelist.json", JsonConvert.SerializeObject(owList, Formatting.Indented));
         }
     }
 }

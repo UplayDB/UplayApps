@@ -64,6 +64,7 @@ namespace CoreLib
                     compressor.Close();
                     return ms.ToArray();
                 case "Lzham":
+                    Console.WriteLine("Compressing with Lzham hasnt been actually reversed yet!");
                     //return LzhamWrapper.Compress(downloadedSlice, outputsize);
                     return bytesToCompress;
             }
