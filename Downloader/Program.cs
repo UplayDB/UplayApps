@@ -90,6 +90,8 @@ namespace Downloader
                 && !game.LockedBySubscription
                 ).ToList();
 
+                File.WriteAllText("games.json", JsonConvert.SerializeObject(owned, Formatting.Indented));
+
                 Console.WriteLine("-1) Your games:.");
                 Console.WriteLine("----------------------");
                 int gameIds = 0;
@@ -128,7 +130,8 @@ namespace Downloader
 
                 // Getting ownership token
                 var ownershipToken = ownershipConnection.GetOwnershipToken(DLWorker.Config.ProductId);
-                if (ownershipConnection.IsConnectionClosed == false || string.IsNullOrEmpty(ownershipToken.Item1)) { throw new("Product not owned"); }
+                Console.WriteLine((ownershipConnection.IsConnectionClosed == false | string.IsNullOrEmpty(ownershipToken.Item1)) + " " + ownershipConnection.IsConnectionClosed + " " + string.IsNullOrEmpty(ownershipToken.Item1) + " " + ownershipToken.Item1);
+                if (ownershipConnection.IsConnectionClosed == true || string.IsNullOrEmpty(ownershipToken.Item1)) { throw new("Product not owned"); }
                 OWToken = ownershipToken.Item1;
                 Exp = ownershipToken.Item2;
                 Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");

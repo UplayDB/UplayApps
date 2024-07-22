@@ -58,7 +58,7 @@ namespace Downloader
             if (downloadConnection.IsConnectionClosed)
             {
                 downloadConnection.Reconnect();
-                if (downloadConnection.isServiceSuccess)
+                if (downloadConnection.IsConnectionClosed)
                 {
                     bool InitTrue = downloadConnection.InitDownloadToken(Program.OWToken);
 
