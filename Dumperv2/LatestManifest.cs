@@ -10,24 +10,40 @@ namespace Dumperv2
         {
             List<string> strlist = new();
             List<uint> prodIdList = new();
+            if (games == null)
+                return;
             foreach (var game in games)
             {
-                //Console.WriteLine($"{game.ProductId}={game.LatestManifest}");
+                Console.WriteLine($"{game.ProductId}={game.LatestManifest}");
                 strlist.Add($"{game.ProductId}={game.LatestManifest}");
                 prodIdList.Add(game.ProductId);
-
                 string ownershipToken_1 = ownership.GetOwnershipToken(game.ProductId).Item1;
                 bool initDone = downloadConnection.InitDownloadToken(ownershipToken_1);
-                if (initDone != false)
+                if (initDone)
                 {
-                    string manifestUrl_1 = downloadConnection.GetUrl(game.LatestManifest, game.ProductId);
-                    var rc1 = new RestClient();
-                    File.WriteAllBytes(currentDir + "\\files\\" + game.ProductId + "_" + game.LatestManifest + ".manifest", rc1.DownloadData(new(manifestUrl_1)));
-
-                    var gm = $"{currentDir}\\files\\{game.ProductId}_{game.LatestManifest}.manifest";
-                    Dumper.Dump(Parsers.ParseManifestFile(gm), gm.Replace(".manifest", ".txt"));
-                    Dumper.DumpAsCSV(Parsers.ParseManifestFile(gm), null, gm.Replace(".manifest", ""), game.LatestManifest, game.ProductId);
+                    Console.WriteLine("can download game");
+                    var urls = downloadConnection.GetUrlList(game.ProductId, new() { $"manifests/{game.LatestManifest}.manifest" });
+                    foreach (var item in urls)
+                    {
+                        Console.WriteLine(item);
+                        var rc1 = new RestClient();
+                        var data = rc1.DownloadData(new RestRequest(item));
+                        if (data == null)
+                        {
+                            Console.WriteLine("data is null!");
+                        }
+                        if (data != null)
+                        {
+                            File.WriteAllBytes(currentDir + "\\files\\" + game.ProductId + "_" + game.LatestManifest + ".manifest", data);
+                            var gm = $"{currentDir}\\files\\{game.ProductId}_{game.LatestManifest}.manifest";
+                            Dumper.Dump(Parsers.ParseManifestFile(gm), gm.Replace(".manifest", ".txt"));
+                            Dumper.DumpAsCSV(Parsers.ParseManifestFile(gm), null, gm.Replace(".manifest", ""), game.LatestManifest, game.ProductId);
+                            break;
+                        }
+                            
+                    }
                 }
+                Thread.Sleep(100);
             }
             if (File.Exists(currentDir + "\\latest_manifests.txt"))
             {
