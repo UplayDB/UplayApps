@@ -9,8 +9,6 @@
     <Authors>UplayDB,SlejmUr</Authors>
     <Description>Dumping Manifests and useful things to track it.</Description>
 	<Copyright>Copyright © UplayDB Team</Copyright>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>G:\VS\UplayDB\Sign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
