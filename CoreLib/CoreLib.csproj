@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="LzhamWrapper" Version="0.0.1" />
-    <PackageReference Include="UbiServices" Version="24.6.10.1" />
-	  <PackageReference Include="UplayKit" Version="0.0.2.3" />
+    <PackageReference Include="UbiServices" Version="24.9.8" />
+	<PackageReference Include="UplayKit" Version="0.0.2.3" />
     <PackageReference Include="ZstdNet" Version="1.4.5" />
   </ItemGroup>
 

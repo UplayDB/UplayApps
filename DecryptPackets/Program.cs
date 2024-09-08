@@ -57,11 +57,11 @@ namespace DecryptPackets
             */
             Console.WriteLine("Bytes: " + BitConverter.ToString(byteArr));
             Console.WriteLine("Proto:");
-            string packetname = Console.ReadLine();
+            string packetname = Console.ReadLine()!;
             Console.WriteLine("stream type: (up/down)");
-            string up_or_down = Console.ReadLine();
+            string up_or_down = Console.ReadLine()!;
             Console.WriteLine("push/rsp/req/event:");
-            string push_r = Console.ReadLine();
+            string push_r = Console.ReadLine()!;
             string WriteOut = "";
             switch (packetname)
             {
@@ -1018,7 +1018,7 @@ namespace DecryptPackets
                     while (filethigny == false)
                     {
                         filethigny = !File.Exists(filename + ".txt");
-                        filename = filename + RandomString();
+                        filename += RandomString();
                     }
                 }
 
@@ -1031,14 +1031,14 @@ namespace DecryptPackets
 
         public static string RandomString()
         {
-            Random res = new Random();
+            Random res = new();
 
             // String that contain both alphabets and numbers
-            String str = "abcdefghijklmnopqrstuvwxyz0123456789";
+            string str = "abcdefghijklmnopqrstuvwxyz0123456789";
             int size = 2;
 
             // Initializing the empty string
-            String randomstring = "";
+            string randomstring = "";
 
             for (int i = 0; i < size; i++)
             {
@@ -1048,7 +1048,7 @@ namespace DecryptPackets
 
                 // Appending the character at the 
                 // index to the random alphanumeric string.
-                randomstring = randomstring + str[x];
+                randomstring += str[x];
             }
             return randomstring;
         }

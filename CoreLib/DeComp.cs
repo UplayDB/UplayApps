@@ -22,7 +22,7 @@ namespace CoreLib
                     decompressorZstd.Dispose();
                     return returner;
                 case "Deflate":
-                    InflaterInputStream decompressor = new InflaterInputStream(new MemoryStream(bytesToDecompress), new(false));
+                    InflaterInputStream decompressor = new(new MemoryStream(bytesToDecompress), new(false));
                     MemoryStream ms = new((int)outputsize);
                     decompressor.CopyTo(ms);
                     decompressor.Dispose();
@@ -35,7 +35,7 @@ namespace CoreLib
                         UpdateRate = LzhamWrapper.Enums.TableUpdateRate.Default
                     };
                     MemoryStream mem = new((int)outputsize);
-                    LzhamStream lzhamStream = new LzhamStream(new MemoryStream(bytesToDecompress), d);
+                    LzhamStream lzhamStream = new(new MemoryStream(bytesToDecompress), d);
                     lzhamStream.CopyTo(mem);
                     lzhamStream.Dispose();
                     return mem.ToArray();
@@ -43,7 +43,7 @@ namespace CoreLib
             return bytesToDecompress;
         }
 
-        public static byte[] Compress(bool IsCompressed, string CompressionMethod, byte[] bytesToCompress, ulong outputsize)
+        public static byte[] Compress(bool IsCompressed, string CompressionMethod, byte[] bytesToCompress)
         {
             if (!IsCompressed)
             {
@@ -59,7 +59,7 @@ namespace CoreLib
                     return returner;
                 case "Deflate":
                     MemoryStream ms = new();
-                    ZLibStream compressor = new ZLibStream(new MemoryStream(bytesToCompress), CompressionLevel.SmallestSize);
+                    ZLibStream compressor = new(new MemoryStream(bytesToCompress), CompressionLevel.SmallestSize);
                     ms.CopyTo(compressor);
                     compressor.Close();
                     return ms.ToArray();

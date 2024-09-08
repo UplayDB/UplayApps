@@ -21,6 +21,16 @@ namespace CoreLib
 
         public static T GetParameter<T>(string[] args, string param, T defaultValue = default)
         {
+            if (args is null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
+            if (string.IsNullOrEmpty(param))
+            {
+                throw new ArgumentException($"'{nameof(param)}' cannot be null or empty.", nameof(param));
+            }
+
             var index = IndexOfParam(args, param);
 
             if (index == -1 || index == (args.Length - 1))
@@ -28,13 +38,14 @@ namespace CoreLib
 
             var strParam = args[index + 1];
 
-            var converter = TypeDescriptor.GetConverter(typeof(T));
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
             if (converter != null)
             {
-                return (T)converter.ConvertFromString(strParam);
+                T? obj = (T?)converter.ConvertFromString(strParam);
+                return obj == null ? defaultValue : obj;
             }
 
-            return default(T);
+            return defaultValue;
         }
     }
 }

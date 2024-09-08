@@ -12,10 +12,7 @@
         public string trustedDeviceName;
         public bool useFileStorage;
 
-        public override string ToString()
-        {
-            return $"B64: {Base64Login}, AID: {AccountId}, Email: {Email}, Password L: {Password.Length}\n" +
+        public override readonly string ToString() => $"B64: {Base64Login}, AID: {AccountId}, Email: {Email}, Password L: {Password.Length}\n" +
                 $"RM: {rememberMe}, RD: {rememberDevice}, TDID: {trustedDeviceId}, TDNAME: {trustedDeviceName}, UFS: {useFileStorage}";
-        }
     }
 }

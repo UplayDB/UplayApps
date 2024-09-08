@@ -29,7 +29,7 @@ namespace CoreLib
             }
             else
             {
-                return LoginCLI(out callbackLogin.loginArguments.Email);
+                return LoginCLI(out callbackLogin.loginArguments.Email!);
             }
         }
 
@@ -64,8 +64,6 @@ namespace CoreLib
             if (loginArguments.useFileStorage)
                 UbisoftLoginStore.UseIsolatedStorage = false;
             UbisoftLoginStore.LoadFromFile("LoginStore.dat");
-            Console.WriteLine(UbisoftLoginStore.Instance.UserDatCache.ToString());
-            Console.WriteLine(UbisoftLoginStore.Instance.RememberCache.ToString());
             LoginJson? login = null;
             if (!string.IsNullOrEmpty(loginArguments.Base64Login))
             {
@@ -224,20 +222,17 @@ namespace CoreLib
         {
             LoginJson? ret = login;
             UbisoftLoginStore.LoadFromFile("LoginStore.dat");
-            if (login.Ticket == null && login.TwoFactorAuthenticationTicket != null)
+            if (login != null && login.Ticket == null && login.TwoFactorAuthenticationTicket != null)
             {
                 ret = Login2FA_Device(login.TwoFactorAuthenticationTicket, code2fa, trustedId,trustedname);
 
                 if (ret != null)
                 {
                     var rem = UbisoftLoginStore.Instance.RememberCache.Users.Where(x => x.AccountId == ret.UserId).FirstOrDefault();
-                    if (rem == null)
-                    {
-                        rem = new()
+                    rem ??= new()
                         {
                             AccountId = ret.UserId
                         };
-                    }
                     rem.RdTicket = ret.RememberDeviceTicket;
                 }
             }
@@ -248,7 +243,7 @@ namespace CoreLib
         public static LoginJson? TryLoginWith2FA(LoginJson? login, string code2fa)
         {
             LoginJson? ret = login;
-            if (login.Ticket == null && login.TwoFactorAuthenticationTicket != null)
+            if (login != null && login.Ticket == null && login.TwoFactorAuthenticationTicket != null)
             {
                 ret = Login2FA(login.TwoFactorAuthenticationTicket, code2fa);
             }
