@@ -69,14 +69,14 @@ namespace Dumperv2
 
             var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
 
+            ListAllManifests.Work(currentDir, games);
             LatestManifest.Work(currentDir, games, downloadConnection, ownership);
+            
             ownership.Close();
             downloadConnection.Close();
             var pb = FromBranches.Work(currentDir, games);
             var games2 = games_.Where(x => x.Configuration.Length != 0).ToArray();
             ProductConfig.Work(currentDir, games2);
-            var games3 = games2.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
-            ProductConfigWithManifest.Work(currentDir,games3);
             if (ParameterLib.HasParameter(args, "-store"))
             {
                 Console.WriteLine("STORE!!");

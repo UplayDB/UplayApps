@@ -20,6 +20,7 @@
             Console.WriteLine("\t -remember-device\t Using trusted device to save into (use with remember-me for after long way login)");
             Console.WriteLine("\t -accid\t\t\t Another way to use combining remember-me and this (no need for username)");
             Console.WriteLine("\t -usefilestore\t\t\t Use normal file for storing credentials");
+            Console.WriteLine("\t -printstore\t\t\t Printing the credentails stored. (and its place)");
             Console.WriteLine();
             WritePadder();
         }

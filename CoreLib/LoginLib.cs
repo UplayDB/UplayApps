@@ -46,6 +46,7 @@ namespace CoreLib
                 trustedDeviceId = ParameterLib.GetParameter<string>(args, "-trustedid", string.Empty),
                 trustedDeviceName = ParameterLib.GetParameter<string>(args, "-trustedname", string.Empty),
                 useFileStorage = ParameterLib.HasParameter(args, "-usefilestore"),
+                printStorage = ParameterLib.HasParameter(args, "-printstore"),
             };
         }
 
@@ -64,6 +65,11 @@ namespace CoreLib
             if (loginArguments.useFileStorage)
                 UbisoftLoginStore.UseIsolatedStorage = false;
             UbisoftLoginStore.LoadFromFile("LoginStore.dat");
+            if (loginArguments.printStorage)
+            {
+                Console.WriteLine(UbisoftLoginStore.Instance.UserDatCache.ToString());
+                Console.WriteLine(UbisoftLoginStore.Instance.RememberCache.ToString());
+            }
             LoginJson? login = null;
             if (!string.IsNullOrEmpty(loginArguments.Base64Login))
             {
@@ -221,7 +227,6 @@ namespace CoreLib
         public static LoginJson? TryLoginWith2FA_Rem(LoginJson? login, string code2fa, string trustedname, string trustedId)
         {
             LoginJson? ret = login;
-            UbisoftLoginStore.LoadFromFile("LoginStore.dat");
             if (login != null && login.Ticket == null && login.TwoFactorAuthenticationTicket != null)
             {
                 ret = Login2FA_Device(login.TwoFactorAuthenticationTicket, code2fa, trustedId,trustedname);
@@ -236,7 +241,6 @@ namespace CoreLib
                     rem.RdTicket = ret.RememberDeviceTicket;
                 }
             }
-            UbisoftLoginStore.Save();
             return ret;
         }
 

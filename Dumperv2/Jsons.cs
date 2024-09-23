@@ -8,11 +8,10 @@
             public string Configuration { get; set; }
         }
 
-        public class prodconfm
+        public class prodmanifests
         {
             public uint ProductId { get; set; }
-            public string Configuration { get; set; }
-            public string Manifest { get; set; }
+            public List<string> Manifest { get; set; } = new();
         }
 
         public class prodserv
