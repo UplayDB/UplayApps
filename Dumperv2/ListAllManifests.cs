@@ -35,7 +35,8 @@ namespace Dumperv2
                 }
                 if (!prodmanifest.Manifest.Contains(item.LatestManifest))
                     prodmanifest.Manifest.Add(item.LatestManifest);
-                manifestList.Add(prodmanifest);
+                if (!manifestList.Contains(prodmanifest))
+                    manifestList.Add(prodmanifest);
             }
             manifestList = manifestList.OrderBy(x => x.ProductId).ToList();
             File.WriteAllText($"{currentDir}/manifestlist.json", JsonConvert.SerializeObject(manifestList, Formatting.Indented));

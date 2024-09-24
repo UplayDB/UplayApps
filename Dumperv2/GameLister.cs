@@ -20,7 +20,6 @@ namespace Dumperv2
                 OW ow = new();
                 ow.ProductId = game.ProductId;
                 ow.ProductType = ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString();
-                ow.TargetPartner = game.TargetPartner.ToString();
                 ow.ProductAssociations = game.ProductAssociations.ToList();
 
                 if (owList.FindAll(x => x.ProductId == game.ProductId).Count <= 0)
@@ -31,7 +30,6 @@ namespace Dumperv2
 
                 var listdiffconf = owList.Where(x => x.ProductId == game.ProductId
                 && (x.ProductType != ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString()
-                || x.TargetPartner != game.TargetPartner.ToString()
                 || x.ProductAssociations != game.ProductAssociations.ToList()
                 )).ToList();
 
@@ -39,7 +37,6 @@ namespace Dumperv2
                 {
                     var ows = owList.Where(x => x.ProductId == game.ProductId).First();
                     ows.ProductType = ((Uplay.Ownership.OwnedGame.Types.ProductType)game.ProductType).ToString();
-                    ows.TargetPartner = game.TargetPartner.ToString();
                     ows.ProductAssociations = game.ProductAssociations.ToList();
                 }
             }
