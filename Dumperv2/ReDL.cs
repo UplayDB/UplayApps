@@ -20,7 +20,7 @@ namespace Dumperv2
                 var manifest = splitted[0];
                 var prod = splitted[1];
 
-                if (File.Exists(currentDir + "\\files\\" + prod + "_" + manifest + ".manifest"))
+                if (File.Exists(Path.Combine(currentDir, "files", prod + "_" + manifest + ".manifest")))
                 {
                     Console.WriteLine("Skipped!");
                 }
@@ -40,7 +40,7 @@ namespace Dumperv2
                             if (data == null)
                                 Console.WriteLine("Manifest dl failed! Url return nothing.\nURL: " + manifestUrl_1);
                             else
-                                File.WriteAllBytes(currentDir + "\\files\\" + prod + "_" + manifest + ".manifest", data);
+                                File.WriteAllBytes(Path.Combine(currentDir, "files", prod + "_" + manifest + ".manifest"), data);
                         }
                     }
                     Console.WriteLine(manifest + " " + prod + " " + i);

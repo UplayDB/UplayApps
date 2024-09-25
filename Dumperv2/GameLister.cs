@@ -11,9 +11,9 @@ namespace Dumperv2
                 return;
 
             List<OW> owList = new();
-            if (File.Exists(curDir + "\\gamelist.json"))
+            if (File.Exists(Path.Combine(curDir, "gamelist.json")))
             {
-                owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText(curDir + "\\gamelist.json"));
+                owList = JsonConvert.DeserializeObject<List<OW>>(File.ReadAllText(Path.Combine(curDir, "gamelist.json")));
             }
             foreach (var game in games)
             {
@@ -42,7 +42,7 @@ namespace Dumperv2
             }
 
 
-            File.WriteAllText(curDir + "\\gamelist.json", JsonConvert.SerializeObject(owList, Formatting.Indented));
+            File.WriteAllText(Path.Combine(curDir, "gamelist.json"), JsonConvert.SerializeObject(owList, Formatting.Indented));
         }
     }
 }

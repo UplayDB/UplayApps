@@ -12,9 +12,10 @@ namespace Dumperv2
             if (games == null)
                 return;
             List<prodmanifests> manifestList = new();
-            if (File.Exists($"{currentDir}/manifestlist.json"))
+            string manifestlist_path = Path.Combine(currentDir, "manifestlist.json");
+            if (File.Exists(manifestlist_path))
             {
-                var manifestListfile = JsonConvert.DeserializeObject<List<prodmanifests>>(File.ReadAllText($"{currentDir}/manifestlist.json"));
+                var manifestListfile = JsonConvert.DeserializeObject<List<prodmanifests>>(File.ReadAllText(manifestlist_path));
                 if (manifestListfile != null)
                     manifestList = manifestListfile;
             }
@@ -39,7 +40,7 @@ namespace Dumperv2
                     manifestList.Add(prodmanifest);
             }
             manifestList = manifestList.OrderBy(x => x.ProductId).ToList();
-            File.WriteAllText($"{currentDir}/manifestlist.json", JsonConvert.SerializeObject(manifestList, Formatting.Indented));
+            File.WriteAllText(manifestlist_path, JsonConvert.SerializeObject(manifestList, Formatting.Indented));
         }
     }
 }

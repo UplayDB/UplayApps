@@ -25,9 +25,9 @@ namespace Dumperv2
 
             foreach (var brand in brands)
             {
-                if (!Directory.Exists("Store\\" + brand))
+                if (!Directory.Exists(Path.Combine("Store", brand)))
                 {
-                    Directory.CreateDirectory("Store\\" + brand);
+                    Directory.CreateDirectory(Path.Combine("Store", brand));
                 }
             }
 
@@ -53,11 +53,13 @@ namespace Dumperv2
 
                     var callback = UbiServices.Store.Products.GetStoreFrontByProducts(country, new() { conf.StoreRef }, new() { "images", "variations", "prices", "promotions", "availability" }, false);
 
-                    File.WriteAllText($"Store\\{conf.ProductId}_{country.ToString()}.json", JsonConvert.SerializeObject(callback, Formatting.Indented));
+                    string file_path = Path.Combine("Store", $"{conf.ProductId}_{country.ToString()}.json");
 
-                    if (File.Exists($"Store\\{conf.ProductId}_{country.ToString()}.json"))
+                    File.WriteAllText(file_path, JsonConvert.SerializeObject(callback, Formatting.Indented));
+
+                    if (File.Exists(file_path))
                     {
-                        var file = File.ReadAllText($"Store\\{conf.ProductId}_{country.ToString()}.json", encoding: System.Text.Encoding.UTF8);
+                        var file = File.ReadAllText(file_path, encoding: System.Text.Encoding.UTF8);
 
                         if (file == "null")
                         {
@@ -127,14 +129,14 @@ namespace Dumperv2
                                 Brand = "Others"
                             };
                             idmaps.Add(_);
-                            File.Copy($"Store\\{conf.ProductId}_{country.ToString()}.json", $"Store\\Others\\{conf.ProductId}_{country.ToString()}.json", true);
+                            File.Copy(file_path, Path.Combine("Store", "Others", $"{conf.ProductId}_{country.ToString()}.json"), true);
 
                         }
                         else
                         {
-                            File.Copy($"Store\\{conf.ProductId}_{country.ToString()}.json", $"Store\\{idmap_2.Brand}\\{conf.ProductId}_{country.ToString()}.json", true);
+                            File.Copy(file_path, Path.Combine("Store", idmap_2.Brand, $"{conf.ProductId}_{country.ToString()}.json"), true);
                         }
-                        File.Delete($"Store\\{conf.ProductId}_{country.ToString()}.json");
+                        File.Delete(file_path);
                     }
                 }
                 else
@@ -149,14 +151,14 @@ namespace Dumperv2
                             continue;
                         }
 
-
+                        string file_path = Path.Combine("Store", $"{conf.ProductId}_{country.ToString()}.json");
                         var callback = UbiServices.Store.Products.GetStoreFrontByProducts(country, new() { conf.StoreRef }, new() { "images", "variations", "prices", "promotions", "availability" }, false);
 
-                        File.WriteAllText($"Store\\{conf.ProductId}_{country.ToString()}.json", JsonConvert.SerializeObject(callback, Formatting.Indented));
+                        File.WriteAllText(file_path, JsonConvert.SerializeObject(callback, Formatting.Indented));
 
-                        if (File.Exists($"Store\\{conf.ProductId}_{country.ToString()}.json"))
+                        if (File.Exists(file_path))
                         {
-                            var file = File.ReadAllText($"Store\\{conf.ProductId}_{country.ToString()}.json", encoding: System.Text.Encoding.UTF8);
+                            var file = File.ReadAllText(file_path, encoding: System.Text.Encoding.UTF8);
 
                             if (file == "null")
                             {
@@ -226,14 +228,14 @@ namespace Dumperv2
                                     Brand = "Others"
                                 };
                                 idmaps.Add(_);
-                                File.Copy($"Store\\{conf.ProductId}_{country.ToString()}.json", $"Store\\Others\\{conf.ProductId}_{country.ToString()}.json", true);
+                                File.Copy(file_path, Path.Combine("Store", "Others", $"{conf.ProductId}_{country.ToString()}.json"), true);
 
                             }
                             else
                             {
-                                File.Copy($"Store\\{conf.ProductId}_{country.ToString()}.json", $"Store\\{idmap_2.Brand}\\{conf.ProductId}_{country.ToString()}.json", true);
+                                File.Copy(file_path, Path.Combine("Store", idmap_2.Brand, $"{conf.ProductId}_{country.ToString()}.json"), true);
                             }
-                            File.Delete($"Store\\{conf.ProductId}_{country.ToString()}.json");
+                            File.Delete(file_path);
                         }
                     }
                 }               

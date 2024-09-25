@@ -34,8 +34,8 @@ namespace Dumperv2
                         }
                         if (data != null)
                         {
-                            File.WriteAllBytes(currentDir + "\\files\\" + game.ProductId + "_" + game.LatestManifest + ".manifest", data);
-                            var gm = $"{currentDir}\\files\\{game.ProductId}_{game.LatestManifest}.manifest";
+                            var gm = Path.Combine(currentDir, "files", game.ProductId + "_" + game.LatestManifest + ".manifest");
+                            File.WriteAllBytes(gm, data);
                             Dumper.Dump(Parsers.ParseManifestFile(gm), gm.Replace(".manifest", ".txt"));
                             Dumper.DumpAsCSV(Parsers.ParseManifestFile(gm), null, gm.Replace(".manifest", ""), game.LatestManifest, game.ProductId);
                             break;
@@ -45,9 +45,9 @@ namespace Dumperv2
                 }
                 Thread.Sleep(100);
             }
-            if (File.Exists(currentDir + "\\latest_manifests.txt"))
+            if (File.Exists(Path.Combine(currentDir, "latest_manifests.txt")))
             {
-                var latest_manifests = File.ReadAllLines(currentDir + "\\latest_manifests.txt");
+                var latest_manifests = File.ReadAllLines(Path.Combine(currentDir, "latest_manifests.txt"));
                 foreach (var latest_manifest in latest_manifests)
                 {
                     if (!strlist.Contains(latest_manifest))
@@ -70,7 +70,7 @@ namespace Dumperv2
             {
                 write_out += st + "\n";
             }
-            File.WriteAllText(currentDir + "\\latest_manifests.txt", write_out);
+            File.WriteAllText(Path.Combine(currentDir, "latest_manifests.txt"), write_out);
         }
     }
 }

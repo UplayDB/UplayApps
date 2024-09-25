@@ -21,15 +21,20 @@ namespace Dumperv2
             }
             if (ParameterLib.HasParameter(args, "-csv"))
             {
-                foreach (var file in Directory.GetFileSystemEntries(currentDir + "\\files", "*.manifest", SearchOption.AllDirectories))
+                List<Task> tasks = new();
+                foreach (var file in Directory.GetFileSystemEntries(Path.Combine(currentDir, "files"), "*.manifest", SearchOption.AllDirectories))
                 {
-                    var splitted = file.Split("_");
-                    Console.WriteLine(splitted[0]);
-                    var prodId = uint.Parse(splitted[0].Replace(currentDir + "\\files\\", ""));
-                    var manifestId = splitted[1].Replace(".manifest", "");
-                    Dumper.Dump(Parsers.ParseManifestFile(file), file.Replace(".manifest", ".txt"));
-                    Dumper.DumpAsCSV(Parsers.ParseManifestFile(file), null, file.Replace(".manifest", ""), manifestId, prodId);
+                    tasks.Add(Task.Run(()=> {
+                        var splitted = file.Split("_");
+                        var x = splitted[0].Replace(Path.Combine(currentDir, "files"), "").Replace(Path.DirectorySeparatorChar, ' ').TrimStart();
+                        var prodId = uint.Parse(x);
+                        var manifestId = splitted[1].Replace(".manifest", "");
+                        Dumper.Dump(Parsers.ParseManifestFile(file), file.Replace(".manifest", ".txt"));
+                        Dumper.DumpAsCSV(Parsers.ParseManifestFile(file), null, file.Replace(".manifest", ""), manifestId, prodId);
+                    }));
                 }
+                Console.WriteLine("Waiting until all files are parsed to .csv");
+                Task.WaitAll(tasks.ToArray());
                 Environment.Exit(0);
             }
             var login = LoginLib.LoginArgs_CLI(args);
@@ -51,25 +56,25 @@ namespace Dumperv2
                 Console.WriteLine("Oops something is wrong!");
                 Environment.Exit(1);
             }
-            if (!Directory.Exists(currentDir + "\\files"))
+            if (!Directory.Exists(Path.Combine(currentDir, "files")))
             {
-                Directory.CreateDirectory(currentDir + "\\files");
+                Directory.CreateDirectory(Path.Combine(currentDir, "files"));
             }
             OwnershipConnection ownership = new(socket, login.Ticket, login.SessionId);
             ownership.PushEvent += Ownership_PushEvent;
             var games_ = ownership.GetOwnedGames(true);
             GameLister.Work(currentDir, games_);
             ProductUbiService.Work(currentDir, games_.ToArray());
+            var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
+
+            ListAllManifests.Work(currentDir, games);
             DownloadConnection downloadConnection = new(socket);
 
             if (ParameterLib.HasParameter(args, "-todl"))
             {
                 ReDL.Work(currentDir, downloadConnection, ownership);
             }
-
-            var games = games_.Where(x => x.LatestManifest.Trim().Length > 0).ToArray();
-
-            ListAllManifests.Work(currentDir, games);
+            
             LatestManifest.Work(currentDir, games, downloadConnection, ownership);
             
             ownership.Close();

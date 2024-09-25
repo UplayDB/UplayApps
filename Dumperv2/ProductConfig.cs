@@ -8,10 +8,10 @@ namespace Dumperv2
         public static void Work(string currentDir, Uplay.Ownership.OwnedGame[] games)
         {
             List<prodconf> listconf = new();
-
-            if (File.Exists(currentDir + "\\productconfig.json"))
+            string productconfig_path = Path.Combine(currentDir, "productconfig.json");
+            if (File.Exists(productconfig_path))
             {
-                listconf = JsonConvert.DeserializeObject<List<prodconf>>(File.ReadAllText(currentDir + "\\productconfig.json"));
+                listconf = JsonConvert.DeserializeObject<List<prodconf>>(File.ReadAllText(productconfig_path));
             }
 
             foreach (var g in games)
@@ -37,7 +37,7 @@ namespace Dumperv2
                 }
             }
             listconf = listconf.OrderBy(x => x.ProductId).ToList();
-            File.WriteAllText(currentDir + "\\productconfig.json", JsonConvert.SerializeObject(listconf, Formatting.Indented));
+            File.WriteAllText(productconfig_path, JsonConvert.SerializeObject(listconf, Formatting.Indented));
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Dumperv2
         public static void Work(string curDir, Uplay.Ownership.OwnedGame[] games)
         {
             List<prodserv> listconf = new();
-
-            if (File.Exists(curDir + "\\productservice.json"))
+            string productservice_path = Path.Combine(curDir, "productservice.json");
+            if (File.Exists(productservice_path))
             {
-                listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText(curDir + "\\productservice.json"));
+                listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText(productservice_path));
                 Console.WriteLine($"ProductUbiService list item number is {listconf.Count}");
             }
 
@@ -47,7 +47,7 @@ namespace Dumperv2
                 }
             }
             listconf = listconf.OrderBy(x => x.ProductId).ToList();
-            File.WriteAllText(curDir + "\\productservice.json", JsonConvert.SerializeObject(listconf, Formatting.Indented));
+            File.WriteAllText(productservice_path, JsonConvert.SerializeObject(listconf, Formatting.Indented));
         }
     }
 }
