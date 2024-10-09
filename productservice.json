@@ -1,0 +1,332 @@
+[
+  {
+    "ProductId": 3,
+    "SpaceId": "4647c509-9774-48ec-829b-69e78f343417",
+    "AppId": "7dbeb2dd-1e7f-433b-9550-24d171712b33"
+  },
+  {
+    "ProductId": 4,
+    "SpaceId": "97ef669a-c028-4c25-b5ff-7335aa5d806c",
+    "AppId": "20a72d33-4b3e-47df-b88c-bbd632ed57df"
+  },
+  {
+    "ProductId": 40,
+    "SpaceId": "6f7367d5-031e-4a09-b12b-0c74817ef636",
+    "AppId": "f22848f5-e5c2-4bd0-86ce-e254174b060a"
+  },
+  {
+    "ProductId": 53,
+    "SpaceId": "5dea230f-c047-4e78-bc4c-4f8b1ffb54d5",
+    "AppId": "618d5c40-9c35-48fe-b39a-698cc501391d"
+  },
+  {
+    "ProductId": 55,
+    "SpaceId": "d177ec97-aaed-4cf7-9215-e4e18d91a0ce",
+    "AppId": "60223b25-aaef-450f-b44c-6436e5f3374d"
+  },
+  {
+    "ProductId": 78,
+    "SpaceId": "f45430a3-d973-4994-bff7-baeedee22e9e",
+    "AppId": "7dc0a2f0-4920-408d-8f32-cd5398d96d71"
+  },
+  {
+    "ProductId": 88,
+    "SpaceId": "8f6f2825-8bc8-4c3a-a16b-44bc599832d9",
+    "AppId": "0486db7f-fb0d-4a82-b356-b93d36baa409"
+  },
+  {
+    "ProductId": 90,
+    "SpaceId": "4c1a7184-86cc-48c2-8c15-5aae82eb7bc0",
+    "AppId": "fa063ff9-509c-4379-9641-bc718af9b957"
+  },
+  {
+    "ProductId": 91,
+    "SpaceId": "a1b16676-daa4-44f9-82bd-1c284017024c",
+    "AppId": "8990f1f0-174d-48b4-9d63-4bb7ec70abf1"
+  },
+  {
+    "ProductId": 95,
+    "SpaceId": "983d68cf-d333-4e85-83e8-99b81fb3f0b5",
+    "AppId": "5d73fcbe-f3b0-4f75-bcb9-2a7571ec6abb"
+  },
+  {
+    "ProductId": 101,
+    "SpaceId": "50228b8c-bbaa-4c32-83c6-2831a1ac317c",
+    "AppId": "15a42aaf-f5cc-47df-bbb3-f59768ac6eed"
+  },
+  {
+    "ProductId": 109,
+    "SpaceId": "d5af62ba-2ffe-40a3-977a-43dc494b8e23",
+    "AppId": "0422d076-f1b4-4565-a386-f2f1c3d8cc16"
+  },
+  {
+    "ProductId": 111,
+    "SpaceId": "6a88e57b-9097-4625-add2-889fa050de9d",
+    "AppId": "f42d1d96-f0a1-4650-bcde-ff756a7aea62"
+  },
+  {
+    "ProductId": 205,
+    "SpaceId": "4bd0476b-acec-446d-b526-23a0209101ca",
+    "AppId": "4e70f3d3-5d5f-4bd1-8b98-e408b1bbfa0f"
+  },
+  {
+    "ProductId": 232,
+    "SpaceId": "41b67b23-c7e1-417b-af71-4d24a7a50c45",
+    "AppId": "0f33986d-b311-49ac-a268-28cc21401d78"
+  },
+  {
+    "ProductId": 273,
+    "SpaceId": "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52",
+    "AppId": "66b22534-0c4c-4bb0-b6f6-9674cfc307ce"
+  },
+  {
+    "ProductId": 274,
+    "SpaceId": "c8237ba1-f3a7-4a93-acb6-a23044c4f0cf",
+    "AppId": "9c4a1757-422b-458f-b4d2-5e623c911ba6"
+  },
+  {
+    "ProductId": 297,
+    "SpaceId": "009083ff-8454-40c3-96ed-7a3641fbf2a6",
+    "AppId": "a0088fe4-690d-4b89-ab37-deac32da24ab"
+  },
+  {
+    "ProductId": 316,
+    "SpaceId": "4bd0476b-acec-446d-b526-23a0209101ca",
+    "AppId": "4e70f3d3-5d5f-4bd1-8b98-e408b1bbfa0f"
+  },
+  {
+    "ProductId": 410,
+    "SpaceId": "29e9dd0e-1921-4e7f-b614-a3b686499d87",
+    "AppId": "92511b15-56ab-40ec-b55b-985916069d1d"
+  },
+  {
+    "ProductId": 413,
+    "SpaceId": "ee2ed4a6-4d8c-4d20-8777-c6355c21666f",
+    "AppId": "043a4bd9-9336-4cc3-b51c-1da703f89f87"
+  },
+  {
+    "ProductId": 428,
+    "SpaceId": "50f97655-c930-40fd-82c7-fb33fd024fec",
+    "AppId": "e421a897-4eb7-45a7-a4dc-6aaf4d7bd8a9"
+  },
+  {
+    "ProductId": 437,
+    "SpaceId": "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52",
+    "AppId": "66b22534-0c4c-4bb0-b6f6-9674cfc307ce"
+  },
+  {
+    "ProductId": 569,
+    "SpaceId": "882ad5b5-f549-44a1-a434-c465d22fe4bf",
+    "AppId": "3b27ede8-3ff9-435d-a264-e2de2ccbb2ce"
+  },
+  {
+    "ProductId": 600,
+    "SpaceId": "4a1562a4-c4d2-4bc5-a85e-f3db588b0072",
+    "AppId": "d71bf270-d6b1-4ae1-9546-338ce292e125"
+  },
+  {
+    "ProductId": 625,
+    "SpaceId": "23f11cd4-ebe8-41c4-8367-20f6502d2ad6",
+    "AppId": "e7a8cc92-d26f-4390-a9a8-1214a1938fe4"
+  },
+  {
+    "ProductId": 659,
+    "SpaceId": "f2ebc6e9-ed10-4e66-89a4-691491e92c5f",
+    "AppId": "ad76028f-1646-4016-abee-828f8fee6dba"
+  },
+  {
+    "ProductId": 691,
+    "SpaceId": "411b49f4-5b07-4ff7-b87e-5bf2cc40ca73",
+    "AppId": "a312114e-fdfd-403e-a0f0-7cfbc44fcbed"
+  },
+  {
+    "ProductId": 720,
+    "SpaceId": "6678eff0-1293-4f87-8c8c-06a4ca646068",
+    "AppId": "697a073a-83f3-46af-9da7-0d0b0a8a2366"
+  },
+  {
+    "ProductId": 750,
+    "SpaceId": "ee2ed4a6-4d8c-4d20-8777-c6355c21666f",
+    "AppId": "043a4bd9-9336-4cc3-b51c-1da703f89f87"
+  },
+  {
+    "ProductId": 856,
+    "SpaceId": "aab6ceb2-2ea5-4d27-9719-cc2cb87395b7",
+    "AppId": "2d10b938-06a4-4f79-89b5-a57706032a5f"
+  },
+  {
+    "ProductId": 895,
+    "SpaceId": "3499bde3-6f0e-4ddc-84fb-736f93078be2",
+    "AppId": "1f8ba984-b3e4-49e5-a9a2-f9456c098f52"
+  },
+  {
+    "ProductId": 1651,
+    "SpaceId": "92c79ab6-a69a-411d-ba2b-625ab104235d",
+    "AppId": "27c49943-5d32-4b44-8819-1d5f0426c051"
+  },
+  {
+    "ProductId": 1847,
+    "SpaceId": "f8d43496-6e15-4ee1-a57f-b23cab9f9acf",
+    "AppId": "2e020a01-1b19-4147-9fd9-788f2fe0d1d2"
+  },
+  {
+    "ProductId": 1848,
+    "SpaceId": "47043a38-3f88-4464-ab5e-5b3c1b1c1924",
+    "AppId": "e8087fc0-7734-4e81-ae52-9e5c22ffae86"
+  },
+  {
+    "ProductId": 1957,
+    "SpaceId": "9676c860-e256-4d60-b39a-26d114b125c3",
+    "AppId": "8ae62d8c-0a53-438e-bbea-a4f8f1f9feeb"
+  },
+  {
+    "ProductId": 2010,
+    "SpaceId": "91857f7a-783d-4520-a1ad-8e2f4bdba236",
+    "AppId": "933153ac-0e93-4ead-be41-563de8dc6487"
+  },
+  {
+    "ProductId": 2235,
+    "SpaceId": "7c627be7-30a8-4544-9cab-e12717a63515",
+    "AppId": "bf2e613a-9754-40c5-8cc4-57a6db78b6a4"
+  },
+  {
+    "ProductId": 2297,
+    "SpaceId": "11eea277-1d8b-456a-aca5-0c41b317373b",
+    "AppId": "ab4abead-b9f3-4b3a-b5ad-463d6d117758"
+  },
+  {
+    "ProductId": 2298,
+    "SpaceId": "b7fa69d3-3ec4-4f8d-8531-217f400bb507",
+    "AppId": "8a4e8b00-bfb2-4dd5-bc64-a7ff4dc29bd2"
+  },
+  {
+    "ProductId": 2356,
+    "SpaceId": "45a0b2b4-6e9c-4a42-b97e-e27ed46d3d47",
+    "AppId": "40c26135-df4c-412a-ab7d-64051496e3e4"
+  },
+  {
+    "ProductId": 2990,
+    "SpaceId": "d2aff52f-faf3-4184-8f5c-5aeaa20d25e1",
+    "AppId": "114a4532-8e80-4ad6-b15f-f5732053e4ea"
+  },
+  {
+    "ProductId": 3052,
+    "SpaceId": "f6397855-ad9d-4848-9cc8-de06d1d82755",
+    "AppId": "8d09a12f-7772-4326-a22f-fdf91c3de617"
+  },
+  {
+    "ProductId": 3353,
+    "SpaceId": "c619c78d-1c6b-47cf-9b36-80160d5c0e8f",
+    "AppId": "ade80bc2-0462-42bc-837a-851386dc5a9e"
+  },
+  {
+    "ProductId": 3600,
+    "SpaceId": "362c7c19-4792-4876-9cf9-2bc13f5e3746",
+    "AppId": "ebda12a9-470b-44fb-b137-cb1f66726940"
+  },
+  {
+    "ProductId": 3619,
+    "SpaceId": "8c8d9b22-498c-45e6-80da-7cd22787c9b3",
+    "AppId": "35c5c607-2717-47d9-9323-7df47c6e1c4d"
+  },
+  {
+    "ProductId": 4311,
+    "SpaceId": "f40e304d-8e8d-4343-8270-d06487c35add",
+    "AppId": "e0b29a98-ce38-4bc7-96ee-9d20e793e9e3"
+  },
+  {
+    "ProductId": 4923,
+    "SpaceId": "bfd34091-6af6-4029-873b-ba7e036464fa",
+    "AppId": "ba09e96a-9f80-42c1-ab6c-4abbc91e9d38"
+  },
+  {
+    "ProductId": 4932,
+    "SpaceId": "60859c37-949d-49e2-8fc8-6d8dc40f1a9e",
+    "AppId": "6c6b8cd7-d901-4cd5-8279-07ba92088f06"
+  },
+  {
+    "ProductId": 5037,
+    "SpaceId": "90c0ddf3-64c2-40d1-ac53-85ebeccd96eb",
+    "AppId": "41080f91-b0c8-4539-a5d9-965b14ef32bf"
+  },
+  {
+    "ProductId": 5092,
+    "SpaceId": "7d3950e6-41ce-43e3-976b-f893b246c31e",
+    "AppId": "b5a56749-f302-46f7-8b17-ace3b0c3410f"
+  },
+  {
+    "ProductId": 5100,
+    "SpaceId": "b0d49994-ec9a-4809-908a-b5970791b0f7",
+    "AppId": "fa18ffa1-ed45-454e-a27c-b34045ffc715"
+  },
+  {
+    "ProductId": 5159,
+    "SpaceId": "efeb26f1-c3a4-470a-a760-596c71b834f3",
+    "AppId": "6c6b8cd7-d901-4cd5-8279-07ba92088f06"
+  },
+  {
+    "ProductId": 5184,
+    "SpaceId": "cef8b16c-9250-45e8-8867-09f8b6f13489",
+    "AppId": "e8d2050f-8907-4138-9bbd-2cc7b706d3f8"
+  },
+  {
+    "ProductId": 5211,
+    "SpaceId": "6f75883b-3b5b-45ce-a2d4-2a7a8477180c",
+    "AppId": "4eb9089b-324e-4e65-a055-5ea05cfeb68f"
+  },
+  {
+    "ProductId": 5266,
+    "SpaceId": "7c193df7-ac6c-48ed-ba63-af6f012880a3",
+    "AppId": "d72bad75-18af-4dca-b5b7-069036d3bbd6"
+  },
+  {
+    "ProductId": 5277,
+    "SpaceId": "8f4f104c-e189-495d-8364-824ed42ee980",
+    "AppId": "31e7b1dd-5867-43ce-9fec-bd0062ebfc65"
+  },
+  {
+    "ProductId": 5278,
+    "SpaceId": "8f4f104c-e189-495d-8364-824ed42ee980",
+    "AppId": "31e7b1dd-5867-43ce-9fec-bd0062ebfc65"
+  },
+  {
+    "ProductId": 5404,
+    "SpaceId": "215c8900-909e-4dc4-8fa8-025785125435",
+    "AppId": "26d7be5a-9865-4259-a4b0-a2977fe8e22a"
+  },
+  {
+    "ProductId": 5406,
+    "SpaceId": "1ee4f5d4-3a0b-4e55-ad3d-b398e014c02a",
+    "AppId": "6c6b8cd7-d901-4cd5-8279-07ba92088f06"
+  },
+  {
+    "ProductId": 5408,
+    "SpaceId": "9d6ffbb8-0264-477b-b3b1-ab7de3512d2f",
+    "AppId": "b0bb23c6-619e-424f-85e4-aa075c134ecc"
+  },
+  {
+    "ProductId": 5705,
+    "SpaceId": "aaaae066-2d0e-4998-ad16-378890de3e63",
+    "AppId": "15e52ec9-e269-48f8-bd00-079ce22f68b9"
+  },
+  {
+    "ProductId": 13504,
+    "SpaceId": "c4f15d67-1300-4e9e-bbe3-12e11a148e81",
+    "AppId": "9da14e51-9433-421b-a396-2ac916649564"
+  },
+  {
+    "ProductId": 16238,
+    "SpaceId": "aadfa81c-6834-4f00-bc29-216138fd9ea8",
+    "AppId": "0c4d0022-c1f2-4d21-b2ee-bc7d92bed4b5"
+  },
+  {
+    "ProductId": 17933,
+    "SpaceId": "c619c78d-1c6b-47cf-9b36-80160d5c0e8f",
+    "AppId": "ade80bc2-0462-42bc-837a-851386dc5a9e"
+  },
+  {
+    "ProductId": 62325,
+    "SpaceId": "aaaae066-2d0e-4998-ad16-378890de3e63",
+    "AppId": "15e52ec9-e269-48f8-bd00-079ce22f68b9"
+  }
+]

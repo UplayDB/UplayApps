@@ -1,0 +1,7552 @@
+[
+  {
+    "ProductId": 3,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      4044
+    ]
+  },
+  {
+    "ProductId": 40,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      97,
+      4055
+    ]
+  },
+  {
+    "ProductId": 53,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      115,
+      204,
+      257,
+      4061
+    ]
+  },
+  {
+    "ProductId": 55,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 78,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 88,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 90,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 91,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      4991,
+      4992
+    ]
+  },
+  {
+    "ProductId": 95,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 97,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 101,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5352,
+      5353
+    ]
+  },
+  {
+    "ProductId": 109,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 111,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 115,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 116,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 117,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 118,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 119,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 120,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 128,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 204,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 205,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 232,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 257,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 273,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      438,
+      439,
+      440,
+      453,
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521,
+      522,
+      523,
+      524,
+      542,
+      549,
+      550,
+      551,
+      552,
+      553,
+      554,
+      555,
+      556,
+      557,
+      558,
+      559,
+      561,
+      562,
+      567,
+      602,
+      606,
+      607
+    ]
+  },
+  {
+    "ProductId": 274,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      571,
+      572,
+      573,
+      574,
+      575,
+      576,
+      742,
+      743,
+      744,
+      745,
+      746,
+      747,
+      748,
+      844,
+      845,
+      846,
+      847,
+      848,
+      849,
+      858,
+      868,
+      871,
+      12747,
+      12748,
+      12749,
+      12750,
+      12751,
+      12752,
+      12753,
+      12754,
+      12755,
+      12756,
+      12757,
+      12758,
+      12759,
+      12760,
+      12761,
+      12762,
+      12763,
+      12764,
+      12775,
+      12813,
+      12814
+    ]
+  },
+  {
+    "ProductId": 297,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      671,
+      713,
+      714,
+      715,
+      716,
+      717,
+      719,
+      754,
+      755,
+      756,
+      757,
+      758,
+      791,
+      1924,
+      1925,
+      1942,
+      2016,
+      2018,
+      2020
+    ]
+  },
+  {
+    "ProductId": 316,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 410,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 413,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      912,
+      975,
+      976,
+      977,
+      978,
+      979,
+      980,
+      981,
+      982,
+      983,
+      984,
+      985,
+      986,
+      987,
+      988,
+      992,
+      993,
+      994,
+      995,
+      996,
+      997,
+      998,
+      999,
+      1080,
+      1083,
+      1084,
+      1085,
+      1086,
+      1087,
+      1088,
+      1089,
+      1184,
+      1276,
+      1277,
+      1278,
+      1279,
+      1280,
+      1281,
+      1282,
+      1409,
+      1417,
+      1418,
+      1419,
+      1420,
+      1421,
+      1422,
+      1423,
+      1424,
+      1425,
+      1426,
+      1429,
+      1604,
+      1836,
+      2292,
+      3687,
+      5706,
+      5707,
+      5708,
+      5709,
+      5710
+    ]
+  },
+  {
+    "ProductId": 428,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 437,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      438,
+      439,
+      440,
+      453,
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521,
+      522,
+      523,
+      524,
+      542,
+      549,
+      550,
+      551,
+      552,
+      553,
+      554,
+      555,
+      556,
+      557,
+      558,
+      559,
+      561,
+      562,
+      567,
+      602,
+      606,
+      607
+    ]
+  },
+  {
+    "ProductId": 438,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 439,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 440,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 453,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 515,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 516,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 517,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 518,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 519,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 520,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 521,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 522,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 523,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 524,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 542,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 549,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 550,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 551,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 552,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 553,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 554,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 555,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 556,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 557,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 558,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 559,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 561,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 562,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 567,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 569,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      3432,
+      3512,
+      3513,
+      3514,
+      3515,
+      3955,
+      4211,
+      4212,
+      4213,
+      4315,
+      4316,
+      4413,
+      4415,
+      4416,
+      4428,
+      4429,
+      4430,
+      4912,
+      4913,
+      4914,
+      4915,
+      4916,
+      4936,
+      4937,
+      5014,
+      5215,
+      5240,
+      5299,
+      5588,
+      5589,
+      5590,
+      5591,
+      5592,
+      5593,
+      5594,
+      5703,
+      5721,
+      5736,
+      5737,
+      5738,
+      5739,
+      5740,
+      5741,
+      5742,
+      5743,
+      8026,
+      8027,
+      8028,
+      8029,
+      8030,
+      8031,
+      8032,
+      8033,
+      8034,
+      8035,
+      8036,
+      8037,
+      8038,
+      8039,
+      8040,
+      8041,
+      8042,
+      8043,
+      8044,
+      10716,
+      11344,
+      17957,
+      18117,
+      18118,
+      18119,
+      18120,
+      18121,
+      18122,
+      60532,
+      60769,
+      60770,
+      60771,
+      60772,
+      60773,
+      60774,
+      60775,
+      60776,
+      60777,
+      60778,
+      60779,
+      60780,
+      60781,
+      60782,
+      60797,
+      62589,
+      62590,
+      62591,
+      62592,
+      62593,
+      62594,
+      62595,
+      62596,
+      64094,
+      64095,
+      64096,
+      64098,
+      64099,
+      64100,
+      64101,
+      64487,
+      64488,
+      64870
+    ]
+  },
+  {
+    "ProductId": 570,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      571,
+      572,
+      747,
+      748
+    ]
+  },
+  {
+    "ProductId": 571,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 572,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 573,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 574,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 575,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 576,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 600,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      116,
+      117,
+      118,
+      119,
+      120,
+      128
+    ]
+  },
+  {
+    "ProductId": 602,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 606,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 607,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 625,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 659,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 671,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 691,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 713,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 714,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 715,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 716,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 717,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 719,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 720,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      1018,
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026,
+      1027,
+      1028,
+      1029,
+      1030,
+      1031,
+      1032,
+      1033,
+      1034,
+      1035,
+      1036,
+      1037,
+      1038,
+      1039,
+      1040,
+      1041,
+      1042,
+      1043,
+      1044,
+      1045,
+      1165,
+      1166,
+      1167,
+      1168,
+      1169,
+      1173,
+      1238,
+      1244,
+      1245,
+      1246,
+      1299,
+      1300,
+      1301,
+      1302,
+      1303,
+      1402,
+      1403,
+      1404,
+      1405,
+      1470,
+      1473,
+      1581,
+      16159,
+      16160,
+      16161,
+      16162,
+      16163,
+      16164,
+      16165,
+      16166,
+      16167,
+      16168,
+      16169,
+      16170,
+      16171
+    ]
+  },
+  {
+    "ProductId": 742,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 743,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 744,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 745,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 746,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 747,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 748,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 750,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 754,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 755,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 756,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 757,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 758,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 791,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 844,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 845,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 846,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 847,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 848,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 849,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 856,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      1163,
+      1213,
+      1214,
+      1215,
+      1216,
+      1217,
+      1218,
+      1219,
+      1220,
+      1221,
+      1222,
+      1223,
+      1585
+    ]
+  },
+  {
+    "ProductId": 858,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 868,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 871,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 894,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      659
+    ]
+  },
+  {
+    "ProductId": 895,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      1208,
+      1209,
+      1210,
+      1211,
+      1356,
+      1357,
+      1358,
+      1359,
+      1360,
+      1361,
+      1678,
+      1679,
+      1680,
+      1681,
+      1686,
+      1687,
+      1688,
+      1689,
+      1690,
+      1691,
+      1692,
+      1693,
+      1806
+    ]
+  },
+  {
+    "ProductId": 912,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 975,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 976,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 977,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 978,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 979,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 980,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 981,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 982,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 983,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 984,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 985,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 986,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 987,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 988,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 992,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 993,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 994,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 995,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 996,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 997,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 998,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 999,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1018,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1019,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1020,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1021,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1022,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1023,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1024,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1025,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1026,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1027,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1028,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1029,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1030,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1031,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1032,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1033,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1034,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1035,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1036,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1037,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1038,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1039,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1040,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1041,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1042,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1043,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1044,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1045,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1057,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      2376
+    ]
+  },
+  {
+    "ProductId": 1080,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1083,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1084,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1085,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1086,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1087,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1088,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1089,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1163,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1165,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1166,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1167,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1168,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1169,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1173,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1184,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1208,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1209,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1210,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1211,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1213,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1214,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1215,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1216,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1217,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1218,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1219,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1220,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1221,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1222,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1223,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1238,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1244,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1245,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1246,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1276,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1086
+    ]
+  },
+  {
+    "ProductId": 1277,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1087
+    ]
+  },
+  {
+    "ProductId": 1278,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1088
+    ]
+  },
+  {
+    "ProductId": 1279,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1089
+    ]
+  },
+  {
+    "ProductId": 1280,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1085
+    ]
+  },
+  {
+    "ProductId": 1281,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1083
+    ]
+  },
+  {
+    "ProductId": 1282,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1084
+    ]
+  },
+  {
+    "ProductId": 1296,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      720,
+      1021,
+      1023,
+      1030,
+      1039,
+      1040,
+      1041,
+      1042,
+      1043,
+      1044,
+      1045,
+      1173,
+      1245
+    ]
+  },
+  {
+    "ProductId": 1299,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1165
+    ]
+  },
+  {
+    "ProductId": 1300,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1166
+    ]
+  },
+  {
+    "ProductId": 1301,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1167
+    ]
+  },
+  {
+    "ProductId": 1302,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1168
+    ]
+  },
+  {
+    "ProductId": 1303,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1169
+    ]
+  },
+  {
+    "ProductId": 1356,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1357,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1358,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1359,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1360,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1361,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1402,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1403,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1404,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1402
+    ]
+  },
+  {
+    "ProductId": 1405,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1403
+    ]
+  },
+  {
+    "ProductId": 1409,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1417,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1418,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1419,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1420,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1421,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1422,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1423,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1424,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1425,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1426,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1429,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1467,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      2376,
+      2531
+    ]
+  },
+  {
+    "ProductId": 1470,
+    "ProductType": "Preorder",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1473,
+    "ProductType": "Preorder",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1549,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      856
+    ]
+  },
+  {
+    "ProductId": 1581,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1585,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1604,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1651,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1658,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1214
+    ]
+  },
+  {
+    "ProductId": 1660,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1216
+    ]
+  },
+  {
+    "ProductId": 1663,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      895
+    ]
+  },
+  {
+    "ProductId": 1678,
+    "ProductType": "Preorder",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1679,
+    "ProductType": "Preorder",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1680,
+    "ProductType": "Preorder",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1681,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1686,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1687,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1688,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1689,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1690,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1686
+    ]
+  },
+  {
+    "ProductId": 1691,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1687
+    ]
+  },
+  {
+    "ProductId": 1692,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1688
+    ]
+  },
+  {
+    "ProductId": 1693,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1689
+    ]
+  },
+  {
+    "ProductId": 1806,
+    "ProductType": "Preorder",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1836,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1847,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1848,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1916,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1651
+    ]
+  },
+  {
+    "ProductId": 1924,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1925,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1924
+    ]
+  },
+  {
+    "ProductId": 1942,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1957,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      1961,
+      1962,
+      1963,
+      1964,
+      1965,
+      1966,
+      1967,
+      1968,
+      1969,
+      1970,
+      1971,
+      1972,
+      1973,
+      1974,
+      1975,
+      1976,
+      1977,
+      1978,
+      1979,
+      1980,
+      1981,
+      1982,
+      1983,
+      1984,
+      1985,
+      1986,
+      1987,
+      1988,
+      1989,
+      1990,
+      1991,
+      1992,
+      1993,
+      1994,
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2265,
+      2266,
+      2267,
+      2362,
+      2759
+    ]
+  },
+  {
+    "ProductId": 1961,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1962,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1963,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1964,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1965,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1966,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1967,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1968,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1969,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1970,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1971,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1972,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1973,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1974,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1975,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1976,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1977,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1978,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1979,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1980,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1981,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1982,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1983,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1984,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1985,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1986,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1987,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1988,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1989,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1990,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1991,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1992,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1993,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1994,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1995,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1996,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1997,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1998,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 1999,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2000,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1990
+    ]
+  },
+  {
+    "ProductId": 2001,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1991
+    ]
+  },
+  {
+    "ProductId": 2002,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1992
+    ]
+  },
+  {
+    "ProductId": 2003,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1993
+    ]
+  },
+  {
+    "ProductId": 2004,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1994
+    ]
+  },
+  {
+    "ProductId": 2005,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1995
+    ]
+  },
+  {
+    "ProductId": 2006,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1996
+    ]
+  },
+  {
+    "ProductId": 2007,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1997
+    ]
+  },
+  {
+    "ProductId": 2008,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1998
+    ]
+  },
+  {
+    "ProductId": 2009,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1999
+    ]
+  },
+  {
+    "ProductId": 2010,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      2760,
+      2850,
+      2851,
+      2852,
+      2910,
+      2946,
+      2947,
+      2948,
+      2949,
+      2950,
+      2951,
+      2952,
+      2953,
+      2954,
+      2955,
+      3016,
+      3231,
+      3236
+    ]
+  },
+  {
+    "ProductId": 2016,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1924
+    ]
+  },
+  {
+    "ProductId": 2018,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1924
+    ]
+  },
+  {
+    "ProductId": 2020,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1924
+    ]
+  },
+  {
+    "ProductId": 2235,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2265,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2266,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2267,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2292,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2297,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2298,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2299,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2297
+    ]
+  },
+  {
+    "ProductId": 2300,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2298
+    ]
+  },
+  {
+    "ProductId": 2356,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      1836,
+      2292,
+      3687
+    ]
+  },
+  {
+    "ProductId": 2362,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2373,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1847
+    ]
+  },
+  {
+    "ProductId": 2376,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2356
+    ]
+  },
+  {
+    "ProductId": 2531,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      413,
+      1836
+    ]
+  },
+  {
+    "ProductId": 2728,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1957,
+      2265,
+      2266
+    ]
+  },
+  {
+    "ProductId": 2752,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1985
+    ]
+  },
+  {
+    "ProductId": 2755,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2265
+    ]
+  },
+  {
+    "ProductId": 2756,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2266
+    ]
+  },
+  {
+    "ProductId": 2759,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2760,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2850,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2851,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2852,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2879,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2010,
+      2850,
+      2946,
+      3231
+    ]
+  },
+  {
+    "ProductId": 2910,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2946,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2947,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2948,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2949,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2950,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2951,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2952,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2953,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2954,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2955,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 2975,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      1848
+    ]
+  },
+  {
+    "ProductId": 2990,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3016,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3052,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3231,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3236,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3250,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2759
+    ]
+  },
+  {
+    "ProductId": 3353,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5130,
+      5131,
+      5132,
+      5187,
+      5188,
+      5189,
+      5190,
+      5191,
+      5192,
+      5193,
+      5194,
+      5195,
+      5196,
+      5354,
+      5355,
+      5356,
+      5357,
+      5358,
+      5359,
+      5360,
+      5361,
+      5362,
+      5363,
+      5718,
+      10789,
+      10790,
+      10791,
+      10792,
+      10793,
+      11228,
+      17787,
+      17791,
+      17888,
+      17956,
+      57997,
+      57998,
+      57999,
+      58000,
+      58001,
+      58002,
+      58250,
+      58861,
+      59606
+    ]
+  },
+  {
+    "ProductId": 3367,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3368,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3373,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3374,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3375,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3376,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3377,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3378,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3379,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3380,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3381,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3382,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3383,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3400,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3401,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3402,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3403,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3404,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3405,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3406,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3407,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3408,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3409,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3410,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3411,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3412,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3413,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3414,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3415,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3416,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3417,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3418,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3432,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3493,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      111
+    ]
+  },
+  {
+    "ProductId": 3494,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      109
+    ]
+  },
+  {
+    "ProductId": 3495,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      205
+    ]
+  },
+  {
+    "ProductId": 3498,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      232
+    ]
+  },
+  {
+    "ProductId": 3512,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3513,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3514,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3515,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3600,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5103,
+      5136,
+      5137,
+      5138,
+      5139,
+      5140,
+      5221,
+      5222,
+      5223,
+      5224,
+      5225,
+      5226,
+      5227,
+      5228,
+      5229,
+      5230,
+      5231,
+      5232,
+      5246,
+      5247,
+      5248,
+      5249,
+      5251,
+      5252,
+      5253,
+      5254,
+      5268,
+      5269,
+      5270,
+      15515,
+      17000,
+      17001,
+      17002,
+      17003,
+      17004,
+      17005,
+      17006,
+      17007,
+      17008,
+      17012,
+      17013,
+      17014,
+      17015,
+      17016,
+      17017,
+      17018
+    ]
+  },
+  {
+    "ProductId": 3611,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3612,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3619,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      3367,
+      3368,
+      3373,
+      3374,
+      3375,
+      3376,
+      3377,
+      3378,
+      3379,
+      3380,
+      3381,
+      3382,
+      3383,
+      3400,
+      3401,
+      3402,
+      3403,
+      3404,
+      3405,
+      3406,
+      3407,
+      3408,
+      3409,
+      3410,
+      3411,
+      3412,
+      3413,
+      3414,
+      3415,
+      3416,
+      3417,
+      3418,
+      3611,
+      3612,
+      3671,
+      3672,
+      3673,
+      3691,
+      3962,
+      3965,
+      4931,
+      4939,
+      4940,
+      4941,
+      4942,
+      4943,
+      4944,
+      10300
+    ]
+  },
+  {
+    "ProductId": 3671,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3672,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3673,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3687,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3691,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3724,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3955,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3962,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 3965,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4044,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4055,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4061,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4211,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4212,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4213,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4311,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5023,
+      5024,
+      5043,
+      5044,
+      5067,
+      5068,
+      5076,
+      5077,
+      5078,
+      5079,
+      5101,
+      5104,
+      5241,
+      10673,
+      10674,
+      10675,
+      10676,
+      10677,
+      10678,
+      10679,
+      10680,
+      10681,
+      10682,
+      11286,
+      11287,
+      11288,
+      11403,
+      11404,
+      11405,
+      11406,
+      11407,
+      11408,
+      11409,
+      11410,
+      11411,
+      11412,
+      11413,
+      11414,
+      11415,
+      11416,
+      11417,
+      11418,
+      11419,
+      11420,
+      11421,
+      11422,
+      11423,
+      59619
+    ]
+  },
+  {
+    "ProductId": 4315,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4316,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4413,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4415,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4416,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4428,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4429,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4430,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4482,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2292,
+      3687
+    ]
+  },
+  {
+    "ProductId": 4577,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3367,
+      3368,
+      3619,
+      3962
+    ]
+  },
+  {
+    "ProductId": 4912,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      3432
+    ]
+  },
+  {
+    "ProductId": 4913,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      3512
+    ]
+  },
+  {
+    "ProductId": 4914,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      3513
+    ]
+  },
+  {
+    "ProductId": 4915,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      3514
+    ]
+  },
+  {
+    "ProductId": 4916,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      3515
+    ]
+  },
+  {
+    "ProductId": 4923,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      3724,
+      4950,
+      4951,
+      4952,
+      4953,
+      4954,
+      4955,
+      4956,
+      4957,
+      4958,
+      4959,
+      4960,
+      4961,
+      4962,
+      4963,
+      4968,
+      4969,
+      4970,
+      4971,
+      4972,
+      4973,
+      4974,
+      4975,
+      4979,
+      4981,
+      4983,
+      4987,
+      4988,
+      5010,
+      5011,
+      5015,
+      5016,
+      5017,
+      5018,
+      5019,
+      5021,
+      5025,
+      5045,
+      5046,
+      5047,
+      5048,
+      10703,
+      11046,
+      11082,
+      60863
+    ]
+  },
+  {
+    "ProductId": 4931,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4932,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5022,
+      5049,
+      5050,
+      5154,
+      5155,
+      5156,
+      5157,
+      5158,
+      5267,
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5286,
+      5287,
+      5288,
+      5289,
+      5290,
+      5291,
+      5292,
+      5293,
+      5294,
+      5295,
+      5296,
+      5297,
+      5298,
+      5309,
+      5310,
+      5311,
+      5312,
+      5313,
+      5314,
+      5315,
+      5316,
+      5318,
+      5403,
+      5610,
+      12980,
+      14571,
+      15478,
+      15837,
+      16010,
+      18113,
+      18114,
+      63390,
+      64284,
+      64303,
+      64769,
+      64770,
+      64966,
+      64972
+    ]
+  },
+  {
+    "ProductId": 4936,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4415
+    ]
+  },
+  {
+    "ProductId": 4937,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4416
+    ]
+  },
+  {
+    "ProductId": 4939,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4940,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4941,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4942,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4943,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4944,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4950,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4951,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4952,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4953,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4954,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4955,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4950
+    ]
+  },
+  {
+    "ProductId": 4956,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4951
+    ]
+  },
+  {
+    "ProductId": 4957,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4952
+    ]
+  },
+  {
+    "ProductId": 4958,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4953
+    ]
+  },
+  {
+    "ProductId": 4959,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      4954
+    ]
+  },
+  {
+    "ProductId": 4960,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4961,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4962,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4963,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4968,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4969,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4970,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4971,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4972,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4973,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4974,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4975,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4979,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4981,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4983,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4987,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4988,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4991,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 4992,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5010,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5011,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5014,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5015,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5016,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5017,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5018,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5019,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5021,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5022,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5023,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5024,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5025,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5037,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5040,
+      5041,
+      5052,
+      5057,
+      10755,
+      10758,
+      10759,
+      10760,
+      10761,
+      10762,
+      10763,
+      10764,
+      10765,
+      10766,
+      10767,
+      10986,
+      10987,
+      17918,
+      61892,
+      61893
+    ]
+  },
+  {
+    "ProductId": 5040,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5041,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5043,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5044,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5045,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5046,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5047,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5048,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5049,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5050,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5052,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5057,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5067,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5068,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5076,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5077,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5078,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5079,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5092,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5105,
+      5106,
+      5107,
+      5108,
+      5109,
+      5110,
+      5111,
+      5112,
+      5113,
+      5114,
+      5141,
+      5142,
+      5143,
+      5144,
+      5145,
+      5146,
+      5151,
+      5152,
+      5153,
+      5163,
+      5164,
+      5165,
+      5166,
+      5167,
+      5168,
+      5169,
+      5170,
+      5171,
+      5172,
+      5173,
+      5174,
+      5175,
+      5176,
+      5177,
+      5178,
+      5179,
+      5180,
+      5182,
+      5197,
+      5198,
+      5199,
+      5200,
+      5201,
+      5202,
+      5203,
+      5204,
+      5205,
+      5206,
+      5207,
+      5208,
+      5209,
+      5234,
+      5235,
+      5236,
+      5237,
+      5238,
+      5239,
+      5304,
+      5305,
+      5306,
+      5307,
+      5621,
+      5623,
+      17941,
+      59777
+    ]
+  },
+  {
+    "ProductId": 5100,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5101,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5103,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5104,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5105,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5106,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5105
+    ]
+  },
+  {
+    "ProductId": 5107,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5108,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5107
+    ]
+  },
+  {
+    "ProductId": 5109,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5110,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5109
+    ]
+  },
+  {
+    "ProductId": 5111,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5112,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5111
+    ]
+  },
+  {
+    "ProductId": 5113,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5114,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5113
+    ]
+  },
+  {
+    "ProductId": 5130,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5131,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5132,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5136,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5137,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5138,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5139,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5140,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5139
+    ]
+  },
+  {
+    "ProductId": 5141,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5142,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5143,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5144,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5145,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5146,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5151,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5152,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5153,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5154,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5155,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5156,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5157,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5158,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5050
+    ]
+  },
+  {
+    "ProductId": 5159,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5022,
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5286,
+      5287,
+      5288,
+      5289,
+      5290,
+      5291,
+      5292,
+      5293,
+      5294,
+      5295,
+      5296,
+      5297,
+      5298,
+      12980,
+      14571,
+      15837
+    ]
+  },
+  {
+    "ProductId": 5163,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5164,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5165,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5166,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5167,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5168,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5169,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5170,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5171,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5172,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5173,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5174,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5175,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5176,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5177,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5175
+    ]
+  },
+  {
+    "ProductId": 5178,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5176
+    ]
+  },
+  {
+    "ProductId": 5179,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5180,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5182,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5184,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      13347
+    ]
+  },
+  {
+    "ProductId": 5187,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5188,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5189,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5190,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5191,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5192,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5193,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5194,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5195,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5196,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5197,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5198,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5199,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5200,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5201,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5202,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5203,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5204,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5205,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5206,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5207,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5208,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5209,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5211,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5256,
+      5257,
+      5258,
+      5259,
+      5260,
+      5261,
+      5262,
+      5263,
+      5264,
+      5265,
+      5302,
+      5303,
+      5322,
+      12587,
+      12588,
+      12589,
+      12590,
+      12591,
+      12592,
+      12593,
+      12594,
+      12595,
+      12596,
+      12597,
+      12598,
+      12599,
+      12600,
+      12601,
+      13139,
+      13140,
+      13141
+    ]
+  },
+  {
+    "ProductId": 5215,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5221,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5222,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5223,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5224,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5225,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5226,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5227,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5228,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5229,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5230,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5231,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5232,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5234,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5235,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5236,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5237,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5234
+    ]
+  },
+  {
+    "ProductId": 5238,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5235
+    ]
+  },
+  {
+    "ProductId": 5239,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5236
+    ]
+  },
+  {
+    "ProductId": 5240,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5241,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5246,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5247,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5248,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5249,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5251,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5246
+    ]
+  },
+  {
+    "ProductId": 5252,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5247
+    ]
+  },
+  {
+    "ProductId": 5253,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5248
+    ]
+  },
+  {
+    "ProductId": 5254,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5249
+    ]
+  },
+  {
+    "ProductId": 5256,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5257,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5258,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5259,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5260,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5261,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5256
+    ]
+  },
+  {
+    "ProductId": 5262,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5257
+    ]
+  },
+  {
+    "ProductId": 5263,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5258
+    ]
+  },
+  {
+    "ProductId": 5264,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5259
+    ]
+  },
+  {
+    "ProductId": 5265,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5260
+    ]
+  },
+  {
+    "ProductId": 5266,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      13652,
+      13653,
+      13654,
+      13655,
+      13656,
+      13657,
+      13658,
+      13659,
+      13660,
+      13661,
+      13662,
+      13663,
+      13664,
+      13665,
+      13666,
+      13667,
+      13668,
+      17772,
+      17773,
+      17774,
+      17812,
+      17813,
+      17814,
+      17815,
+      17816,
+      17817,
+      17818,
+      17907,
+      17908,
+      17909,
+      17910,
+      17911,
+      17938,
+      19028,
+      57122,
+      57123,
+      57918,
+      57919,
+      57920,
+      57921,
+      57922,
+      57923,
+      57924,
+      57925,
+      58881,
+      59673,
+      59674,
+      61404
+    ]
+  },
+  {
+    "ProductId": 5267,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5268,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5269,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5270,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5277,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5324,
+      5327,
+      5329,
+      5331,
+      5335,
+      5382,
+      5383,
+      5384,
+      5385,
+      5386,
+      5387,
+      5388,
+      5389,
+      5390
+    ]
+  },
+  {
+    "ProductId": 5278,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5324,
+      5327,
+      5329,
+      5331,
+      5335,
+      5382,
+      5383,
+      5384,
+      5385,
+      5386,
+      5387,
+      5388,
+      5389,
+      5390
+    ]
+  },
+  {
+    "ProductId": 5280,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5281,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5282,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5283,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5284,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5285,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5286,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5287,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5288,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5289,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5290,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5291,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5292,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5293,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5294,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5295,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5296,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5297,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5298,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5299,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5302,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5303,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5304,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5305,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5304
+    ]
+  },
+  {
+    "ProductId": 5306,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5307,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5306
+    ]
+  },
+  {
+    "ProductId": 5309,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5310,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5311,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5312,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5313,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5309
+    ]
+  },
+  {
+    "ProductId": 5314,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5310
+    ]
+  },
+  {
+    "ProductId": 5315,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5311
+    ]
+  },
+  {
+    "ProductId": 5316,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5312
+    ]
+  },
+  {
+    "ProductId": 5318,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5322,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5324,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5327,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5329,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5331,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5335,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5352,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5353,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5354,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5355,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5356,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5357,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5358,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5359,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5354
+    ]
+  },
+  {
+    "ProductId": 5360,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5355
+    ]
+  },
+  {
+    "ProductId": 5361,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5356
+    ]
+  },
+  {
+    "ProductId": 5362,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5357
+    ]
+  },
+  {
+    "ProductId": 5363,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5358
+    ]
+  },
+  {
+    "ProductId": 5382,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5383,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5384,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5385,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5386,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5387,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5388,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5389,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5390,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5403,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5404,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5406,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5022,
+      5049,
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5286,
+      5287,
+      5288,
+      5289,
+      5290,
+      5291,
+      5292,
+      5293,
+      5294,
+      5295,
+      5296,
+      5297,
+      5298,
+      12980,
+      15478,
+      15837
+    ]
+  },
+  {
+    "ProductId": 5408,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5588,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5589,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5590,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5591,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5592,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5593,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5594,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5596,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5597,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5598,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5599,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5600,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5601,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5596
+    ]
+  },
+  {
+    "ProductId": 5602,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5597
+    ]
+  },
+  {
+    "ProductId": 5603,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5598
+    ]
+  },
+  {
+    "ProductId": 5604,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5599
+    ]
+  },
+  {
+    "ProductId": 5605,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5600
+    ]
+  },
+  {
+    "ProductId": 5606,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5607,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5610,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5621,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5623,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5624,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5625,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5626,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5627,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5628,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5629,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5630,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5631,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5632,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5633,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5634,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5635,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5636,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5637,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5638,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5639,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5640,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5641,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5676,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5691,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5692,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5693,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5694,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5695,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5696,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5697,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5698,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5699,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5703,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5704,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5705,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5706,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1085
+    ]
+  },
+  {
+    "ProductId": 5707,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1086
+    ]
+  },
+  {
+    "ProductId": 5708,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1087
+    ]
+  },
+  {
+    "ProductId": 5709,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1088
+    ]
+  },
+  {
+    "ProductId": 5710,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1089
+    ]
+  },
+  {
+    "ProductId": 5718,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5721,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5725,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5736,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5737,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5738,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5739,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5740,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5741,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5742,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 5743,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8026,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8027,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8028,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8029,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8030,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8031,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8032,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8033,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8034,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8035,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8036,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8037,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8038,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8039,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8040,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8041,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8042,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8043,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 8044,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10300,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10320,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3379
+    ]
+  },
+  {
+    "ProductId": 10450,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3724,
+      4968,
+      4969,
+      4971,
+      4972,
+      5021,
+      11082
+    ]
+  },
+  {
+    "ProductId": 10465,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3400
+    ]
+  },
+  {
+    "ProductId": 10495,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3052
+    ]
+  },
+  {
+    "ProductId": 10547,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2184
+    ]
+  },
+  {
+    "ProductId": 10673,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10674,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10675,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10676,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10677,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10678,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10673
+    ]
+  },
+  {
+    "ProductId": 10679,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10674
+    ]
+  },
+  {
+    "ProductId": 10680,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10675
+    ]
+  },
+  {
+    "ProductId": 10681,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10676
+    ]
+  },
+  {
+    "ProductId": 10682,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10677
+    ]
+  },
+  {
+    "ProductId": 10703,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10716,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10755,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10758,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10763
+    ]
+  },
+  {
+    "ProductId": 10759,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10764
+    ]
+  },
+  {
+    "ProductId": 10760,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10765
+    ]
+  },
+  {
+    "ProductId": 10761,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10766
+    ]
+  },
+  {
+    "ProductId": 10762,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      10767
+    ]
+  },
+  {
+    "ProductId": 10763,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10764,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10765,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10766,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10767,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10789,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10790,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10791,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10792,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10793,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10808,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      4923,
+      4970,
+      4974,
+      5046,
+      5047,
+      10703,
+      11046,
+      60863
+    ]
+  },
+  {
+    "ProductId": 10809,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      10450,
+      10808
+    ]
+  },
+  {
+    "ProductId": 10986,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 10987,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11046,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5019
+    ]
+  },
+  {
+    "ProductId": 11082,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5018
+    ]
+  },
+  {
+    "ProductId": 11193,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      90
+    ]
+  },
+  {
+    "ProductId": 11216,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      273
+    ]
+  },
+  {
+    "ProductId": 11228,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11286,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5023
+    ]
+  },
+  {
+    "ProductId": 11287,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5024
+    ]
+  },
+  {
+    "ProductId": 11288,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5044
+    ]
+  },
+  {
+    "ProductId": 11325,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5076,
+      5077,
+      5078,
+      5079,
+      5101,
+      11286,
+      11287,
+      11288,
+      11404,
+      11407,
+      11409,
+      11410,
+      11411
+    ]
+  },
+  {
+    "ProductId": 11327,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5043,
+      11403,
+      11405,
+      11406,
+      11408
+    ]
+  },
+  {
+    "ProductId": 11329,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5067,
+      5104
+    ]
+  },
+  {
+    "ProductId": 11330,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5068
+    ]
+  },
+  {
+    "ProductId": 11344,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11381,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      297,
+      791
+    ]
+  },
+  {
+    "ProductId": 11403,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11404,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11405,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11406,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11407,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11408,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11409,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11410,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11411,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11412,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11413,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11414,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11415,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11416,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11417,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11418,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11419,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11420,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11421,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11422,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11423,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 11557,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      4311,
+      5241,
+      59619
+    ]
+  },
+  {
+    "ProductId": 11575,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      11325,
+      11327,
+      11329,
+      11330,
+      11557,
+      11948
+    ]
+  },
+  {
+    "ProductId": 11765,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5092,
+      5623
+    ]
+  },
+  {
+    "ProductId": 11767,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5151,
+      5152,
+      5153,
+      5197,
+      5198,
+      5199,
+      5200,
+      5201,
+      5203,
+      5204,
+      5205,
+      5206
+    ]
+  },
+  {
+    "ProductId": 11768,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5202,
+      5208,
+      5209
+    ]
+  },
+  {
+    "ProductId": 11802,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5040
+    ]
+  },
+  {
+    "ProductId": 11803,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5041
+    ]
+  },
+  {
+    "ProductId": 11811,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5037,
+      5052
+    ]
+  },
+  {
+    "ProductId": 11830,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      11802,
+      11803,
+      11811
+    ]
+  },
+  {
+    "ProductId": 11858,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5141,
+      5142,
+      5143,
+      5144,
+      5145,
+      5146,
+      5163,
+      5164,
+      5165,
+      5179
+    ]
+  },
+  {
+    "ProductId": 11868,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      11765,
+      11767,
+      11768,
+      11858,
+      12402,
+      12498
+    ]
+  },
+  {
+    "ProductId": 11908,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      4932,
+      5022,
+      12980,
+      15478
+    ]
+  },
+  {
+    "ProductId": 11909,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      11908,
+      12072,
+      12079,
+      14205
+    ]
+  },
+  {
+    "ProductId": 11948,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      101
+    ]
+  },
+  {
+    "ProductId": 11955,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      10547,
+      11971
+    ]
+  },
+  {
+    "ProductId": 11971,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      569,
+      4212,
+      4213,
+      10716
+    ]
+  },
+  {
+    "ProductId": 12072,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5286,
+      5287,
+      5288,
+      5289,
+      5290,
+      5291,
+      5292,
+      5293,
+      5294,
+      5295,
+      5296,
+      5297,
+      5298
+    ]
+  },
+  {
+    "ProductId": 12079,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5022,
+      5159,
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5293,
+      5294,
+      5295,
+      5296,
+      12980
+    ]
+  },
+  {
+    "ProductId": 12332,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5022,
+      5159,
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5293,
+      5294,
+      5295,
+      5296,
+      12980
+    ]
+  },
+  {
+    "ProductId": 12402,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5151,
+      5207
+    ]
+  },
+  {
+    "ProductId": 12498,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5184,
+      13347
+    ]
+  },
+  {
+    "ProductId": 12587,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12588,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12589,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12590,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12591,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12592,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12593,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12594,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12595,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12596,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12597,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12598,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12599,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12600,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12601,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12747,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12748,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12749,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12750,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12751,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12752,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12753,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12754,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12755,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12756,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12757,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12758,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12759,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12760,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12761,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12762,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12763,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12764,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12775,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12813,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12814,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 12980,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13000,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5211,
+      5322
+    ]
+  },
+  {
+    "ProductId": 13007,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      12747,
+      12748,
+      12749,
+      12750,
+      12751,
+      12752,
+      12753,
+      12754,
+      12755,
+      12756,
+      12757,
+      12758,
+      12759,
+      12760,
+      12761,
+      12762,
+      12763,
+      12764,
+      12813,
+      12814
+    ]
+  },
+  {
+    "ProductId": 13037,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      2990
+    ]
+  },
+  {
+    "ProductId": 13072,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      12587,
+      12588,
+      12589,
+      12590,
+      12591,
+      12593,
+      12594,
+      12595,
+      12596,
+      12597,
+      12598,
+      12599
+    ]
+  },
+  {
+    "ProductId": 13073,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      12600,
+      12601
+    ]
+  },
+  {
+    "ProductId": 13074,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      12587,
+      12592
+    ]
+  },
+  {
+    "ProductId": 13139,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13140,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13141,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13165,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      13000,
+      13072,
+      13073,
+      13074
+    ]
+  },
+  {
+    "ProductId": 13340,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      12332,
+      13682
+    ]
+  },
+  {
+    "ProductId": 13347,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13504,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5596,
+      5597,
+      5598,
+      5599,
+      5600,
+      5601,
+      5602,
+      5603,
+      5604,
+      5605,
+      5606,
+      5607,
+      5624,
+      5625,
+      5626,
+      5627,
+      5628,
+      5629,
+      5630,
+      5631,
+      5632,
+      5633,
+      5634,
+      5635,
+      5636,
+      5637,
+      5638,
+      5639,
+      5640,
+      5641,
+      5676,
+      5691,
+      5692,
+      5693,
+      5694,
+      5695,
+      5696,
+      5697,
+      5698,
+      5699,
+      5704,
+      5725,
+      19035,
+      59625,
+      59884,
+      59885
+    ]
+  },
+  {
+    "ProductId": 13652,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13653,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13654,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13655,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13656,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13657,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13658,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13659,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13660,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13661,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13662,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13663,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13664,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13665,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13666,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13667,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13668,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 13682,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5022,
+      5159,
+      5280,
+      5281,
+      5282,
+      5283,
+      5284,
+      5285,
+      5286,
+      5287,
+      5288,
+      5289,
+      5290,
+      5291,
+      5292,
+      5293,
+      5294,
+      5295,
+      5296,
+      5297,
+      5298,
+      12980
+    ]
+  },
+  {
+    "ProductId": 14160,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5278
+    ]
+  },
+  {
+    "ProductId": 14205,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5280,
+      5281,
+      5406
+    ]
+  },
+  {
+    "ProductId": 14474,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3353,
+      11228,
+      17956,
+      58861
+    ]
+  },
+  {
+    "ProductId": 14483,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      17888,
+      58001
+    ]
+  },
+  {
+    "ProductId": 14488,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5187,
+      5188,
+      5189,
+      5190,
+      5191,
+      5192,
+      5193,
+      5194,
+      5195,
+      5196,
+      10789,
+      10790,
+      10791,
+      10792,
+      10793,
+      17791
+    ]
+  },
+  {
+    "ProductId": 14571,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 15125,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      569,
+      4212,
+      4213,
+      5014
+    ]
+  },
+  {
+    "ProductId": 15126,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      10547,
+      15125
+    ]
+  },
+  {
+    "ProductId": 15478,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 15515,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 15643,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5408
+    ]
+  },
+  {
+    "ProductId": 15837,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 16010,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 16159,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1165
+    ]
+  },
+  {
+    "ProductId": 16160,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1166
+    ]
+  },
+  {
+    "ProductId": 16161,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1167
+    ]
+  },
+  {
+    "ProductId": 16162,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1168
+    ]
+  },
+  {
+    "ProductId": 16163,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1169
+    ]
+  },
+  {
+    "ProductId": 16164,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1166
+    ]
+  },
+  {
+    "ProductId": 16165,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1167
+    ]
+  },
+  {
+    "ProductId": 16166,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1168
+    ]
+  },
+  {
+    "ProductId": 16167,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1169
+    ]
+  },
+  {
+    "ProductId": 16168,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1166
+    ]
+  },
+  {
+    "ProductId": 16169,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1167
+    ]
+  },
+  {
+    "ProductId": 16170,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1168
+    ]
+  },
+  {
+    "ProductId": 16171,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      1169
+    ]
+  },
+  {
+    "ProductId": 16238,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      16390,
+      17029,
+      17032
+    ]
+  },
+  {
+    "ProductId": 16390,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 16956,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5695,
+      13504
+    ]
+  },
+  {
+    "ProductId": 16963,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5625,
+      5626,
+      5627,
+      5628,
+      5629,
+      5630,
+      5631,
+      5632,
+      5633,
+      5634,
+      5635,
+      5636,
+      5637,
+      5698
+    ]
+  },
+  {
+    "ProductId": 16969,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5606,
+      5607,
+      5676,
+      5694
+    ]
+  },
+  {
+    "ProductId": 16987,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5639,
+      5640,
+      5641,
+      5691
+    ]
+  },
+  {
+    "ProductId": 17000,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17001,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17002,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17012
+    ]
+  },
+  {
+    "ProductId": 17003,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17013
+    ]
+  },
+  {
+    "ProductId": 17004,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17014
+    ]
+  },
+  {
+    "ProductId": 17005,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17015
+    ]
+  },
+  {
+    "ProductId": 17006,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17016
+    ]
+  },
+  {
+    "ProductId": 17007,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17017
+    ]
+  },
+  {
+    "ProductId": 17008,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      17018
+    ]
+  },
+  {
+    "ProductId": 17012,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17013,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17014,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17015,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17016,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17017,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17018,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17029,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17032,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17035,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5100
+    ]
+  },
+  {
+    "ProductId": 17037,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5404
+    ]
+  },
+  {
+    "ProductId": 17287,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5266,
+      13652,
+      13653,
+      19028
+    ]
+  },
+  {
+    "ProductId": 17289,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      13654,
+      13655,
+      13656,
+      13657,
+      13658,
+      13659,
+      13660,
+      13661,
+      13662,
+      13663,
+      13664,
+      13665,
+      13666,
+      13667,
+      13668,
+      17812,
+      17813,
+      17814,
+      17815,
+      17816,
+      17817,
+      17818,
+      58881
+    ]
+  },
+  {
+    "ProductId": 17338,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      16956,
+      16963,
+      16969,
+      16987,
+      58263,
+      59889,
+      60449
+    ]
+  },
+  {
+    "ProductId": 17377,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      14474,
+      14483,
+      14488,
+      17954,
+      58251,
+      59207
+    ]
+  },
+  {
+    "ProductId": 17381,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      17772,
+      17773,
+      17774,
+      17911
+    ]
+  },
+  {
+    "ProductId": 17382,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      17908,
+      17909,
+      17910
+    ]
+  },
+  {
+    "ProductId": 17407,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      17287,
+      17289,
+      17381,
+      17382
+    ]
+  },
+  {
+    "ProductId": 17588,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5705
+    ]
+  },
+  {
+    "ProductId": 17589,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      17588
+    ]
+  },
+  {
+    "ProductId": 17772,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17773,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17774,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17787,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17791,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17812,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17813,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17814,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17815,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17816,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17817,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17818,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17824,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5277
+    ]
+  },
+  {
+    "ProductId": 17825,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      3600,
+      5221,
+      5222,
+      5223,
+      5224,
+      5225,
+      5226,
+      5227,
+      5228,
+      5229,
+      5230,
+      5231,
+      5232,
+      15515
+    ]
+  },
+  {
+    "ProductId": 17826,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      16238,
+      16390,
+      17032
+    ]
+  },
+  {
+    "ProductId": 17827,
+    "ProductType": "BundlePackage",
+    "ProductAssociations": [
+      17824,
+      17825,
+      17826
+    ]
+  },
+  {
+    "ProductId": 17888,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17907,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17908,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17909,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17910,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17911,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17918,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17933,
+    "ProductType": "Game",
+    "ProductAssociations": [
+      5187,
+      5188,
+      5189,
+      5190,
+      5191,
+      5192,
+      5193,
+      5194,
+      5195,
+      5196,
+      10789,
+      10790,
+      10791,
+      10792,
+      10793,
+      11228,
+      17787,
+      17791
+    ]
+  },
+  {
+    "ProductId": 17938,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17941,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17954,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      17933
+    ]
+  },
+  {
+    "ProductId": 17956,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 17957,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18113,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      5050
+    ]
+  },
+  {
+    "ProductId": 18114,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18117,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18118,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18119,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18120,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18121,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 18122,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 19028,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 19035,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57122,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57123,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      57122
+    ]
+  },
+  {
+    "ProductId": 57918,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57919,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57920,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57921,
+    "ProductType": "Consumable",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57922,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      57918
+    ]
+  },
+  {
+    "ProductId": 57923,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      57919
+    ]
+  },
+  {
+    "ProductId": 57924,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      57920
+    ]
+  },
+  {
+    "ProductId": 57925,
+    "ProductType": "ConsumablePacks",
+    "ProductAssociations": [
+      57921
+    ]
+  },
+  {
+    "ProductId": 57997,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57998,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 57999,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 58000,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 58001,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 58002,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 58250,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 58251,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      58250
+    ]
+  },
+  {
+    "ProductId": 58263,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      5696
+    ]
+  },
+  {
+    "ProductId": 58861,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 58881,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59207,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      17888
+    ]
+  },
+  {
+    "ProductId": 59606,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59619,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59625,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59673,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59674,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59777,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59884,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59885,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 59889,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      59885
+    ]
+  },
+  {
+    "ProductId": 60449,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      59884
+    ]
+  },
+  {
+    "ProductId": 60532,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60769,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60770,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60771,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60772,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60773,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60774,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60775,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60776,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60777,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60778,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60779,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60780,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60781,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60782,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60797,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 60863,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 61404,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 61892,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 61893,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62325,
+    "ProductType": "Game",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62332,
+    "ProductType": "Template",
+    "ProductAssociations": [
+      62325
+    ]
+  },
+  {
+    "ProductId": 62589,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62590,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62591,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62592,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62593,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62594,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62595,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 62596,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 63390,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64094,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64095,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64096,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64098,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64099,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64100,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64101,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64284,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64303,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64487,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64488,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64769,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64770,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64870,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64966,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  },
+  {
+    "ProductId": 64972,
+    "ProductType": "AddOn",
+    "ProductAssociations": []
+  }
+]
