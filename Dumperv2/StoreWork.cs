@@ -12,7 +12,7 @@ namespace Dumperv2
 
             if (File.Exists("storeref.json"))
             {
-                storelist = JsonConvert.DeserializeObject<List<storeconf>>(File.ReadAllText("storeref.json"));
+                storelist = JsonConvert.DeserializeObject<List<storeconf>>(File.ReadAllText("storeref.json"))!;
             }
             var storersp = store.StoreProducts.OrderBy(x => x.ProductId).ToList();
             foreach (var storeprod in storersp)

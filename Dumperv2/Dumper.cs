@@ -243,7 +243,7 @@
 
         }
 
-        public static void DumpAsCSV(Uplay.Download.Manifest ManifestFile, Uplay.DownloadInstallState.DownloadInstallState StateFile, string OutputFile, string shaid = "UNKOWN", uint UplayId = 0)
+        public static void DumpAsCSV(Uplay.Download.Manifest ManifestFile, Uplay.DownloadInstallState.DownloadInstallState? StateFile, string OutputFile, string shaid = "UNKOWN", uint UplayId = 0)
         {
             if (!OutputFile.Contains("csv")) { OutputFile += ".csv"; }
 

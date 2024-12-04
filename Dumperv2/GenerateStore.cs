@@ -13,7 +13,7 @@ namespace Dumperv2
 
             if (File.Exists("storeref.json"))
             {
-                storeconf2 = JsonConvert.DeserializeObject<List<storeconf>>(File.ReadAllText("storeref.json"));
+                storeconf2 = JsonConvert.DeserializeObject<List<storeconf>>(File.ReadAllText("storeref.json"))!;
                 Console.WriteLine(storeconf2.Count);
             }
             List<string> brands = new() { "Anno", "AC", "Brawlhalla", "BGE", "BIA", "CF", "COL", "COA", "FB", "FC", "FH", "FD", "GR", "IFR", "Monopoly", "Others", "Rayman", "RR", "RC", "RS", "SD", "SouthPark", "ScottPilgrim", "Steep", "Starlink", "Trackmania", "Trials", "TS", "TD", "TCE", "TC", "UNO", "WD" };
@@ -35,7 +35,7 @@ namespace Dumperv2
 
             if (File.Exists("idmap.json"))
             {
-                idmaps = JsonConvert.DeserializeObject<List<idmap>>(File.ReadAllText("idmap.json"));
+                idmaps = JsonConvert.DeserializeObject<List<idmap>>(File.ReadAllText("idmap.json"))!;
             }
 
             List<string> allId = new();
@@ -67,51 +67,56 @@ namespace Dumperv2
                         }
 
                         var thing = JObject.Parse(file);
-                        var c = (int)thing["count"];
+                        if (thing == null)
+                            continue;
+                        if (!thing.ContainsKey("count"))
+                            continue;
+                        var c = (int)thing["count"]!;
 
                         if (c == 0)
                         {
                             goto MOVE;
                         }
-
-                        JArray resultArray = (JArray)thing["data"];
+                        if (!thing.ContainsKey("data"))
+                            continue;
+                        JArray resultArray = (JArray)thing["data"]!;
                         var bidata = JObject.FromObject(resultArray[0]);
                         var brand = bidata["c_productBrandDisplayString"];
                         var subbrand = bidata["c_productSubBrandString"];
-                        var id = bidata["id"];
-                        var EditionsListString = (JArray)bidata["c_productOtherEditionsListString"];
+                        var id = bidata["id"]!;
+                        var EditionsListString = (JArray)bidata["c_productOtherEditionsListString"]!;
 
-                        if (!allId.Contains((string)id))
+                        if (!allId.Contains((string)id!))
                         {
-                            allId.Add((string)id);
+                            allId.Add((string)id!);
                         }
 
                         if (EditionsListString != null)
                         {
                             foreach (var edition in EditionsListString)
                             {
-                                if (!allId.Contains((string)edition))
+                                if (!allId.Contains((string)edition!))
                                 {
-                                    allId.Add((string)edition);
+                                    allId.Add((string)edition!);
                                 }
 
                             }
                         }
 
 
-                        if (!string.IsNullOrEmpty((string)brand) && !string.IsNullOrEmpty((string)subbrand))
+                        if (!string.IsNullOrEmpty((string)brand!) && !string.IsNullOrEmpty((string)subbrand!))
                         {
-                            var sid = (string)subbrand;
+                            var sid = (string)subbrand!;
                             idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
                         }
-                        else if (!string.IsNullOrEmpty((string)brand))
+                        else if (!string.IsNullOrEmpty((string)brand!))
                         {
-                            var sid = (string)brand;
+                            var sid = (string)brand!;
                             idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
                         }
-                        else if (!string.IsNullOrEmpty((string)subbrand))
+                        else if (!string.IsNullOrEmpty((string)subbrand!))
                         {
-                            var sid = (string)subbrand;
+                            var sid = (string)subbrand!;
                             idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
                         }
 
@@ -134,7 +139,7 @@ namespace Dumperv2
                         }
                         else
                         {
-                            File.Copy(file_path, Path.Combine("Store", idmap_2.Brand, $"{conf.ProductId}_{country.ToString()}.json"), true);
+                            File.Copy(file_path, Path.Combine("Store", idmap_2!.Brand, $"{conf.ProductId}_{country.ToString()}.json"), true);
                         }
                         File.Delete(file_path);
                     }
@@ -166,51 +171,51 @@ namespace Dumperv2
                             }
 
                             var thing = JObject.Parse(file);
-                            var c = (int)thing["count"];
+                            var c = (int)thing["count"]!;
 
                             if (c == 0)
                             {
                                 goto MOVE;
                             }
 
-                            JArray resultArray = (JArray)thing["data"];
+                            JArray resultArray = (JArray)thing["data"]!;
                             var bidata = JObject.FromObject(resultArray[0]);
                             var brand = bidata["c_productBrandDisplayString"];
                             var subbrand = bidata["c_productSubBrandString"];
                             var id = bidata["id"];
-                            var EditionsListString = (JArray)bidata["c_productOtherEditionsListString"];
+                            var EditionsListString = (JArray)bidata["c_productOtherEditionsListString"]!;
 
-                            if (!allId.Contains((string)id))
+                            if (!allId.Contains((string)id!))
                             {
-                                allId.Add((string)id);
+                                allId.Add((string)id!);
                             }
 
                             if (EditionsListString != null)
                             {
                                 foreach (var edition in EditionsListString)
                                 {
-                                    if (!allId.Contains((string)edition))
+                                    if (!allId.Contains((string)edition!))
                                     {
-                                        allId.Add((string)edition);
+                                        allId.Add((string)edition!);
                                     }
 
                                 }
                             }
 
 
-                            if (!string.IsNullOrEmpty((string)brand) && !string.IsNullOrEmpty((string)subbrand))
+                            if (!string.IsNullOrEmpty((string)brand!) && !string.IsNullOrEmpty((string)subbrand!))
                             {
-                                var sid = (string)subbrand;
+                                var sid = (string)subbrand!;
                                 idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
                             }
-                            else if (!string.IsNullOrEmpty((string)brand))
+                            else if (!string.IsNullOrEmpty((string)brand!))
                             {
-                                var sid = (string)brand;
+                                var sid = (string)brand!;
                                 idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
                             }
-                            else if (!string.IsNullOrEmpty((string)subbrand))
+                            else if (!string.IsNullOrEmpty((string)subbrand!))
                             {
-                                var sid = (string)subbrand;
+                                var sid = (string)subbrand!;
                                 idmaps = containsBrand(conf.ProductId, sid, idmaps, brands);
                             }
 
@@ -233,7 +238,7 @@ namespace Dumperv2
                             }
                             else
                             {
-                                File.Copy(file_path, Path.Combine("Store", idmap_2.Brand, $"{conf.ProductId}_{country.ToString()}.json"), true);
+                                File.Copy(file_path, Path.Combine("Store", idmap_2!.Brand, $"{conf.ProductId}_{country.ToString()}.json"), true);
                             }
                             File.Delete(file_path);
                         }

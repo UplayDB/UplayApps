@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using UplayKit;
 
 namespace DecryptPackets
 {
@@ -7,6 +8,10 @@ namespace DecryptPackets
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            uint len_1 = 0x011200C6;
+            Console.WriteLine(len_1);
+            Console.WriteLine(len_1.FormatLength());
 
             if (!File.Exists("data.bin"))
             {
@@ -880,7 +885,7 @@ namespace DecryptPackets
                                 case "req":
                                     try
                                     {
-                                        var demux_down_rsp = Uplay.UplayService.Upstream.Parser.ParseFrom(byteArr).Req;
+                                        var demux_down_rsp = Uplay.UplayService.Upstream.Parser.ParseFrom(byteArr).V1Req;
                                         Console.WriteLine(demux_down_rsp);
                                         WriteOut = demux_down_rsp.ToString();
                                     }
@@ -896,7 +901,7 @@ namespace DecryptPackets
                                 case "rsp":
                                     try
                                     {
-                                        var demux_down_rsp = Uplay.UplayService.Downstream.Parser.ParseFrom(byteArr).Rsp;
+                                        var demux_down_rsp = Uplay.UplayService.Downstream.Parser.ParseFrom(byteArr).V1Rsp;
                                         Console.WriteLine(demux_down_rsp);
                                         WriteOut = demux_down_rsp.ToString();
                                     }

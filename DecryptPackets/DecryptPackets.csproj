@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.27.1" />
-	<PackageReference Include="Uplay-Protobufs" Version="153.1.11069" />
+    <PackageReference Include="Google.Protobuf" Version="3.29.0" />
+	<PackageReference Include="Uplay-Protobufs" Version="158.0.11194" />
+	<PackageReference Include="UplayKit" Version="0.0.2.6" />
   </ItemGroup>
-	
+
 </Project>

@@ -11,7 +11,7 @@ namespace Dumperv2
             string productservice_path = Path.Combine(curDir, "productservice.json");
             if (File.Exists(productservice_path))
             {
-                listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText(productservice_path));
+                listconf = JsonConvert.DeserializeObject<List<prodserv>>(File.ReadAllText(productservice_path))!;
                 Console.WriteLine($"ProductUbiService list item number is {listconf.Count}");
             }
 

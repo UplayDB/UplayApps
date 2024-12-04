@@ -11,7 +11,7 @@ namespace Dumperv2
             string productconfig_path = Path.Combine(currentDir, "productconfig.json");
             if (File.Exists(productconfig_path))
             {
-                listconf = JsonConvert.DeserializeObject<List<prodconf>>(File.ReadAllText(productconfig_path));
+                listconf = JsonConvert.DeserializeObject<List<prodconf>>(File.ReadAllText(productconfig_path))!;
             }
 
             foreach (var g in games)

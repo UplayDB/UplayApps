@@ -15,11 +15,7 @@
     <None Remove="x64\**" />
     <None Remove="x86\**" />
   </ItemGroup>
-
-  <ItemGroup>
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\CoreLib\CoreLib.csproj" />
   </ItemGroup>

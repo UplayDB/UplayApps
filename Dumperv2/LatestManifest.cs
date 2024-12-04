@@ -22,25 +22,29 @@ namespace Dumperv2
                 if (initDone)
                 {
                     Console.WriteLine("can download game");
+                    var rc1 = new RestClient();
                     var urls = downloadConnection.GetUrlList(game.ProductId, new() { $"manifests/{game.LatestManifest}.manifest" });
                     foreach (var item in urls)
                     {
-                        Console.WriteLine(item);
-                        var rc1 = new RestClient();
-                        var data = rc1.DownloadData(new RestRequest(item));
-                        if (data == null)
+                        foreach (var item1 in item.Urls)
                         {
-                            Console.WriteLine("data is null!");
-                        }
-                        if (data != null)
-                        {
-                            var gm = Path.Combine(currentDir, "files", game.ProductId + "_" + game.LatestManifest + ".manifest");
-                            File.WriteAllBytes(gm, data);
-                            Dumper.Dump(Parsers.ParseManifestFile(gm), gm.Replace(".manifest", ".txt"));
-                            Dumper.DumpAsCSV(Parsers.ParseManifestFile(gm), null, gm.Replace(".manifest", ""), game.LatestManifest, game.ProductId);
-                            break;
-                        }
-                            
+                            if (string.IsNullOrEmpty(item1))
+                                continue;
+                            Console.WriteLine(item1);
+                            var data = rc1.DownloadData(new RestRequest(item1));
+                            if (data == null)
+                            {
+                                Console.WriteLine("data is null! (if we have more we try again)");
+                            }
+                            if (data != null)
+                            {
+                                var gm = Path.Combine(currentDir, "files", game.ProductId + "_" + game.LatestManifest + ".manifest");
+                                File.WriteAllBytes(gm, data);
+                                Dumper.Dump(Parsers.ParseManifestFile(gm), gm.Replace(".manifest", ".txt"));
+                                Dumper.DumpAsCSV(Parsers.ParseManifestFile(gm), null, gm.Replace(".manifest", ""), game.LatestManifest, game.ProductId);
+                                break;
+                            }
+                        }  
                     }
                 }
                 Thread.Sleep(100);

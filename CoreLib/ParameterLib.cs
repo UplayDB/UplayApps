@@ -19,7 +19,7 @@ namespace CoreLib
             return IndexOfParam(args, param) > -1;
         }
 
-        public static T GetParameter<T>(string[] args, string param, T defaultValue = default)
+        public static T GetParameter<T>(string[] args, string param, T defaultValue)
         {
             if (args is null)
             {

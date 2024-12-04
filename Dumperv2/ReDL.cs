@@ -31,16 +31,24 @@ namespace Dumperv2
                     bool IsSuccess = downloadConnection.InitDownloadToken(ownershipToken_1);
                     if (IsSuccess != false)
                     {
-                        string manifestUrl_1 = downloadConnection.GetUrl(manifest, prodId);
-                        if (manifestUrl_1 != "")
+                        var manifestUrls = downloadConnection.GetUrl(manifest, prodId);
+                        foreach (var url in manifestUrls)
                         {
+                            if (string.IsNullOrEmpty(url))
+                                continue;
                             Console.WriteLine("Manifest dl!");
                             var rc1 = new RestClient();
-                            var data = rc1.DownloadData(new(manifestUrl_1));
+                            var data = rc1.DownloadData(new(url));
                             if (data == null)
-                                Console.WriteLine("Manifest dl failed! Url return nothing.\nURL: " + manifestUrl_1);
+                            {
+                                Console.WriteLine("Manifest dl failed! Url return nothing. (If we have more we try to download from the other!)\nURL: " + url);
+                                continue;
+                            }
                             else
+                            {
                                 File.WriteAllBytes(Path.Combine(currentDir, "files", prod + "_" + manifest + ".manifest"), data);
+                                break;
+                            } 
                         }
                     }
                     Console.WriteLine(manifest + " " + prod + " " + i);

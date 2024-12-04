@@ -1,5 +1,4 @@
 ﻿using CoreLib;
-using Google.Protobuf;
 using UplayKit;
 using UplayKit.Connection;
 
@@ -77,8 +76,7 @@ namespace Dumperv2
             
             LatestManifest.Work(currentDir, games, downloadConnection, ownership);
             
-            ownership.Close();
-            downloadConnection.Close();
+           
             var pb = FromBranches.Work(currentDir, games);
             var games2 = games_.Where(x => x.Configuration.Length != 0).ToArray();
             ProductConfig.Work(currentDir, games2);
@@ -92,6 +90,9 @@ namespace Dumperv2
                 StoreWork.Work(store);
                 storeConnection.Close();
             }
+		Console.ReadLine();
+		ownership.Close();
+            downloadConnection.Close();
             socket.Disconnect();
             Console.WriteLine("Goodbye World!");
         }

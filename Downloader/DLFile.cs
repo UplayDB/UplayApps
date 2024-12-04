@@ -1,11 +1,10 @@
-﻿namespace Downloader
+﻿namespace Downloader;
+
+internal class DLFile
 {
-    internal class DLFile
+    public static List<Uplay.Download.File> FileNormalizer(List<Uplay.Download.File> files)
     {
-        public static List<Uplay.Download.File> FileNormalizer(List<Uplay.Download.File> files)
-        {
-            files.ForEach(x => x.Name.Replace('\\', '/'));
-            return files;
-        }
+        files.ForEach(x => x.Name.Replace('\\', '/'));
+        return files;
     }
 }

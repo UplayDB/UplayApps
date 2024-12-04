@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Text;
+﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ZstdNet;
 
 namespace Downloader
@@ -8,72 +9,72 @@ namespace Downloader
     {
         public class Root
         {
-            [JsonProperty("UplayId")]
-            public int UplayId;
+            [JsonPropertyName("UplayId")]
+            public int UplayId { get; set; } = 0;
 
-            [JsonProperty("ManifestSHA1")]
-            public string ManifestSHA1;
+            [JsonPropertyName("ManifestSHA1")]
+            public string ManifestSHA1 { get; set; } = string.Empty;
 
-            [JsonProperty("Version")]
-            public int Version;
+            [JsonPropertyName("Version")]
+            public int Version { get; set; } = 0;
 
-            [JsonProperty("Compression")]
-            public Compression Compression;
+            [JsonPropertyName("Compression")]
+            public Compression Compression { get; set; } = new();
 
-            [JsonProperty("Work")]
-            public Work Work;
+            [JsonPropertyName("Work")]
+            public Work Work { get; set; } = new();
 
-            [JsonProperty("Verify")]
-            public Verify Verify;
+            [JsonPropertyName("Verify")]
+            public Verify Verify { get; set; } = new();
         }
         public class Compression
         {
-            [JsonProperty("Method")]
-            public string Method;
+            [JsonPropertyName("Method")]
+            public string Method { get; set; } = string.Empty;
 
-            [JsonProperty("IsCompressed")]
-            public bool IsCompressed;
+            [JsonPropertyName("IsCompressed")]
+            public bool IsCompressed { get; set; }
 
-            [JsonProperty("HasSliceSHA")]
-            public bool HasSliceSHA;
+            [JsonPropertyName("HasSliceSHA")]
+            public bool HasSliceSHA { get; set; }
         }
         public class Work
         {
-            [JsonProperty("FileInfo")]
-            public FileInfo FileInfo;
+            [JsonPropertyName("FileInfo")]
+            public FileInfo FileInfo { get; set; } = new();
 
-            [JsonProperty("CurrentId")]
-            public string CurrentId;
+            [JsonPropertyName("CurrentId")]
+            public string CurrentId { get; set; } = string.Empty;
 
-            [JsonProperty("NextId")]
-            public string NextId;
+            [JsonPropertyName("NextId")]
+            public string NextId { get; set; } = string.Empty;
         }
         public class Verify
         {
-            [JsonProperty("Files")]
-            public List<File> Files;
+            [JsonPropertyName("Files")]
+            public List<File> Files { get; set; } = new();
         }
         public class File
         {
-            [JsonProperty("Name")]
-            public string Name;
+            [JsonPropertyName("Name")]
+            public string Name { get; set; } = string.Empty;
 
-            [JsonProperty("SliceInfo")]
-            public List<SliceInfo> SliceInfo;
+            [JsonPropertyName("SliceInfo")]
+            public List<SliceInfo> SliceInfo { get; set; } = new();
         }
         public class SliceInfo
         {
-            [JsonProperty("CompressedSHA")]
-            public string CompressedSHA;
+            [JsonPropertyName("CompressedSHA")]
+            public string CompressedSHA { get; set; } = string.Empty;
 
-            [JsonProperty("DecompressedSHA")]
-            public string DecompressedSHA;
+            [JsonPropertyName("DecompressedSHA")]
+            public string DecompressedSHA { get; set; } = string.Empty;
 
-            [JsonProperty("DownloadedSize")]
-            public int DownloadedSize;
+            [JsonPropertyName("DownloadedSize")]
+            public int DownloadedSize { get; set; } = 0;
 
-            [JsonProperty("DecompressedSize")]
-            public int DecompressedSize;
+            [JsonPropertyName("DecompressedSize")]
+            public int DecompressedSize { get; set; } = 0;
 
             public override string ToString()
             {
@@ -83,25 +84,25 @@ namespace Downloader
 
         public class FileInfo
         {
-            [JsonProperty("Name")]
-            public string Name;
+            [JsonPropertyName("Name")]
+            public string Name { get; set; } = string.Empty;
 
-            [JsonProperty("IDs")]
-            public IDs IDs;
+            [JsonPropertyName("IDs")]
+            public IDs IDs { get; set; } = new();
         }
 
         public class IDs
         {
-            [JsonProperty("Slices")]
-            public List<string> Slices;
+            [JsonPropertyName("Slices")]
+            public List<string> Slices { get; set; } = new();
 
-            [JsonProperty("SliceList")]
-            public List<string> SliceList;
+            [JsonPropertyName("SliceList")]
+            public List<string> SliceList { get; set; } = new();
         }
 
         public static void Save(Root root, string FileName)
         {
-            var ser = JsonConvert.SerializeObject(root);
+            var ser = JsonSerializer.Serialize(root);
             var bytes = Encoding.UTF8.GetBytes(ser);
             Compressor compressor = new();
             var returner = compressor.Wrap(bytes);
@@ -111,33 +112,43 @@ namespace Downloader
 
         public static void Save(Root root)
         {
-            var ser = JsonConvert.SerializeObject(root);
+            if (string.IsNullOrEmpty(Config.VerifyBinPath))
+                return;
+            var ser = JsonSerializer.Serialize(root);
             var bytes = Encoding.UTF8.GetBytes(ser);
             Compressor compressor = new();
             var returner = compressor.Wrap(bytes);
             compressor.Dispose();
-            System.IO.File.WriteAllBytes(DLWorker.Config.VerifyBinPath, returner);
+            System.IO.File.WriteAllBytes(Config.VerifyBinPath, returner);
         }
 
-        public static Root? Read(string FileName)
+        public static Root Read(string FileName)
         {
+            if (!System.IO.File.Exists(FileName))
+                return new();
             var filebytes = System.IO.File.ReadAllBytes(FileName);
             Decompressor decompressorZstd = new();
             var decompressed = decompressorZstd.Unwrap(filebytes);
             decompressorZstd.Dispose();
             var ser = Encoding.UTF8.GetString(decompressed);
-            var root = JsonConvert.DeserializeObject<Root>(ser);
+            var root = JsonSerializer.Deserialize<Root>(ser);
+            if (root == null)
+                root = new();
             return root;
         }
 
-        public static Root? Read()
+        public static Root Read()
         {
-            var filebytes = System.IO.File.ReadAllBytes(DLWorker.Config.VerifyBinPath);
+            if (string.IsNullOrEmpty(Config.VerifyBinPath))
+                return new();
+            var filebytes = System.IO.File.ReadAllBytes(Config.VerifyBinPath);
             Decompressor decompressorZstd = new();
             var decompressed = decompressorZstd.Unwrap(filebytes);
             decompressorZstd.Dispose();
             var ser = Encoding.UTF8.GetString(decompressed);
-            var root = JsonConvert.DeserializeObject<Root>(ser);
+            var root = JsonSerializer.Deserialize<Root>(ser);
+            if (root == null)
+                root = new();
             return root;
         }
 
