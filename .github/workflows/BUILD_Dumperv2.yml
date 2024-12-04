@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runs-on: [windows-latest]
+        runs-on: [windows-latest, ubuntu-latest]
         configuration: [Release]
     steps:
     - uses: actions/checkout@v3
@@ -34,7 +34,7 @@ jobs:
       run: dotnet publish Dumperv2/Dumperv2.csproj -c ${{ matrix.configuration }} --property:PublishDir=../Output
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Dumperv2
         path: Output
