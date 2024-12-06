@@ -3,72 +3,83 @@ using System.IO.Compression;
 using ZstdNet;
 using LzhamWrapper;
 
-namespace CoreLib
-{
-    public class DeComp
-    {
-        public static byte[] Decompress(bool IsCompressed, string CompressionMethod, byte[] bytesToDecompress, ulong outputsize)
-        {
-            if (!IsCompressed)
-            {
-                return bytesToDecompress;
-            }
+namespace CoreLib;
 
-            switch (CompressionMethod) // check compression method
-            {
-                case "Zstd":
-                    Decompressor decompressorZstd = new();
-                    byte[] returner = decompressorZstd.Unwrap(bytesToDecompress);
-                    decompressorZstd.Dispose();
-                    return returner;
-                case "Deflate":
-                    InflaterInputStream decompressor = new(new MemoryStream(bytesToDecompress), new(false));
-                    MemoryStream ms = new((int)outputsize);
-                    decompressor.CopyTo(ms);
-                    decompressor.Dispose();
-                    return ms.ToArray();
-                case "Lzham":
-                    DecompressionParameters d = new()
-                    {
-                        Flags = LzhamWrapper.Enums.DecompressionFlag.ComputeAdler32 | LzhamWrapper.Enums.DecompressionFlag.ReadZlibStream,
-                        DictionarySize = 15,
-                        UpdateRate = LzhamWrapper.Enums.TableUpdateRate.Default
-                    };
-                    MemoryStream mem = new((int)outputsize);
-                    LzhamStream lzhamStream = new(new MemoryStream(bytesToDecompress), d);
-                    lzhamStream.CopyTo(mem);
-                    lzhamStream.Dispose();
-                    return mem.ToArray();
-            }
+public class DeComp
+{
+    public static byte[] Decompress(bool IsCompressed, string CompressionMethod, byte[] bytesToDecompress, ulong outputsize)
+    {
+        if (!IsCompressed)
+        {
             return bytesToDecompress;
         }
 
-        public static byte[] Compress(bool IsCompressed, string CompressionMethod, byte[] bytesToCompress)
-        {
-            if (!IsCompressed)
-            {
-                return bytesToCompress;
-            }
+        if (CompressionMethod.Contains("CompressionMethod_"))
+            CompressionMethod = CompressionMethod.Replace("CompressionMethod_", "");
 
-            switch (CompressionMethod) // check compression method
-            {
-                case "Zstd":
-                    Compressor compressZstd = new();
-                    byte[] returner = compressZstd.Wrap(bytesToCompress);
-                    compressZstd.Dispose();
+        CompressionMethod = CompressionMethod.ToLower();
+        switch (CompressionMethod) // check compression method
+        {
+            case "zstd":
+                using (Decompressor decompressorZstd = new())
+                {
+                    byte[] returner = decompressorZstd.Unwrap(bytesToDecompress);
                     return returner;
-                case "Deflate":
-                    MemoryStream ms = new();
-                    ZLibStream compressor = new(new MemoryStream(bytesToCompress), CompressionLevel.SmallestSize);
-                    ms.CopyTo(compressor);
-                    compressor.Close();
+                }
+            case "deflate":
+                using (InflaterInputStream decompressor = new(new MemoryStream(bytesToDecompress), new(false)))
+                {
+                    MemoryStream ms = new((int)outputsize);
+                    decompressor.CopyTo(ms);
                     return ms.ToArray();
-                case "Lzham":
-                    Console.WriteLine("Compressing with Lzham hasnt been actually reversed yet!");
-                    //return LzhamWrapper.Compress(downloadedSlice, outputsize);
-                    return bytesToCompress;
-            }
+                }
+            case "lzham":
+                DecompressionParameters d = new()
+                {
+                    Flags = LzhamWrapper.Enums.DecompressionFlag.ComputeAdler32 | LzhamWrapper.Enums.DecompressionFlag.ReadZlibStream,
+                    DictionarySize = 15,
+                    UpdateRate = LzhamWrapper.Enums.TableUpdateRate.Default
+                };
+                MemoryStream mem = new((int)outputsize);
+                using (LzhamStream lzhamStream = new(new MemoryStream(bytesToDecompress), d))
+                {
+                    lzhamStream.CopyTo(mem);
+                    return mem.ToArray();
+                }   
+        }
+        return bytesToDecompress;
+    }
+
+    public static byte[] Compress(bool IsCompressed, string CompressionMethod, byte[] bytesToCompress)
+    {
+        if (!IsCompressed)
+        {
             return bytesToCompress;
         }
+
+        if (CompressionMethod.Contains("CompressionMethod_"))
+            CompressionMethod = CompressionMethod.Replace("CompressionMethod_", "");
+
+        CompressionMethod = CompressionMethod.ToLower();
+
+        switch (CompressionMethod) // check compression method
+        {
+            case "zstd":
+                Compressor compressZstd = new();
+                byte[] returner = compressZstd.Wrap(bytesToCompress);
+                compressZstd.Dispose();
+                return returner;
+            case "deflate":
+                MemoryStream ms = new();
+                ZLibStream compressor = new(new MemoryStream(bytesToCompress), CompressionLevel.SmallestSize);
+                ms.CopyTo(compressor);
+                compressor.Close();
+                return ms.ToArray();
+            case "lzham":
+                Console.WriteLine("Compressing with Lzham hasnt been actually reversed yet!");
+                //return LzhamWrapper.Compress(downloadedSlice, outputsize);
+                return bytesToCompress;
+        }
+        return bytesToCompress;
     }
 }

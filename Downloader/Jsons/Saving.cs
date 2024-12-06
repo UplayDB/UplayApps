@@ -40,14 +40,8 @@ namespace Downloader
         }
         public class Work
         {
-            [JsonPropertyName("FileInfo")]
-            public FileInfo FileInfo { get; set; } = new();
-
-            [JsonPropertyName("CurrentId")]
-            public string CurrentId { get; set; } = string.Empty;
-
-            [JsonPropertyName("NextId")]
-            public string NextId { get; set; } = string.Empty;
+            [JsonPropertyName("FileInfos")]
+            public List<FileInfo> FileInfos { get; set; } = new();
         }
         public class Verify
         {
@@ -78,7 +72,7 @@ namespace Downloader
 
             public override string ToString()
             {
-                return $"CSHA: {CompressedSHA}, DSHA: {DecompressedSHA}, DSIze: {DownloadedSize}, DCSize: {DecompressedSize}";
+                return $"C SHA: {CompressedSHA}, D SHA: {DecompressedSHA}, DL Size: {DownloadedSize}, DEC Size: {DecompressedSize}";
             }
         }
 
@@ -89,6 +83,12 @@ namespace Downloader
 
             [JsonPropertyName("IDs")]
             public IDs IDs { get; set; } = new();
+
+            [JsonPropertyName("CurrentId")]
+            public string CurrentId { get; set; } = string.Empty;
+
+            [JsonPropertyName("NextId")]
+            public string NextId { get; set; } = string.Empty;
         }
 
         public class IDs
@@ -98,16 +98,6 @@ namespace Downloader
 
             [JsonPropertyName("SliceList")]
             public List<string> SliceList { get; set; } = new();
-        }
-
-        public static void Save(Root root, string FileName)
-        {
-            var ser = JsonSerializer.Serialize(root);
-            var bytes = Encoding.UTF8.GetBytes(ser);
-            Compressor compressor = new();
-            var returner = compressor.Wrap(bytes);
-            compressor.Dispose();
-            System.IO.File.WriteAllBytes(FileName, returner);
         }
 
         public static void Save(Root root)
@@ -120,21 +110,6 @@ namespace Downloader
             var returner = compressor.Wrap(bytes);
             compressor.Dispose();
             System.IO.File.WriteAllBytes(Config.VerifyBinPath, returner);
-        }
-
-        public static Root Read(string FileName)
-        {
-            if (!System.IO.File.Exists(FileName))
-                return new();
-            var filebytes = System.IO.File.ReadAllBytes(FileName);
-            Decompressor decompressorZstd = new();
-            var decompressed = decompressorZstd.Unwrap(filebytes);
-            decompressorZstd.Dispose();
-            var ser = Encoding.UTF8.GetString(decompressed);
-            var root = JsonSerializer.Deserialize<Root>(ser);
-            if (root == null)
-                root = new();
-            return root;
         }
 
         public static Root Read()
@@ -167,14 +142,7 @@ namespace Downloader
                 },
                 Work = new()
                 {
-                    FileInfo = new()
-                    {
-                        IDs = new()
-                        {
-                            SliceList = new(),
-                            Slices = new()
-                        }
-                    }
+                    FileInfos = new()
                 },
                 Verify = new()
                 {

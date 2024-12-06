@@ -1,109 +1,109 @@
-﻿using Newtonsoft.Json;
+﻿using Downloader.Managers;
+using System.Collections.Concurrent;
 using System.Security.Cryptography;
+using System.Text.Json;
+using UplayKit;
 using UDFile = Uplay.Download.File;
 
 namespace Downloader;
 
 internal class Verifier
 {
-    public static List<UDFile> Verify()
+    public static void Verify()
     {
-        List<UDFile> fileschecked = new();
-        List<UDFile> remover = new();
-        Console.WriteLine("\t\tVerification Started!");
-        foreach (var file in Config.FilesToDownload)
+        ConcurrentBag<UDFile> CheckedFiles = new();
+        ConcurrentBag<UDFile> ToRemoveFiles = new();
+        ConcurrentBag<string> ToPrint = new();
+        var saving = Saving.Read();
+        Logs.MixedLogger.Information("Verification Started!");
+        Parallel.ForEach(ManifestManager.ToDownloadFiles, Config.ParallelOptions, (udfile) => 
         {
-            if (fileschecked.Contains(file))
+            if (CheckedFiles.Contains(udfile))
+                return;
+            var fullPath = Path.Combine(Config.DownloadDirectory, udfile.Name);
+            if (!File.Exists(fullPath))
+                return;
+            string addinfo = "";
+            if (VerifyFile(udfile, fullPath, out var failes, saving))
             {
-                continue;
+                addinfo = "Check successful!";
+                ToRemoveFiles.Add(udfile);
             }
-
-            var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
-            if (File.Exists(fullPath))
+            else
             {
-                var Verified = VerifyFile(file, fullPath, out var failes);
-                string addinfo = "";
-                if (Verified)
+                addinfo = "Check failed!";
+                if (failes.Contains(-1))
                 {
-                    addinfo = "Check successful!";
-                    remover.Add(file);
+                    addinfo += " (FileSize)";
                 }
                 else
                 {
-                    addinfo = "Check failed!";
-                    if (failes.Contains(-1))
-                    {
-                        addinfo += " (FileSize)";
-                    }
-                    else
-                    {
-                        addinfo += " (SHA Missmatch)";
-                    }
-                    File.AppendAllText("FailedFiles.txt", $"\n{file.Name} - {JsonConvert.SerializeObject(failes)}");
+                    addinfo += " (SHA Missmatch)";
                 }
-                fileschecked.Add(file);
-                Console.WriteLine($"\t\tFile {file.Name} verified! {addinfo}");
+                ToPrint.Add($"{udfile.Name} - {JsonSerializer.Serialize(failes)}");
             }
-
-        }
-        List<UDFile> returner = new();
-        returner.AddRange(Config.FilesToDownload);
-        foreach (var rf in remover)
+            CheckedFiles.Add(udfile);
+            Logs.MixedLogger.Information("File {file} verified! {addinfo}", udfile.Name, addinfo);
+        });
+        File.AppendAllLines("FailedFiles.txt", ToPrint.ToArray());
+        foreach (var rf in ToRemoveFiles)
         {
-            returner.Remove(rf);
+            ManifestManager.ToDownloadFiles.Remove(rf);
         }
-        Console.WriteLine("\t\tVerification Done!");
-        return returner;
+        Logs.MixedLogger.Information("Verification Done!");
     }
 
-    public static bool VerifyFile(UDFile file, string PathToFile, out List<int> failinplace)
+    public static bool VerifyFile(UDFile file, string PathToFile, out List<int> failinplace, Saving.Root saving)
     {
         failinplace = new();
         var fileInfo = new FileInfo(PathToFile);
         if ((ulong)fileInfo.Length != file.Size)
         {
             failinplace.Add(-1);
+            goto END;
         }
-        /*
-        byte[] filebytes = new byte[fileInfo.Length];
-
-        filebytes = File.ReadAllBytes(PathToFile);
-        */
-        var saving = Saving.Read();
         if (saving == null)
             goto END;
         if (saving.Verify.Files.Count == 0)
             goto END;
-
         var sfile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
         if (sfile == null)
             goto END;
+
         var takenSize = 0;
         var fileread = File.OpenRead(PathToFile);
-        Console.WriteLine(fileInfo.Length);
+        Logs.MixedLogger.Debug("File Length: {len}", fileInfo.Length);
         for (int sinfocount = 0; sinfocount < sfile.SliceInfo.Count; sinfocount++)
         {
             var sinfo = sfile.SliceInfo[sinfocount];
+            if (sinfo == null)
+            {
+                Logs.MixedLogger.Warning("Slice info inside the Verify.bin not found!");
+                goto END;
+            }
+
             var fslist = file.SliceList[sinfocount];
             byte[] fibytes = new byte[sinfo.DecompressedSize];
+            int readAmount = fileread.Read(fibytes, 0, sinfo.DecompressedSize);
 
-            Console.WriteLine(takenSize + " " + sinfo);
-            fileread.Read(fibytes, 0, sinfo.DecompressedSize);
-            /*
-            var compBytes = LzhamWrapper.Compress(fibytes,(ulong)sinfo.DownloadedSize);
-            var compsha1 = GetSHA1Hash(compBytes);
-            */
+            if (readAmount != sinfo.DecompressedSize)
+            {
+                Logs.MixedLogger.Warning("Reading failed Need to read: {needToRead} but read: {readed}!", sinfo.DecompressedSize, readAmount);
+                failinplace.Add(-2);
+                goto END;
+            }
+
             takenSize += sinfo.DecompressedSize;
             var decsha = GetSHA1Hash(fibytes);
 
             if (sinfo.DecompressedSHA != decsha)
             {
-                Console.WriteLine($"{sinfo.DecompressedSHA} != {decsha}");
+                Logs.MixedLogger.Warning("{decompressedSHA} != {FileDecSHA} (Decompressed hash is not the same!)", sinfo.DecompressedSHA, decsha);
                 failinplace.Add(takenSize);
             }
             if (sinfo.DecompressedSize != fibytes.Length)
             {
-                Console.WriteLine($"{sinfo.DecompressedSize} != {fibytes.Length}");
+                Logs.MixedLogger.Warning("{decompressedSize} != {FileLength} (Decompressed size is not the same!)", sinfo.DecompressedSize, fibytes.Length);
                 failinplace.Add(fibytes.Length * (-1));
             }
         }

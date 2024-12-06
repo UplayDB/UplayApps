@@ -1,6 +1,6 @@
-﻿using Google.Protobuf;
-using RestSharp;
-using UplayKit.Connection;
+﻿using Downloader.Tools;
+using Google.Protobuf;
+using UplayKit;
 using static Downloader.Saving;
 using UDFile = Uplay.Download.File;
 
@@ -8,32 +8,36 @@ namespace Downloader;
 
 internal class ByteDownloader
 {
-    public static List<byte[]> DownloadBytes(UDFile file, List<ByteString> bytestring, DownloadConnection downloadConnection)
+    public static List<byte[]> DownloadBytes(UDFile file, List<ByteString> bytestring)
     {
-        List<string> bytesstringlist = new();
-        bytestring.ForEach(x => bytesstringlist.Add(Convert.ToHexString(x.ToArray())));
-        return DownloadBytes<string>(file, bytesstringlist, downloadConnection);
+        List<string> bytesstringlist = new(bytestring.Select(x => Convert.ToHexString(x.ToArray())));
+        return DownloadBytes<string>(file, bytesstringlist);
     }
 
-    public static List<byte[]> DownloadBytes<TAnySlice>(UDFile file, List<TAnySlice> list, DownloadConnection downloadConnection) where TAnySlice : notnull
+    public static List<byte[]> DownloadBytes<TAnySlice>(UDFile file, List<TAnySlice> list) where TAnySlice : notnull
     {
         List<byte[]> bytes = new();
-        var rc = new RestClient();
-
-        SliceInfo sliceInfo = new();
         List<SliceInfo> sliceInfoList = new();
-        var saving = Read();
-        var savefile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
+        var savefile = DLWorker.VerifyFiles.FirstOrDefault(x => x.Name == file.Name);
         if (savefile == null)
         {
-            saving.Verify.Files.Add(new()
+            DLWorker.VerifyFiles.Add(savefile = new()
             {
                 Name = file.Name,
                 SliceInfo = new()
             });
-        }
 
-        var urls = SliceManager.SliceWorker(list, downloadConnection, (uint)saving.Version);
+        }
+        var fileinfo = DLWorker.WorkInfos.FirstOrDefault(x => x.Name == file.Name);
+        if (fileinfo == null)
+        {
+            DLWorker.WorkInfos.Add(fileinfo = new()
+            {
+                Name = file.Name,
+                IDs = new(),
+            });
+        }
+        var urls = SliceManager.SliceWorker(list);
         for (int urlcounter = 0; urlcounter < urls.Count; urlcounter++)
         {
             var downloadUrls = urls[urlcounter];
@@ -42,29 +46,32 @@ internal class ByteDownloader
             {
                 if (string.IsNullOrEmpty(url))
                     continue;
-                var downloadedSlice = rc.DownloadData(new(url));
+                var downloadedSlice = FileGetter.DownloadFromURL(url);
                 if (downloadedSlice == null)
+                {
+                    Logs.MixedLogger.Warning("{file} for Slice could not be downloaded! {url}", file.Name, url);
                     continue;
+                }
                 ulong size = (ulong)downloadedSlice.LongLength;
                 var list_url = list[urlcounter];
                 if (list_url is string)
                 {
                     string? sliceId = list_url as string;
                     ArgumentNullException.ThrowIfNull(sliceId);
-                    saving.Work.CurrentId = sliceId;
+                    fileinfo.CurrentId = sliceId;
                     if ((urlcounter + 1) < list.Count)
                     {
                         var slice_one = list[urlcounter + 1] as string;
                         if (slice_one != null)
-                            saving.Work.NextId = slice_one;
+                            fileinfo.NextId = slice_one;
                         else
-                            saving.Work.NextId = "";
+                            fileinfo.NextId = "";
                     }
                     else
                     {
-                        saving.Work.NextId = "";
+                        fileinfo.NextId = "";
                     }
-                    var slice = file.SliceList.Where(x => Convert.ToHexString(x.DownloadSha1.ToArray()) == saving.Work.CurrentId).SingleOrDefault();
+                    var slice = file.SliceList.Where(x => Convert.ToHexString(x.DownloadSha1.ToArray()) == fileinfo.CurrentId).SingleOrDefault();
                     if (slice != null)
                     {
                         size = slice.Size;
@@ -76,59 +83,54 @@ internal class ByteDownloader
                     Uplay.Download.Slice? download_slice = list_url as Uplay.Download.Slice;
                     ArgumentNullException.ThrowIfNull(download_slice);
                     var sliceId = Convert.ToHexString(download_slice.DownloadSha1.ToArray());
-                    saving.Work.CurrentId = sliceId;
+                    fileinfo.CurrentId = sliceId;
                     if ((urlcounter + 1) < list.Count)
                     {
                         Uplay.Download.Slice? slice_one = list[urlcounter + 1] as Uplay.Download.Slice;
                         if (slice_one != null)
-                            saving.Work.NextId = Convert.ToHexString(slice_one.DownloadSha1.ToArray());
+                            fileinfo.NextId = Convert.ToHexString(slice_one.DownloadSha1.ToArray());
                         else
-                            saving.Work.NextId = "";
+                            fileinfo.NextId = "";
                     }
                     else
                     {
-                        saving.Work.NextId = "";
+                        fileinfo.NextId = "";
                     }
                     size = download_slice.Size;
                 }
-               
-                if (!Config.DownloadAsChunks)
+
+                if (Config.DownloadAsChunks)
                 {
-                    //for saving the slices
-                    var decompressedslice = SliceManager.Decompress(saving, downloadedSlice, size);
-                    if (!sliceInfoList.Where(x => x.CompressedSHA == saving.Work.CurrentId).Any())
-                    {
-                        sliceInfo.DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice);
-                        sliceInfo.CompressedSHA = saving.Work.CurrentId;
-                        sliceInfo.DownloadedSize = downloadedSlice.Length;
-                        sliceInfo.DecompressedSize = decompressedslice.Length;
-                        sliceInfoList.Add(sliceInfo);
-                    }
-                    sliceInfo = new();
-                    bytes.Add(decompressedslice);
+                    bytes.Add(downloadedSlice);
                 }
                 else
-                    bytes.Add(downloadedSlice);
+                {
+                    //for saving the slices
+                    var decompressedslice = SliceManager.Decompress(downloadedSlice, size);
+                    if (!sliceInfoList.Any(x => x.CompressedSHA == fileinfo.CurrentId))
+                    {
+                        sliceInfoList.Add(new()
+                        {
+                            DecompressedSHA = Verifier.GetSHA1Hash(decompressedslice),
+                            CompressedSHA = fileinfo.CurrentId,
+                            DownloadedSize = downloadedSlice.Length,
+                            DecompressedSize = decompressedslice.Length,
+                        });
+                    }
+                    bytes.Add(decompressedslice);
+                }
+                   
                 IsDownloaded = true;
+                break;
             }
 
             if (!IsDownloaded)
             {
-                Console.WriteLine("This should never happen");
-                Save(saving);
+                Logs.MixedLogger.Error("This should never happen");
                 Environment.Exit(1);
             }
         }
-
-        var def = saving.Verify.Files.SingleOrDefault(x => x.Name == file.Name);
-        if (def == null)
-        {
-            Console.WriteLine("Verifying files name returned null!");
-            Save(saving);
-            Environment.Exit(1);
-        }
-        def.SliceInfo.AddRange(sliceInfoList);
-        Save(saving);
+        savefile.SliceInfo.AddRange(sliceInfoList);
         return bytes;
     }
 }

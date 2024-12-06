@@ -1,14 +1,14 @@
 ﻿using CoreLib;
+using Downloader.Managers;
 using Uplay.Download;
 using Uplay.DownloadService;
 using UplayKit;
-using UplayKit.Connection;
 
 namespace Downloader;
 
 internal class SliceManager
 {
-    internal static List<UrlRsp.Types.DownloadUrls> SliceWorker<TAnySlice>(List<TAnySlice> list, DownloadConnection downloadConnection, uint version) where TAnySlice : notnull
+    internal static List<UrlRsp.Types.DownloadUrls> SliceWorker<TAnySlice>(List<TAnySlice> list) where TAnySlice : notnull
     {
         List<string> listOfSliceIds = new();
         foreach (var slice in list)
@@ -22,19 +22,24 @@ internal class SliceManager
             {
                 if (file_slice.HasFileOffset) { Console.WriteLine("[!!!] FILE OFFSET! " + file_slice.FileOffset); }
                 string sliceId = Convert.ToHexString(file_slice.DownloadSha1.ToArray());
-                listOfSliceIds.Add(GetSlicePath(sliceId, version));
+                listOfSliceIds.Add(GetSlicePath(sliceId));
             }
             if (slice is string slice_str && slice_str != null)
-                listOfSliceIds.Add(GetSlicePath(slice_str, version));
+                listOfSliceIds.Add(GetSlicePath(slice_str));
 
         }
-        Program.CheckOW(Config.ProductId);
-        if (downloadConnection.IsConnectionClosed)
+        SocketManager.CheckOW(Config.ProductId);
+        if (SocketManager.Download == null)
         {
-            downloadConnection.Reconnect();
-            if (downloadConnection.IsConnectionClosed)
+            Console.WriteLine("Download is null!");
+            Environment.Exit(1);
+        }
+        else if (SocketManager.Download.IsConnectionClosed)
+        {
+            SocketManager.Download.Reconnect();
+            if (SocketManager.Download.IsConnectionClosed)
             {
-                bool InitTrue = downloadConnection.InitDownloadToken(Program.OWToken);
+                bool InitTrue = SocketManager.InitDownload();
 
                 if (!InitTrue)
                 {
@@ -47,20 +52,19 @@ internal class SliceManager
                 Console.WriteLine("Cannot reconnect!");
                 Environment.Exit(1);
             }
-
         }
-        Console.WriteLine("Slices: " + listOfSliceIds.Count);
-        return downloadConnection.GetUrlList(Config.ProductId, listOfSliceIds);
+        return SocketManager.Download.GetUrlList(Config.ProductId, listOfSliceIds);
     }
 
-    public static string GetSlicePath(string Slice, uint Version)
+    public static string GetSlicePath(string Slice)
     {
-        if (Version == 2)
+        uint version = ManifestManager.ParsedManifest.Version;
+        if (version == 2)
         {
             Console.WriteLine("Version 2!!!!!!!!!!!");
             new Exception("Version 2 in slice hasnt been reversed yet!, Please get help from github!");
         }
-        if (Version == 3)
+        if (version == 3)
         {
             return ($"slices_v3/{Formatters.FormatSliceHashChar(Slice)}/{Slice}");
         }
@@ -70,9 +74,9 @@ internal class SliceManager
         }
     }
 
-    public static byte[] Decompress(Saving.Root saved, byte[] downloadedSlice, ulong outputsize)
+    public static byte[] Decompress(byte[] downloadedSlice, ulong outputsize)
     {
-        return DeComp.Decompress(saved.Compression.IsCompressed, saved.Compression.Method, downloadedSlice, outputsize);
+        return DeComp.Decompress(ManifestManager.ParsedManifest.IsCompressed, ManifestManager.ParsedManifest.CompressionMethod.ToString(), downloadedSlice, outputsize);
     }
 
 }

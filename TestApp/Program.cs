@@ -18,7 +18,6 @@ internal class Program
         {
             //File.WriteAllText("login.json", JsonConvert.SerializeObject(login));
 
-            Debug.isDebug = true;
             DemuxSocket socket = new();
             socket.WaitInTimeMS = 2;
             socket.VersionCheck();

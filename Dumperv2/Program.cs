@@ -43,8 +43,10 @@ namespace Dumperv2
                 Console.WriteLine("Login was wrong :(!");
                 Environment.Exit(1);
             }
-            
-            Debug.isDebug = ParameterLib.HasParameter(args, "debug");
+            if (ParameterLib.HasParameter(args, "-debug"))
+            {
+                UplayKit.Logs.File_Log_Switch.MinimumLevel = Serilog.Events.LogEventLevel.Verbose;
+            }
             DemuxSocket socket = new();
             Console.WriteLine("Is same Version? " + socket.VersionCheck());
             socket.PushVersion();

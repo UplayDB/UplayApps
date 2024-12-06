@@ -1,4 +1,5 @@
-﻿using Uplay.Download;
+﻿using Downloader.Managers;
+using Uplay.Download;
 using File = Uplay.Download.File;
 
 namespace Downloader;
@@ -7,7 +8,7 @@ internal class ChunkManager
 {
     public static List<File> RemoveNonEnglish(Manifest parsedManifest)
     {
-        List<Chunk> chunks = parsedManifest.Chunks.Where(x => String.IsNullOrEmpty(x.Language)).ToList();
+        List<Chunk> chunks = parsedManifest.Chunks.Where(x => string.IsNullOrEmpty(x.Language)).ToList();
 
         List<File> files = new();
 
@@ -45,10 +46,10 @@ internal class ChunkManager
         List<File> to_remove = new();
         if (skip_files.Count != 0)
         {
-            if (Config.FilesToDownload == null)
+            if (ManifestManager.ToDownloadFiles == null)
                 return;
 
-            foreach (var file in Config.FilesToDownload)
+            foreach (var file in ManifestManager.ToDownloadFiles)
             {
                 foreach (var skip in skip_files)
                 {
@@ -67,7 +68,7 @@ internal class ChunkManager
                 }
             }
             foreach (var remove in to_remove)
-                Config.FilesToDownload.Remove(remove);
+                ManifestManager.ToDownloadFiles.Remove(remove);
         }
     }
 
@@ -76,10 +77,10 @@ internal class ChunkManager
         List<File> output = new();
         if (add_files.Count != 0)
         {
-            if (Config.FilesToDownload == null)
+            if (ManifestManager.ToDownloadFiles == null)
                 return output;
 
-            foreach (var file in Config.FilesToDownload)
+            foreach (var file in ManifestManager.ToDownloadFiles)
                 foreach (var add in add_files)
                     if (file.Name.Contains(add))
                         output.Add(file);

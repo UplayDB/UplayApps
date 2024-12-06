@@ -1,5 +1,9 @@
-﻿using UplayKit;
-using UplayKit.Connection;
+﻿using Downloader.Managers;
+using Downloader.Tools;
+using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Text.Json;
+using UplayKit;
 using static Downloader.Saving;
 using File = System.IO.File;
 using UDFile = Uplay.Download.File;
@@ -8,16 +12,34 @@ namespace Downloader;
 
 internal class DLWorker
 {
-    public static void DownloadWorker(DownloadConnection downloadConnection)
+    public static ConcurrentBag<Saving.FileInfo> WorkInfos = new();
+    public static ConcurrentBag<Saving.File> VerifyFiles = new();
+    public static bool UseDLSHA1;
+    public static void DownloadWorker()
     {
-        Console.WriteLine("\n\t\tDownloading Started!");
+        Logs.MixedLogger.Information("Downloading Started!");
+        Stopwatch stopwatch = Stopwatch.StartNew();
         int filecounter = 0;
-        foreach (var file in Config.FilesToDownload)
-        {
-            if (file.Size == 0)
-                continue;
+        var saving = Read();
+        if (saving.Work == null)
+            saving.Work = new();
 
-            filecounter++;
+        if (saving.Work.FileInfos == null)
+            saving.Work.FileInfos = new();
+        UseDLSHA1 = saving.Compression.HasSliceSHA;
+        WorkInfos = new(saving.Work.FileInfos);
+        VerifyFiles = new(saving.Verify.Files);
+        Logs.MixedLogger.Information("Prefile Work");
+        Parallel.ForEach(ManifestManager.ToDownloadFiles, Config.ParallelOptions, (file) =>
+        {
+            if (WorkInfos.Any(x => x.Name == file.Name))
+                return;
+
+            if (file.Size == 0)
+                return;
+
+            if (CheckCurrentFile(file, ref saving))
+                return;
 
             List<string> sliceListIds = new();
             List<string> sliceIds = new();
@@ -28,59 +50,67 @@ internal class DLWorker
             foreach (var sl in file.Slices)
                 sliceIds.Add(Convert.ToHexString(sl.ToArray()));
 
-            var saving = Read();
-            if (saving.Verify.Files.Exists(x => x.Name == file.Name))
-                continue;
-
-            if (CheckCurrentFile(file, downloadConnection))
-                continue;
-
-            saving.Work.FileInfo = new()
+            WorkInfos.Add(new()
             {
                 Name = file.Name,
                 IDs = new()
                 {
                     SliceList = sliceListIds,
                     Slices = sliceIds
-                }
-            };
-            Save(saving);
-            Console.WriteLine($"\t\tFile {file.Name} started ({filecounter}/{Config.FilesToDownload.Count}) [{Formatters.FormatFileSize(file.Size)}]");
-            DownloadFile(file, downloadConnection);
-        }
-        Console.WriteLine($"\t\tDownload for app {Config.ProductId} is done!");
-    }
+                },
+                CurrentId = string.Empty,
+                NextId = string.Empty,
+            });
 
-    public static bool CheckCurrentFile(UDFile file, DownloadConnection downloadConnection)
+            Logs.MixedLogger.Verbose("FileInfos added for {File}", file.Name);
+        });
+        saving.Work.FileInfos = WorkInfos.ToList();
+        saving.Verify.Files = VerifyFiles.ToList();
+        File.WriteAllText(Config.VerifyBinPath + ".json", JsonSerializer.Serialize(saving, new JsonSerializerOptions() { WriteIndented = true }));
+        Save(saving);
+        Logs.MixedLogger.Information("Pre-Download Done! Took only: {elapsed}", stopwatch.Elapsed);
+        stopwatch.Restart();
+        Parallel.ForEach(ManifestManager.ToDownloadFiles, Config.ParallelOptions, (file) => 
+        {
+            Interlocked.Add(ref filecounter, 1);
+            Logs.ConsoleLogger.Information("{file} ({fileSize}) started ({filecounter}/{MaxCount}) | {ThreadId}", file.Name, Formatters.FormatFileSize(file.Size), filecounter, ManifestManager.ToDownloadFiles.Count, Thread.CurrentThread.ManagedThreadId);
+            DownloadFile(file);
+        });
+        saving.Work.FileInfos = WorkInfos.ToList();
+        saving.Verify.Files = VerifyFiles.ToList();
+        Save(saving);
+        Logs.MixedLogger.Information("Download for app {appid} is done! Took only: {elapsed}", Config.ProductId, stopwatch.Elapsed);
+    }
+    public static bool CheckCurrentFile(UDFile file, ref Root saving)
     {
         if (string.IsNullOrEmpty(Config.VerifyBinPath))
             return false;
-
-        var saving = Read();
-        if (saving.Work.FileInfo.Name != file.Name)
+        if (!WorkInfos.Any(x=>x.Name == file.Name))
             return false;
-
-        var curId = saving.Work.CurrentId;
-        var NextId = saving.Work.NextId;
-        var verifile = saving.Verify.Files.Where(x => x.Name == file.Name).FirstOrDefault();
-        if (verifile == null)
+        if (!VerifyFiles.Any(x => x.Name == file.Name))
             return false;
+        var fileinfo = WorkInfos.FirstOrDefault(x => x.Name == file.Name);
+        if (fileinfo == null)
+            return false;
+        var curId = fileinfo.CurrentId;
+        var NextId = fileinfo.NextId;
+
 
         List<string> slicesToDownload = new();
         int index = 0;
         uint Size = 0;
         if (saving.Compression.HasSliceSHA)
         {
-            index = saving.Work.FileInfo.IDs.SliceList.FindIndex(0, x => x == curId);
+            index = fileinfo.IDs.SliceList.FindIndex(0, x => x == curId);
             index += 1;
-            slicesToDownload = saving.Work.FileInfo.IDs.SliceList.Skip(index).ToList();
+            slicesToDownload = fileinfo.IDs.SliceList.Skip(index).ToList();
 
         }
         else
         {
-            index = saving.Work.FileInfo.IDs.Slices.FindIndex(0, x => x == curId);
+            index = fileinfo.IDs.Slices.FindIndex(0, x => x == curId);
             index += 1;
-            slicesToDownload = saving.Work.FileInfo.IDs.Slices.Skip(index).ToList();
+            slicesToDownload = fileinfo.IDs.Slices.Skip(index).ToList();
         }
 
         if (slicesToDownload.Count == 0)
@@ -92,135 +122,95 @@ internal class DLWorker
             Size += sizer.Size;
         }
 
-        var fullPath = Path.Combine(Config.VerifyBinPath, file.Name);
+        var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
         var fileInfo = new System.IO.FileInfo(fullPath);
         if (fileInfo.Length != Size)
         {
-            Console.WriteLine("Something isnt right, +/- chunk?? Check Error_CheckCurrentFile.txt file!");
+            Logs.MixedLogger.Warning("Something isnt right, +/- chunk?? Check Error_CheckCurrentFile.txt file!");
             File.WriteAllText("Error_CheckCurrentFile.txt", (uint)fileInfo.Length + " != " + Size + " " + sizelister.Count + " " + index + "\n" + curId + " " + NextId);
             // We try restore chunk after here
             //
             return false;
         }
-        Console.WriteLine($"\t\tRedownloading File {file.Name}!");
-        RedownloadSlices(slicesToDownload, file, downloadConnection);
+        Logs.MixedLogger.Information("Redownloading File {file} {ThreadId}!", file.Name, Thread.CurrentThread.ManagedThreadId);
+        RedownloadSlices(slicesToDownload, file);
         return true;
     }
 
-    public static void RedownloadSlices(List<string> slicesToDownload, UDFile file, DownloadConnection downloadConnection)
+    public static void RedownloadSlices(List<string> slicesToDownload, UDFile file)
     {
-        var fullPath = Path.Combine(Config.VerifyBinPath, file.Name);
-
+        Logs.MixedLogger.Information("Starting redownloading file: {filename} {ThreadId}", file.Name, Thread.CurrentThread.ManagedThreadId);
+        var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
         var prevBytes = File.ReadAllBytes(fullPath);
-
         var fs = File.OpenWrite(fullPath);
         fs.Position = prevBytes.LongLength;
-        Console.WriteLine("\t Slices: " + slicesToDownload.Count);
         var splittedList = slicesToDownload.SplitList();
         for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
         {
             var spList = splittedList[listcounter];
-            var dlbytes = ByteDownloader.DownloadBytes(file, spList, downloadConnection);
-            foreach (var barray in dlbytes)
-            {
-                fs.Write(barray);
-                fs.Flush(true);
-            }
-            if (listcounter % 30 == 0)
-            {
-                Console.WriteLine("%");
-                Thread.Sleep(1000);
-            }
-            Thread.Sleep(10);
+            var dlbytes = ByteDownloader.DownloadBytes(file, spList);
+            dlbytes.ForEach(bytes => fs.Write(bytes));
         }
+        fs.Flush(true);
         fs.Close();
     }
 
-    public static void DownloadFile(UDFile file, DownloadConnection downloadConnection)
+    public static void DownloadFile(UDFile file)
     {
-        var saving = Read();
+        //Logs.MixedLogger.Information("Starting downloading file: {filename} {ThreadId}", file.Name, Thread.CurrentThread.ManagedThreadId);
         var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
         var dir = Path.GetDirectoryName(fullPath);
         if (dir != null)
             Directory.CreateDirectory(dir);
         var fs = File.OpenWrite(fullPath);
-        if (saving.Compression.HasSliceSHA)
+        fs.Position = 0;
+        if (UseDLSHA1)
         {
-            Console.WriteLine("\t Slices: " + file.SliceList.Count);
             var splittedList = file.SliceList.ToList().SplitList();
             for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
             {
                 var spList = splittedList[listcounter];
-                var dlbytes = ByteDownloader.DownloadBytes(file, spList, downloadConnection);
+                var dlbytes = ByteDownloader.DownloadBytes(file, spList);
                 for (int i = 0; i < spList.Count; i++)
                 {
                     var sp = spList[i];
                     var barray = dlbytes[i];
                     if (Config.DownloadAsChunks)
                     {
-                        var sliceId = Convert.ToHexString(sp.DownloadSha1.ToArray());
-                        var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
-                        var fpath = Path.Combine(Config.DownloadDirectory, slicepath);
-                        var dir2 = Path.GetDirectoryName(fpath);
-                        if (dir2 != null)
-                            Directory.CreateDirectory(dir2);
-                        if (!File.Exists(fpath))
-                            File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                        OnlyChunkWriter.Write(Convert.ToHexString(sp.DownloadSha1.ToArray()), barray);
                     }
                     else
                     {
                         fs.Write(barray);
-                        fs.Flush(true);
                     }
                 }
-                if (listcounter / 30 == 0)
-                {
-                    Debug.PWDebug("%30 wait 1000ms");
-                    Thread.Sleep(1000);
-                }
-                Thread.Sleep(10);
             }
         }
         else
         {
-            Console.WriteLine("\t Slice: " + file.Slices.Count);
             var splittedList = file.Slices.ToList().SplitList();
             for (int listcounter = 0; listcounter < splittedList.Count; listcounter++)
             {
                 var spList = splittedList[listcounter];
-                var dlbytes = ByteDownloader.DownloadBytes(file, spList.ToList(), downloadConnection);
-                for (int i = 0; i < spList.ToList().Count; i++)
+                var dlbytes = ByteDownloader.DownloadBytes(file, spList);
+                for (int i = 0; i < spList.Count; i++)
                 {
-                    var sp = spList.ToList()[i];
+                    var sp = spList[i];
                     var barray = dlbytes[i];
                     if (Config.DownloadAsChunks)
                     {
-                        var sliceId = Convert.ToHexString(sp.ToArray());
-                        var slicepath = SliceManager.GetSlicePath(sliceId, (uint)saving.Version);
-                        var fpath = Path.Combine(Config.DownloadDirectory, slicepath);
-                        var dir2 = Path.GetDirectoryName(fpath);
-                        if (dir2 != null)
-                            Directory.CreateDirectory(dir2);
-                        if (!File.Exists(fpath))
-                            File.WriteAllBytes(Path.Combine(Config.DownloadDirectory, slicepath), barray);
+                        OnlyChunkWriter.Write(Convert.ToHexString(sp.ToArray()), barray);
                     }
                     else
                     {
                         fs.Write(barray);
-                        fs.Flush(true);
                     }
-                }
-
-                if (listcounter / 30 == 0)
-                {
-                    Debug.PWDebug("%30 wait 1000ms");
-                    Thread.Sleep(1000);
-                }
-                Thread.Sleep(10);
+                };
             }
         }
-        fs.Close(); 
-        Console.WriteLine($"\t\tFile {file.Name} finished");
+        fs.Flush(true);
+        fs.Close();
+        //Logs.MixedLogger.Information("File {file} finished", file.Name);
         if (Config.DownloadAsChunks)
         {
             //we delete the file because we arent even writing to it :)
