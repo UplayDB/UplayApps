@@ -9,9 +9,15 @@ namespace DecryptPackets
         {
             Console.WriteLine("Hello World!");
 
-            uint len_1 = 0x011200C6;
-            Console.WriteLine(len_1);
-            Console.WriteLine(len_1.FormatLength());
+            if (args.Contains("-yml"))
+            {
+                var ret = args.Where(x => x.Contains("-yml")).Select((x, y) => y).FirstOrDefault();
+                string? yml = args.ElementAtOrDefault(ret+1);
+                if (yml == null)
+                    return;
+                YamlHelp.Test(yml);
+                return;
+            }
 
             if (!File.Exists("data.bin"))
             {
@@ -1062,63 +1068,70 @@ namespace DecryptPackets
         {
             if (towrite.Trim() != "{}" || towrite.Trim() != "{ }" || !string.IsNullOrEmpty(towrite.Trim()))
             {
-                Console.WriteLine(towrite);
-                File.WriteAllText($"xx/{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}.txt", towrite);
+                File.WriteAllText($"SavedDecrypt/{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}.txt", towrite);
             }
         }
 
-        public static void Force(byte[] array)
+        public static string Force(byte[] array)
         {
+            List<string> str = new();
+            string ret = string.Empty;
             try
             {
-                CheckOutWrite(Uplay.Demux.Downstream.Parser.ParseFrom(array).Response.ToString());
+                str.Add(Uplay.Demux.Downstream.Parser.ParseFrom(array).Response.ToString());
             }
-            catch
+            catch (Exception ex)
             {
+                str.Add(ex.ToString());
             }
             try
             {
                 Uplay.Demux.Push push = Uplay.Demux.Downstream.Parser.ParseFrom(array).Push;
-                CheckOutWrite(push.ToString());
+                str.Add(push.ToString());
                 if (!push.Data.Data.IsEmpty)
                 {
                     byte[] array2 = push.Data.Data.ToArray();
-                    Console.WriteLine("Bytes: " + BitConverter.ToString(array2));
+                    Force(array2.Skip(4).ToArray());
+                    ret += "Bytes: " + BitConverter.ToString(array2) + "\n";
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                str.Add(ex.ToString());
             }
             try
             {
-                CheckOutWrite(Uplay.Demux.Upstream.Parser.ParseFrom(array).Request.ToString());
+                str.Add(Uplay.Demux.Upstream.Parser.ParseFrom(array).Request.ToString());
             }
-            catch
+            catch (Exception ex)
             {
+                str.Add(ex.ToString());
             }
             try
             {
                 Uplay.Demux.Push push = Uplay.Demux.Upstream.Parser.ParseFrom(array).Push;
-                CheckOutWrite(push.ToString());
+                str.Add(push.ToString());
                 if (!push.Data.Data.IsEmpty)
                 {
                     byte[] array2 = push.Data.Data.ToArray();
-                    Console.WriteLine("Bytes: " + BitConverter.ToString(array2));
+                    Force(array2.Skip(4).ToArray());
+                    ret += "Bytes: " + BitConverter.ToString(array2) + "\n";
                 }
             }
+            catch (Exception ex)
+            {
+                str.Add(ex.ToString());
+            }
+            try
+            {
+                str.Add(Uplay.Channel.Upstream.Parser.ParseFrom(array).ToString());
+            }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Channel.Upstream.Parser.ParseFrom(array).ToString());
-            }
-            catch
-            {
-            }
-            try
-            {
-                CheckOutWrite(Uplay.Channel.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Channel.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1126,14 +1139,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.ClientConfiguration.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.ClientConfiguration.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.ClientConfiguration.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.ClientConfiguration.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1141,14 +1154,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.CloudsaveService.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.CloudsaveService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.CloudsaveService.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.CloudsaveService.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1156,14 +1169,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.CrashReporter.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.CrashReporter.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.CrashReporter.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.CrashReporter.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1171,14 +1184,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.DenuvoService.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.DenuvoService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.DenuvoService.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.DenuvoService.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1186,14 +1199,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.DownloadService.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.DownloadService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.DownloadService.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.DownloadService.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1201,14 +1214,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Friends.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Friends.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Friends.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Friends.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1216,14 +1229,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.GameCatalogExtension.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.GameCatalogExtension.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.GameCatalogExtension.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.GameCatalogExtension.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1231,14 +1244,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.GameStarter.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.GameStarter.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.GameStarter.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.GameStarter.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1246,14 +1259,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Orbitdll.Req.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Orbitdll.Req.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Orbitdll.Rsp.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Orbitdll.Rsp.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1261,14 +1274,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Overlay.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Overlay.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Overlay.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Overlay.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1276,14 +1289,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Ownership.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Ownership.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Ownership.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Ownership.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1291,14 +1304,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Party.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Party.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Party.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Party.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1306,14 +1319,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Pcbang.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Pcbang.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Pcbang.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Pcbang.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1321,14 +1334,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Playtime.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Playtime.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Playtime.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Playtime.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1336,14 +1349,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.SteamService.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.SteamService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.SteamService.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.SteamService.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1351,14 +1364,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Store.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Store.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Store.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Store.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1366,14 +1379,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Uplay.Req.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplay.Req.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Uplay.Rsp.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplay.Rsp.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1381,14 +1394,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Uplayauxdll.Req.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplayauxdll.Req.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Uplayauxdll.Rsp.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplayauxdll.Rsp.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1396,14 +1409,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Uplaydll.Req.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplaydll.Req.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Uplaydll.Rsp.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplaydll.Rsp.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1411,14 +1424,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Uplayprotocol.Req.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplayprotocol.Req.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Uplayprotocol.Rsp.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Uplayprotocol.Rsp.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1426,14 +1439,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.UplayService.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.UplayService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.UplayService.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.UplayService.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1441,14 +1454,14 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.Utility.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Utility.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.Utility.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.Utility.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
@@ -1456,18 +1469,20 @@ namespace DecryptPackets
 
             try
             {
-                CheckOutWrite(Uplay.WegameService.Upstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.WegameService.Upstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
             try
             {
-                CheckOutWrite(Uplay.WegameService.Downstream.Parser.ParseFrom(array).ToString());
+                str.Add(Uplay.WegameService.Downstream.Parser.ParseFrom(array).ToString());
             }
             catch
             {
             }
+            CheckOutWrite(string.Join("\n", str));
+            return ret;
         }
     }
 }

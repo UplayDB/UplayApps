@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.29.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.29.3" />
 	<PackageReference Include="Uplay-Protobufs" Version="158.0.11194" />
-	<PackageReference Include="UplayKit" Version="0.0.2.6" />
+	<PackageReference Include="UplayKit" Version="0.0.2.7" />
+	<PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
 
 </Project>

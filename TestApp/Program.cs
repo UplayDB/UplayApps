@@ -366,7 +366,6 @@ Console.WriteLine(String.Join(",", args));
             var ser = JsonConvert.SerializeObject(des, Formatting.Indented);
             File.WriteAllText("items_out.json", ser);
             /*
-            login = LoginRememberDevice(login.RememberMeTicket, "ewogICJ0eXAiOiAiSldFIiwKICAiZW5jIjogIkExMjhDQkMiLAogICJpdiI6ICJvTE9XVjdEZGE0UzBMdEV4U3dvU09RIiwKICAiemlwIjogIkRFRiIsCiAgImludCI6ICJIUzI1NiIsCiAgImtpZCI6ICIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiCn0.gQyjnyrYCxHEl21zjvMOJtOwPjp70JHXqCIblGETQlTWblPF0AtC3EKS4zEJu6fsXcUXV0-6ogkMc8pYsdSrqCn3wei4huShJvzaZ7d49Iz9dPRV9n9IoE9aud0BGQIdaIFogDKxlyyW3vwS7LxFOXRaGtfrYNTtbj7Z8S_0hxuVO0LLOAkr9CBBGjFSlax87T64s9piqhG058yeG28-RHUEeAiB4wWpBigByupsm0dhOViPL_6o4Jg9efng6QxHXj8A4H1s0I-REFgwzBGl8Av2peSvKJ2PStEaGHAXAWU8zGDZG6STewuIPtAHBTFp.m_hZGY8H94Diq9fwJ6TsZ3KSNoRX4Y67bh0Efs4gfUw");
             File.WriteAllText("login_rem.txt", JsonConvert.SerializeObject(login));
             if (login.Ticket == null)
             {
