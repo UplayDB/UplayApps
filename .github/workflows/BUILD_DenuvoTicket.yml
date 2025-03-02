@@ -1,0 +1,44 @@
+name: Uplay Apps Build DenuvoTicket
+
+on:
+  push:
+      paths-ignore:
+      - '.github/*'
+      - '.github/*_TEMPLATE/**'
+      - '*.md'
+  pull_request:
+      paths-ignore:
+      - '.github/*'
+      - '.github/*_TEMPLATE/**'
+      - '*.md'
+  workflow_dispatch:
+    # allows manual trigger
+
+jobs:
+  build:
+    name: NET on ${{ matrix.runs-on }} (${{ matrix.configuration }})
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [windows-latest, ubuntu-latest]
+        configuration: [Release]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore DenuvoTicket/DenuvoTicket.csproj
+
+    - name: Publish
+      run: dotnet publish DenuvoTicket/DenuvoTicket.csproj -c ${{ matrix.configuration }} --property:PublishDir=../Output
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: DenuvoTicket-${{ matrix.runs-on }}
+        path: Output
+        if-no-files-found: error
