@@ -21,8 +21,7 @@ internal class DLWorker
         Stopwatch stopwatch = Stopwatch.StartNew();
         int filecounter = 0;
         var saving = Read();
-        if (saving.Work == null)
-            saving.Work = new();
+        saving.Work ??= new();
 
         if (saving.Work.FileInfos == null)
             saving.Work.FileInfos = new();
@@ -73,7 +72,7 @@ internal class DLWorker
         Parallel.ForEach(ManifestManager.ToDownloadFiles, Config.ParallelOptions, (file) => 
         {
             Interlocked.Add(ref filecounter, 1);
-            Logs.ConsoleLogger.Information("{file} ({fileSize}) started ({filecounter}/{MaxCount}) | {ThreadId}", file.Name, Formatters.FormatFileSize(file.Size), filecounter, ManifestManager.ToDownloadFiles.Count, Thread.CurrentThread.ManagedThreadId);
+            Logs.ConsoleLogger.Information("{file} ({fileSize}) started ({filecounter}/{MaxCount}) | {ThreadId}", file.Name, Formatters.FormatFileSize(file.Size), filecounter, ManifestManager.ToDownloadFiles.Count, Environment.CurrentManagedThreadId);
             DownloadFile(file);
         });
         saving.Work.FileInfos = WorkInfos.ToList();
@@ -132,14 +131,14 @@ internal class DLWorker
             //
             return false;
         }
-        Logs.MixedLogger.Information("Redownloading File {file} {ThreadId}!", file.Name, Thread.CurrentThread.ManagedThreadId);
+        Logs.MixedLogger.Information("Redownloading File {file} {ThreadId}!", file.Name, Environment.CurrentManagedThreadId);
         RedownloadSlices(slicesToDownload, file);
         return true;
     }
 
     public static void RedownloadSlices(List<string> slicesToDownload, UDFile file)
     {
-        Logs.MixedLogger.Information("Starting redownloading file: {filename} {ThreadId}", file.Name, Thread.CurrentThread.ManagedThreadId);
+        Logs.MixedLogger.Information("Starting redownloading file: {filename} {ThreadId}", file.Name, Environment.CurrentManagedThreadId);
         var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
         var prevBytes = File.ReadAllBytes(fullPath);
         var fs = File.OpenWrite(fullPath);
@@ -157,7 +156,7 @@ internal class DLWorker
 
     public static void DownloadFile(UDFile file)
     {
-        //Logs.MixedLogger.Information("Starting downloading file: {filename} {ThreadId}", file.Name, Thread.CurrentThread.ManagedThreadId);
+        //Logs.MixedLogger.Information("Starting downloading file: {filename} {ThreadId}", file.Name, Environment.CurrentManagedThreadId);
         var fullPath = Path.Combine(Config.DownloadDirectory, file.Name);
         var dir = Path.GetDirectoryName(fullPath);
         if (dir != null)

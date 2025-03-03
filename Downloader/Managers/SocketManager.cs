@@ -14,8 +14,10 @@ public class SocketManager
     public static DownloadConnection? Download { get; protected set; } = null;
     public static DemuxSocket CreateNew()
     {
-        Socket = new();
-        Socket.WaitInTimeMS = Config.WaitTimeSocket;
+        Socket = new()
+        {
+            WaitInTimeMS = Config.WaitTimeSocket
+        };
         if (Socket.IsConnected)
         {
             Socket.VersionCheck();
@@ -39,7 +41,7 @@ public class SocketManager
 
     static DateTime GetTimeFromEpoc(ulong epoc)
     {
-        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         return dateTime.AddSeconds(epoc);
     }
 
@@ -50,18 +52,18 @@ public class SocketManager
 
     }
 
-    public static void GetOwnership(uint prodId)
+    public static void GetOwnership()
     {
         if (Ownership == null)
         {
             Console.WriteLine("Ownership is null!");
             return;
         }
-        var ownershipToken = Ownership.GetOwnershipToken(Config.ProductId);
-        if (Ownership.IsConnectionClosed == true || string.IsNullOrEmpty(ownershipToken.Item1))
+        var (Token, Expiration) = Ownership.GetOwnershipToken(Config.ProductId);
+        if (Ownership.IsConnectionClosed == true || string.IsNullOrEmpty(Token))
             throw new("Product not owned");
-        OWToken = ownershipToken.Item1;
-        Exp = ownershipToken.Item2;
+        OWToken = Token;
+        Exp = Expiration;
         Console.WriteLine($"Expires in {GetTimeFromEpoc(Exp)}");
     }
 

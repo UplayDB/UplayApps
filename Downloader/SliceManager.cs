@@ -62,7 +62,7 @@ internal class SliceManager
         if (version == 2)
         {
             Console.WriteLine("Version 2!!!!!!!!!!!");
-            new Exception("Version 2 in slice hasnt been reversed yet!, Please get help from github!");
+            throw new Exception("Version 2 in slice hasnt been reversed yet!, Please get help from github!");
         }
         if (version == 3)
         {

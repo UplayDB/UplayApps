@@ -1,11 +1,10 @@
 ﻿using RestSharp;
-using System;
 
 namespace Downloader.Tools;
 
 internal class FileGetter
 {
-    static RestClient Rest;
+    static readonly RestClient Rest;
 
     static FileGetter()
     {

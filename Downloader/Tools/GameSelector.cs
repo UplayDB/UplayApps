@@ -46,6 +46,6 @@ internal class GameSelector
         }
         Config.ProductManifest = $"{Config.ProductId}_{Config.ManifestId}";
         Config.DownloadDirectory = string.IsNullOrEmpty(Config.DownloadDirectory) ?  Path.Combine(Directory.GetCurrentDirectory(), Config.ProductId.ToString(), Config.ManifestId) : Config.DownloadDirectory; 
-        SocketManager.GetOwnership(Config.ProductId);
+        SocketManager.GetOwnership();
     }
 }

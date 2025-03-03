@@ -1,5 +1,4 @@
 ﻿using Downloader.Managers;
-using RestSharp;
 
 namespace Downloader.Tools;
 
@@ -54,7 +53,7 @@ internal class ManifestAddonDownloader
         }
 
         var MetadataURLs = SocketManager.Download.GetUrl(Config.ManifestId, Config.ProductId, "metadata");
-        foreach (var url in LicenseURLs)
+        foreach (var url in MetadataURLs)
         {
             var bytes = FileGetter.DownloadFromURL(url);
             if (bytes == null)

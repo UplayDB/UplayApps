@@ -61,8 +61,7 @@ internal class ByteDownloader
                     fileinfo.CurrentId = sliceId;
                     if ((urlcounter + 1) < list.Count)
                     {
-                        var slice_one = list[urlcounter + 1] as string;
-                        if (slice_one != null)
+                        if (list[urlcounter + 1] is string slice_one)
                             fileinfo.NextId = slice_one;
                         else
                             fileinfo.NextId = "";
@@ -86,8 +85,7 @@ internal class ByteDownloader
                     fileinfo.CurrentId = sliceId;
                     if ((urlcounter + 1) < list.Count)
                     {
-                        Uplay.Download.Slice? slice_one = list[urlcounter + 1] as Uplay.Download.Slice;
-                        if (slice_one != null)
+                        if (list[urlcounter + 1] is Uplay.Download.Slice slice_one)
                             fileinfo.NextId = Convert.ToHexString(slice_one.DownloadSha1.ToArray());
                         else
                             fileinfo.NextId = "";

@@ -6,7 +6,7 @@ namespace Downloader;
 
 public class Program
 {
-    public static object GlobalLock = new object();
+    internal static object GlobalLock = new();
 
     static void Main(string[] args)
     {
@@ -33,7 +33,7 @@ public class Program
         if (Config.ProductId == 0 && string.IsNullOrEmpty(Config.ManifestId))
             GameSelector.Select(ownedGames);
         else
-            SocketManager.GetOwnership(Config.ProductId);
+            SocketManager.GetOwnership();
         if (!Directory.Exists(Config.DownloadDirectory))
             Directory.CreateDirectory(Config.DownloadDirectory);
 
