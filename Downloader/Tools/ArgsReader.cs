@@ -15,7 +15,7 @@ public class ArgsReader
         UbiServices.Urls.IsLocalTest = Config.UseLocal;
         if (ParameterLib.HasParameter(args, "-debug"))
         {
-            UplayKit.Logs.File_Log_Switch.MinimumLevel = Serilog.Events.LogEventLevel.Verbose;
+            UplayKit.Logs.Log_Switch.MinimumLevel = Serilog.Events.LogEventLevel.Verbose;
         } 
         Config.WaitTimeSocket = ParameterLib.GetParameter(args, "-time", 5);
         Config.ProductId = ParameterLib.GetParameter<uint>(args, "-product", 0);

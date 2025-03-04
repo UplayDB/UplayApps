@@ -916,7 +916,7 @@ namespace DecryptPackets
                                 case "push":
                                     try
                                     {
-                                        var demux_down_rsp = Uplay.UplayService.Downstream.Parser.ParseFrom(byteArr).Push;
+                                        var demux_down_rsp = Uplay.UplayService.Downstream.Parser.ParseFrom(byteArr).V1Push;
                                         Console.WriteLine(demux_down_rsp);
                                         WriteOut = demux_down_rsp.ToString();
                                     }

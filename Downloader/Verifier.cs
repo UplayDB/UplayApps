@@ -1,4 +1,5 @@
 ﻿using Downloader.Managers;
+using Serilog;
 using System.Collections.Concurrent;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -15,7 +16,7 @@ internal class Verifier
         ConcurrentBag<UDFile> ToRemoveFiles = new();
         ConcurrentBag<string> ToPrint = new();
         var saving = Saving.Read();
-        Logs.MixedLogger.Information("Verification Started!");
+        Log.Information("Verification Started!");
         Parallel.ForEach(ManifestManager.ToDownloadFiles, Config.ParallelOptions, (udfile) => 
         {
             if (CheckedFiles.Contains(udfile))
@@ -43,14 +44,14 @@ internal class Verifier
                 ToPrint.Add($"{udfile.Name} - {JsonSerializer.Serialize(failes)}");
             }
             CheckedFiles.Add(udfile);
-            Logs.MixedLogger.Information("File {file} verified! {addinfo}", udfile.Name, addinfo);
+            Log.Information("File {file} verified! {addinfo}", udfile.Name, addinfo);
         });
         File.AppendAllLines("FailedFiles.txt", ToPrint.ToArray());
         foreach (var rf in ToRemoveFiles)
         {
             ManifestManager.ToDownloadFiles.Remove(rf);
         }
-        Logs.MixedLogger.Information("Verification Done!");
+        Log.Information("Verification Done!");
     }
 
     public static bool VerifyFile(UDFile file, string PathToFile, out List<int> failinplace, Saving.Root saving)
@@ -72,13 +73,13 @@ internal class Verifier
 
         var takenSize = 0;
         var fileread = File.OpenRead(PathToFile);
-        Logs.MixedLogger.Debug("File Length: {len}", fileInfo.Length);
+        Log.Debug("File Length: {len}", fileInfo.Length);
         for (int sinfocount = 0; sinfocount < sfile.SliceInfo.Count; sinfocount++)
         {
             var sinfo = sfile.SliceInfo[sinfocount];
             if (sinfo == null)
             {
-                Logs.MixedLogger.Warning("Slice info inside the Verify.bin not found!");
+                Log.Warning("Slice info inside the Verify.bin not found!");
                 goto END;
             }
 
@@ -88,7 +89,7 @@ internal class Verifier
 
             if (readAmount != sinfo.DecompressedSize)
             {
-                Logs.MixedLogger.Warning("Reading failed Need to read: {needToRead} but read: {readed}!", sinfo.DecompressedSize, readAmount);
+                Log.Warning("Reading failed Need to read: {needToRead} but read: {readed}!", sinfo.DecompressedSize, readAmount);
                 failinplace.Add(-2);
                 goto END;
             }
@@ -98,12 +99,12 @@ internal class Verifier
 
             if (sinfo.DecompressedSHA != decsha)
             {
-                Logs.MixedLogger.Warning("{decompressedSHA} != {FileDecSHA} (Decompressed hash is not the same!)", sinfo.DecompressedSHA, decsha);
+                Log.Warning("{decompressedSHA} != {FileDecSHA} (Decompressed hash is not the same!)", sinfo.DecompressedSHA, decsha);
                 failinplace.Add(takenSize);
             }
             if (sinfo.DecompressedSize != fibytes.Length)
             {
-                Logs.MixedLogger.Warning("{decompressedSize} != {FileLength} (Decompressed size is not the same!)", sinfo.DecompressedSize, fibytes.Length);
+                Log.Warning("{decompressedSize} != {FileLength} (Decompressed size is not the same!)", sinfo.DecompressedSize, fibytes.Length);
                 failinplace.Add(fibytes.Length * (-1));
             }
         }

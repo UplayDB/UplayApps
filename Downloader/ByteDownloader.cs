@@ -1,5 +1,6 @@
 ﻿using Downloader.Tools;
 using Google.Protobuf;
+using Serilog;
 using UplayKit;
 using static Downloader.Saving;
 using UDFile = Uplay.Download.File;
@@ -49,7 +50,7 @@ internal class ByteDownloader
                 var downloadedSlice = FileGetter.DownloadFromURL(url);
                 if (downloadedSlice == null)
                 {
-                    Logs.MixedLogger.Warning("{file} for Slice could not be downloaded! {url}", file.Name, url);
+                    Log.Warning("{file} for Slice could not be downloaded! {url}", file.Name, url);
                     continue;
                 }
                 ulong size = (ulong)downloadedSlice.LongLength;
@@ -124,7 +125,7 @@ internal class ByteDownloader
 
             if (!IsDownloaded)
             {
-                Logs.MixedLogger.Error("This should never happen");
+                Log.Error("This should never happen");
                 Environment.Exit(1);
             }
         }

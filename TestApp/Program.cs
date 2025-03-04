@@ -29,15 +29,17 @@ internal class Program
             OwnershipConnection ownershipConnection = new(socket, login.Ticket, login.SessionId);
             ownershipConnection.PushEvent += Ownership_PushEvent;
             var games = ownershipConnection.GetOwnedGames();
-            var rsp = ownershipConnection.SendRequest(new Req()
+            var rsp = ownershipConnection.SendPostRequest<Upstream, Downstream>(new()
             {
-                GetGameTokenReq = new()
+                Request = new()
                 {
-                    ProductId = 46
-                },
-                UbiSessionId = ownershipConnection.SessionId,
-                UbiTicket = ownershipConnection.Ticket,
-
+                    GetGameTokenReq = new()
+                    {
+                        ProductId = 46
+                    },
+                    UbiSessionId = ownershipConnection.SessionId,
+                    UbiTicket = ownershipConnection.Ticket,
+                }
             });
             Console.WriteLine(rsp);
 

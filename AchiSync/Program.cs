@@ -18,7 +18,7 @@ internal class Program
         }
         if (ParameterLib.HasParameter(args, "-debug"))
         {
-            UplayKit.Logs.File_Log_Switch.MinimumLevel = Serilog.Events.LogEventLevel.Verbose;
+            UplayKit.Logs.Log_Switch.MinimumLevel = Serilog.Events.LogEventLevel.Verbose;
         }
         DemuxSocket socket = new();
         socket.VersionCheck();

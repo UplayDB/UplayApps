@@ -25,22 +25,37 @@ internal class Program
         }
         OwnershipConnection ownershipConnection = new(demuxSocket, login.Ticket, login.SessionId);
         ownershipConnection.Initialize();
-        Console.WriteLine("Please enter your appId!");
-        uint appid = uint.Parse(Console.ReadLine()!);
+        DenuvoConnection denuvoConnection = new(demuxSocket);
+        string tokenFile = ParameterLib.GetParameter<string>(args, "-tokenfile", string.Empty);
+        uint appId = 0;
+        string denuvoToken = string.Empty;
+        if (!string.IsNullOrEmpty(tokenFile))
+        {
+            var token_readed = File.ReadAllText(tokenFile).Split("|");
+            denuvoToken = token_readed[0];
+            appId = uint.Parse(token_readed[1]);
+        }
 
-        var (Token, _) = ownershipConnection.GetOwnershipToken(appid);
+        if (appId == 0)
+        {
+            Console.WriteLine("Please enter your appId!");
+            appId = uint.Parse(Console.ReadLine()!);
+        }
+
+        var (Token, _) = ownershipConnection.GetOwnershipToken(appId);
         if (string.IsNullOrEmpty(Token))
         {
             Console.WriteLine("you not own this appid");
             Environment.Exit(1);
         }
-        DenuvoConnection denuvoConnection = new(demuxSocket);
-        Console.WriteLine("Please enter your denuvo ticket request!");
-        char[] padding = ['='];
-        string input = Console.ReadLine()!;
-        string incoming = input
-            .Replace('_', '/').Replace('-', '+');
-        switch (input.Length % 4)
+        if (string.IsNullOrEmpty(denuvoToken))
+        {
+            Console.WriteLine("Please enter your denuvo ticket request!");
+            
+            denuvoToken = Console.ReadLine()!;
+        }
+        string incoming = denuvoToken.Replace('_', '/').Replace('-', '+');
+        switch (denuvoToken.Length % 4)
         {
             case 2: incoming += "=="; break;
             case 3: incoming += "="; break;
@@ -53,7 +68,7 @@ internal class Program
 
         if (gametoken.Value.result == Uplay.DenuvoService.Rsp.Types.Result.Success && gametoken.Value.response != null)
         {
-            Console.WriteLine(gametoken.Value.response.GameToken.ToBase64().TrimEnd(padding).Replace('+', '-').Replace('/', '_'));
+            Console.WriteLine(gametoken.Value.response.GameToken.ToBase64().TrimEnd(['=']).Replace('+', '-').Replace('/', '_'));
         }
         else
         {
