@@ -1,5 +1,6 @@
 ﻿using CoreLib;
 using Google.Protobuf;
+using System.Text;
 using UplayKit;
 using UplayKit.Connection;
 
@@ -15,6 +16,10 @@ internal class Program
             Console.WriteLine("Login was wrong! :(");
             Environment.Exit(1);
         }
+        /*
+        Logs.Log_Switch.MinimumLevel = Serilog.Events.LogEventLevel.Verbose;
+        Serilog.Log.Logger = Logs.CreateFileLog();
+        */
         DemuxSocket demuxSocket = new();
         demuxSocket.VersionCheck();
         demuxSocket.PushVersion();
@@ -54,13 +59,7 @@ internal class Program
             
             denuvoToken = Console.ReadLine()!;
         }
-        string incoming = denuvoToken.Replace('_', '/').Replace('-', '+');
-        switch (denuvoToken.Length % 4)
-        {
-            case 2: incoming += "=="; break;
-            case 3: incoming += "="; break;
-        }
-        var base64token = ByteString.FromBase64(incoming);
+        var base64token = ByteString.FromBase64(Convert.ToBase64String(Encoding.UTF8.GetBytes(denuvoToken)));
         var gametoken = denuvoConnection.GetGameToken(Token, base64token);
 
         if (!gametoken.HasValue)
@@ -68,11 +67,11 @@ internal class Program
 
         if (gametoken.Value.result == Uplay.DenuvoService.Rsp.Types.Result.Success && gametoken.Value.response != null)
         {
-            Console.WriteLine(gametoken.Value.response.GameToken.ToBase64().TrimEnd(['=']).Replace('+', '-').Replace('/', '_'));
+            Console.WriteLine(Encoding.UTF8.GetString(Convert.FromBase64String(gametoken.Value.response.GameToken.ToBase64())));
         }
         else
         {
-            Console.WriteLine(gametoken.Value.result);
+            Console.WriteLine(gametoken.Value);
         }
     }
 }
