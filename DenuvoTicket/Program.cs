@@ -67,6 +67,7 @@ internal class Program
 
         if (gametoken.Value.result == Uplay.DenuvoService.Rsp.Types.Result.Success && gametoken.Value.response != null)
         {
+            Console.WriteLine("Your Response Token:\n");
             Console.WriteLine(Encoding.UTF8.GetString(Convert.FromBase64String(gametoken.Value.response.GameToken.ToBase64())));
         }
         else
