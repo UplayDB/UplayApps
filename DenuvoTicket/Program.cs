@@ -74,5 +74,6 @@ internal class Program
         {
             Console.WriteLine(gametoken.Value);
         }
+        Console.ReadLine(); // users who doesn't use console to start it.
     }
 }
